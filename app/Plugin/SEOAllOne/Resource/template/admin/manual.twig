@@ -1,0 +1,86 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['SEOAllOne', 'seoallone_admin_manual'] %}
+
+{% block title %}SEO All One{% endblock %}
+{% block sub_title %}マニュアル{% endblock %}
+
+{% block main %}
+<div class="c-contentsArea__cols">
+    <div class="c-contentsArea__primaryCol">
+        <div class="c-primaryCol">
+            <div class="card rounded border-0 mb-4">
+                <div class="card-header"><h1>（１）サイトマップの設定</h1></div>
+                <div class="card-body">
+                    <div class="b-para">
+                        <p>インストールした時点でsitemap.xmlが作成されます。</p>
+                        <p>URLは　お店のURL/sitemap.xml　となります。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card rounded border-0 mb-4">
+                <div class="card-header"><h1>（２）title、description、keyword、OGPなどの設定</h1></div>
+                <div class="card-body">
+                    <div class="b-para">
+                        <h2>トップページ</h2><br>
+                        <p>左メニュー「コンテンツ管理」→「ページ管理」を開き、TOPページ（ページ名を変更している場合は名前が変わっています）を開いてください。</p>
+                        <p>「SEO All One」欄にてOGP設定のみ可能です。設定しない場合はページ名、descriptionと同じ内容が入ります。</p>
+                    </div>
+
+                    <div class="b-para">
+                        <h2>商品一覧ページ</h2><br>
+                        <p>左メニュー「コンテンツ管理」→「ページ管理」を開き、「商品一覧ページ」を開いてください。</p>
+                        <p>「SEO All One」欄にて各種設定可能です。OGPは設定しない場合はTitle、Descriptionと同じ内容が入ります。og:typeは基本的には変更しなくても結構です。</p>
+                        <p>プレースホルダーの設定ができますので、ページごとに違うタイトルなどを設定できます。</p>
+                        <p>※使用可能なプレースホルダーは ##category.name##（カテゴリ名）,##category.parentname##（親カテゴリ名）, です。このうち、親カテゴリ名に関しては、データが存在しない場合、##で囲った中に書いたものは全て空白になります。例えば ##(category.parentname)## と記載すると、親カテゴリ名が存在しないとき##内の（）も併せて空白になります。</p>
+
+                        <div class="mt-10">（設定例）</div>
+                        <p>【Title】　##category.name####(category.parentname)##の商品一覧</p>
+                        <p>【Description】 ##category.name####(category.parentname)##の通販ならEC-cube通販！##category.name##を大量仕入れして格安で販売しています。</p>
+                        <p>【Keyword】　スポーツ,## category.name ####,category.parentname##</p>
+                    </div>
+
+                    <div class="b-para">
+                        <h2>商品詳細ページ</h2><br>
+                        <p>左メニュー「コンテンツ管理」→「ページ管理」を開き、「商品詳細ページ」を開いてください。</p>
+                        <p>「SEO All One」欄にて各種設定可能です。OGPは設定しない場合はTitle、Descriptionと同じ内容が入ります。og:typeは基本的には変更しなくても結構です。</p>
+                        <p>プレースホルダーの設定ができますので、ページごとに違うタイトルなどを設定できます。</p>
+                        <p>※使用可能なプレースホルダーは ##product.name##（商品名）,##product.list_price##（定価）, ##product.sell_price##（販売価格）, ##category.name##（カテゴリ名）、##category.parentname##（親カテゴリ名）です。このうち、定価とカテゴリ名と親カテゴリ名に関しては、データが存在しない場合、##で囲った中に書いたものは全て空白になります。例えば ##(category.parentname)## と記載すると、親カテゴリ名が存在しないとき##内の（）も併せて空白になります。</p>
+
+                        <div class="mt-10">（設定例）</div>
+                        <p>【Title】　##product.name####（category.name）##の格安通販</p>
+                        <p>【Description】 ##product.name####(category.parentname)##が##product.sell_price円####（定価：product.list_price円）##でいつでもお買い得。在庫品は２日以内に配送配送可能です。</p>
+                        <p>【Keyword】　スポーツ##,product.name ####,category.parentname##</p>
+                    </div>
+
+                    <div class="b-para">
+                        <h2>商品詳細ページの表示優先順位</h2><br>
+                        <p>商品詳細ページtitle、description、keyword、OGPは「ページ管理」と各種商品個別ページから設定できます。</p>
+                        <p>表示の優先順位は以下となります。</p>
+                        <div class="mt-10">&nbsp;</div>
+                        <p>（１）　商品詳細ページで個別に変更したものが最優先で表示されます。</p>
+                        <p>（２）　（１）が設定されていない場合はページ管理での設定が表示されます。</p>
+                        <p>（３）　（１）（２）とも設定していない場合はデフォルトの設定が表示されます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheet %}
+<style>
+    .mt-10 {
+        margin-top: 20px;
+    }
+
+    .b-para{
+        margin-bottom: 40px;
+    }
+
+    .b-para p{
+        margin: 0;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,140 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<style>
+.nd-utility-bar{background:#f8f8f8;border-bottom:1px solid #eee;padding:0;display:none}
+@media(min-width:768px){.nd-utility-bar{display:block}}
+.nd-utility-bar .nd-utility-links{display:flex;flex-direction:row;justify-content:flex-end;align-items:center;gap:0;list-style:none;margin:0 auto;padding:0;max-width:1200px}
+.nd-utility-bar .nd-utility-links li{display:inline-block;width:auto;margin:0;padding:0}
+.nd-utility-bar .nd-utility-links li a{display:inline-flex;align-items:center;gap:4px;padding:8px 14px;font-size:12px;color:#555;text-decoration:none;border-left:1px solid #e5e5e5;white-space:nowrap}
+.nd-utility-bar .nd-utility-links li:last-child a{border-right:1px solid #e5e5e5}
+.nd-utility-bar .nd-utility-links li a:hover{background:#eef5f5;color:#518889}
+.header2 .nd-header-search{flex:1;max-width:440px;margin:0 20px}
+.header2 .nd-header-search form{display:flex;border:2px solid #518889;border-radius:8px;overflow:hidden;width:100%;margin:0;padding:0}
+.header2 .nd-header-search input[type="search"]{flex:1;padding:10px 14px;border:none;font-size:14px;outline:none;background:#fff;min-width:0;box-shadow:none;border-radius:0;margin:0;height:auto;-webkit-appearance:none}
+.header2 .nd-header-search button{background:#518889;border:none;padding:0 16px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:0;min-width:48px}
+.header2 .nd-header-search button:hover{background:#3d6b6c}
+.header2 .nd-header-phone{display:flex;flex-direction:column;align-items:flex-end;margin-right:16px;white-space:nowrap}
+.nd-phone-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.nd-phone-number{font-size:22px;font-weight:700;color:#333;letter-spacing:.5px;line-height:1}
+.nd-phone-hours{font-size:11px;color:#888;margin-top:2px}
+
+/* ── Mobile header: 2-row layout ── */
+@media(max-width:767px){
+  .nd-header-search{display:none!important}
+  .header2{
+    display:grid!important;
+    grid-template-columns:auto 1fr auto!important;
+    grid-template-rows:auto auto!important;
+    align-items:center!important;
+    padding:8px 12px 4px!important;
+    gap:0 8px!important;
+  }
+  /* Row 1: Logo | Phone | Icons+Cart */
+  .header2 .ec-headerRole__title{
+    grid-column:1!important;grid-row:1!important;
+    max-width:100px!important;
+  }
+  .header2 .ec-headerRole__title img{height:32px!important;width:auto!important}
+  .header2 .nd-header-phone{
+    display:flex!important;
+    grid-column:2!important;grid-row:1!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    gap:6px!important;
+    margin:0!important;
+    justify-content:center!important;
+  }
+  .nd-phone-number{font-size:15px!important;font-weight:700!important}
+  .nd-phone-hours{
+    font-size:9px!important;
+    margin-top:0!important;
+    color:#999!important;
+    white-space:nowrap!important;
+  }
+  .header2 .icon-items{
+    grid-column:3!important;grid-row:1!important;
+    gap:2px!important;
+    justify-content:flex-end!important;
+  }
+  .header2 .icon-items .nd-header-icon{width:22px!important;height:22px!important}
+  .header2 .nd-header-icon-label{font-size:8px!important}
+  .header2 .ec-headerRole__cart{
+    grid-column:3!important;grid-row:1!important;
+  }
+
+  /* Row 2: phone hours below - hide separate, show inline */
+  .header2 .nd-header-phone{
+    flex-wrap:wrap!important;
+    justify-content:flex-start!important;
+  }
+}
+@media(max-width:374px){
+  .header2 .ec-headerRole__title img{height:28px!important}
+  .nd-phone-number{font-size:13px!important}
+  .nd-phone-hours{display:none!important}
+}
+</style>
+{# ── Top utility bar (PC only) ── #}
+<div class="nd-utility-bar">
+    <ul class="nd-utility-links">
+        <li><a href="{{ url('help_about') }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg> 初めての方へ</a></li>
+        <li><a href="/guide"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> ご利用方法</a></li>
+        <li><a href="{{ url('entry') }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg> 新規会員登録</a></li>
+        <li>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ url('mypage') }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg> マイページ</a>
+            </li><li>
+                <a href="{{ url('logout') }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg> ログアウト</a>
+            {% else %}
+                <a href="{{ url('mypage_login') }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg> ログイン</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+
+{# ── Main header row ── #}
+<div class="header2">
+    {# Logo #}
+    {{ include('Block/logo.twig') }}
+
+    {# Search bar removed #}
+
+    {# Phone number (PC) #}
+    <div class="nd-header-phone pc-only">
+        <a href="tel:0368246593" class="nd-phone-link">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#518889"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span class="nd-phone-number">03-6824-6593</span>
+        </a>
+        <span class="nd-phone-hours">受付 10:00〜18:00（土日祝休み）</span>
+    </div>
+
+    {# Icon bar #}
+    <ul class="icon-items">
+        <li class="icon-item">
+            <a href="https://line.me/R/ti/p/@229ulhco" rel="noopener noreferrer">
+                <svg class="nd-header-icon" width="28" height="28" viewBox="0 0 24 24" fill="var(--neutral-500)" stroke="none" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+                <span class="nd-header-icon-label">LINE</span>
+            </a>
+        </li>
+        <li class="icon-item">
+            <a href="mailto:info@lion-express.com">
+                <svg class="nd-header-icon" width="24" height="24" viewBox="0 0 24 24" fill="var(--neutral-500)" stroke="none" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <span class="nd-header-icon-label">メール</span>
+            </a>
+        </li>
+        {# Login/Mypage is in utility bar — no duplicate here #}
+    </ul>
+    {# Cart #}
+    <div class="ec-headerRole__cart ec-headerCart">
+        {{ include('Block/cart.twig') }}
+    </div>
+</div>

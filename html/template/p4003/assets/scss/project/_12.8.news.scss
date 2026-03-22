@@ -1,0 +1,88 @@
+@import "../mixins/media";
+@import "../mixins/clearfix";
+
+/**
+ * 新着情報ブロック
+ */
+
+.ec-newsRole {
+  @include container;
+  width: 100%;
+  margin-bottom: 30px;
+  background: transparent;
+  @include media_tablet {
+    margin-bottom: 40px;
+  }
+  &-title {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    @include media_tablet {
+      padding: 16px;
+      text-align: left;
+      font-size: 2.4rem;
+    }
+  }
+  &__news {
+    width: 100%;
+    padding-top: 10px;
+    &Item {
+      list-style: none;
+      width: 100%;
+      border-bottom: 1px dotted #ccc;
+    }
+    &Heading {
+      width: 100%;
+      padding: 8px;
+      position: relative;
+      @include media_tablet {
+        display: flex;
+        padding: 14px 8px;
+      }
+    }
+    &Date {
+      width: 100%;
+      @include media_tablet {
+        width: 100px;
+      }
+    }
+    &Title {
+      width: 100%;
+      @include media_tablet {
+        width: calc(100% - 100px);
+        padding-right: 30px;
+      }
+    }
+    &Description {
+      display: none;
+      width: 100%;
+      padding: 8px 8px 10px;
+    }
+    &Close {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 21px;
+      height: 21px;
+      background: #B8BEC4;
+      border-radius: 50%;
+      position: absolute;
+      right: 16px;
+      top: 17px;
+      svg.cb {
+        fill: #fff;
+        font-size: 1.1rem;
+      }
+      &.is_active {
+        svg.cb {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}

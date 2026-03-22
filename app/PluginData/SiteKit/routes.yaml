@@ -1,0 +1,3 @@
+site_kit_google_site_verification:
+    path: /googlec7d5a31c055e3895.html
+    controller: 'Plugin\SiteKit\Controller\Admin\ConfigController::siteVerification'

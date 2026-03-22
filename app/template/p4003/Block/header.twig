@@ -1,0 +1,71 @@
+{# Styles moved to theme SCSS: _11.2.header.scss #}
+{% set Categories = repository('Eccube\\Entity\\Category').getList() %}
+{% macro tree(Category) %}
+  {% from _self import tree %}
+  <a href="{{ url('product_list', {'category_id': Category.id}) }}">
+    {{ Category.name }}
+  </a>
+  {% if Category.children|length %}
+    <ul>
+      {% for ChildCategory in Category.children %}
+        <li>
+          {{ tree(ChildCategory) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+{% from _self import tree %}
+<div class="ec-headerNaviRole">
+    <!-- ハンバーガーメニュー追加 -->
+    <button class="ec-headerHamburger" type="button" aria-expanded="false" aria-label="メニュー" aria-controls="ec-drawer-menu">
+        <span class="ec-headerHamburger__line"></span>
+        <span class="ec-headerHamburger__line"></span>
+        <span class="ec-headerHamburger__line"></span>
+    </button>
+    
+    <header class="ec-header" id="header">
+        {{ include('Block/header2.twig') }}
+        {{ render(path('block_sp_search')) }}
+        <nav class="ec-headerNavigation ec-headerNavigation_media_pc" aria-label="メインナビゲーション">
+            <ul>
+                <li><a href="{{ url('homepage') }}">ホーム</a></li>
+                <li><a href="{{ url('mypage') }}">マイページ</a></li>
+                {#<li class="category_menu">
+                    <a href="{{ url('product_list') }}">商品一覧</a>
+                    {#<ul>
+                        {% for Category in Categories %}
+                            <li class="mega_menu">{{ tree(Category) }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>#}
+                <li><a href="{{ url('help_about') }}">サイト案内</a></li>
+                {#
+                <li><a href="{{ url('help_guide') }}">利用規約</a></li>
+                #}
+                <li><a href="{{ url('contact') }}">お問い合わせ</a></li>
+            </ul>
+        </nav>
+        <nav class="ec-headerNavigation ec-headerNavigation_media_sp" aria-label="スマートフォンナビゲーション">
+			<ul>
+    			<li>
+    				<a href="{{ url('homepage') }}">ホーム</a>
+    			</li>
+    			{#
+    			<li>
+    				<a href="{{ url('product_list') }}">商品一覧</a>
+    			</li>
+    			#}
+    			<li><a href="{{ url('help_about') }}">サイト案内</a></li>
+    			<li>
+    				<a href="{{ url('mypage') }}">マイページ</a>
+    			</li>
+    			<li>
+    				<a href="{{ url('contact') }}">お問い合わせ</a>
+    			</li>
+			</ul>
+		</nav>
+    </header>
+</div>
+
+{# Hamburger click handler is in function.js (drawerToggle) — no duplicate needed here #}

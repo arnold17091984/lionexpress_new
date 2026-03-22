@@ -1,0 +1,79 @@
+{#
+/*
+  * This file is part of the LecastTableList41 plugin
+  *
+  * Copyright (C) >=2018 lecast system.
+  * @author Tetsuji Shiro 
+  *
+  * このプラグインは再販売禁止です。
+  */
+#}
+{% block stylesheet %}
+{{ include("LecastTableList41/Resource/template/admin/admin_assets_css.twig")}}
+<style>
+    #itemtablelist .form-control{
+        display:inline;
+        padding: 0;
+        height: auto;
+    }
+</style>
+{% endblock %}
+{% block javascript %}
+{{ include("LecastTableList41/Resource/template/admin/admin_assets_js.twig")}}
+<script>
+$(function() {
+    $('#plg_table_list').appendTo('.c-contentsArea__primaryCol');
+    $('#plg_table_list').removeClass('d-none');
+});
+</script>
+{% endblock %}
+{% block main %}
+<div id="plg_table_list" class="d-none my-4">
+    <div class="card rounded border-0 mb-4">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-8">
+                    <div class="d-inline-block">
+                        <span class="card-title">表追加</span>
+                    </div>
+                </div>
+                <div class="col-4 text-right">
+                    <a data-toggle="collapse" href="#isl_form" aria-expanded="false"
+                       aria-controls="isl_form">
+                        <i class="fa fa-angle-up fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="collapse show ec-cardCollapse" id="isl_form">
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <div id="itemtablelist">
+                            <div class="itl_btnarea">
+                                <button type="button" id="addrow">行を追加</button>
+                                <button type="button" id="addcol">列を追加</button>
+                                <button type="button" id="addcap">見出しにする</button>
+								<select id="admin_product_TableTemplate" name="admin_product[TableTemplate]" class="form-control">
+                                {% for template in form.TableTemplate.vars.choices %}
+                                	<option value="{{ template.data }}">{{ template.label }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <table>
+                                <thead><div class="itl_header">※複数選択するにはCtrlキーを押しながら選択して下さい</div></thead>
+                                <tbody id="selectable">{% if Product.template_is_valid %}{{Product.getTemplateValue|raw}}{%else%}{{ form.template_value.vars.value  | raw }}{% endif %}</tbody>
+                            </table>
+                            <div class="itl_btnarea">
+                                <button type="button" id="delrow">行を削除</button>
+                                <button type="button" id="delcol">列を削除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

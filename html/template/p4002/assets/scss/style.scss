@@ -1,0 +1,872 @@
+@import '../../../../../node_modules/normalize.css/normalize';
+
+/**
+ * グローバルスタイル
+ */
+html {
+  /* 62.5%を指定すると「1.0 rem = 10px」 */
+  font-size: 62.5%;
+
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto, "游ゴシック", YuGothic, "Yu Gothic", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: #333;
+  -webkit-text-size-adjust: 100%;
+}
+
+pre {
+  background-color: transparent;
+  border: none;
+  padding: 16px 0;
+}
+
+p {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+a {
+  color: #333;
+  cursor: pointer;
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.85;
+  }
+  &:focus, &:active {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+    opacity: 0.85;
+  }
+}
+
+button {
+  background: none;
+}
+button:focus {
+  outline: none; // suppress default for mouse users
+}
+// Restore visible focus for keyboard navigation (WCAG 2.4.7)
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #518889;
+  outline-offset: 2px;
+}
+button:hover {
+  opacity: 0.85;
+}
+
+textarea {
+  /* for chrome fontsize bug */
+  font-family: sans-serif;
+}
+
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+dl,
+dt,
+dd,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+
+td,
+th {
+  padding: 5px 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/** svg icon **/
+
+#svgicon {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.cb {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.cb-images {
+  width: 1.125em;
+}
+
+.icon-bg {
+  fill: #d4d4d5;
+}
+
+.icon-with-bg {
+  fill: #fff;
+}
+
+@import "component/1.1.heading";
+@import "component/1.2.typo";
+@import "component/1.3.list";
+@import "component/2.1.buttonsize";
+@import "component/2.2.closebutton.scss";
+@import "component/2.3.otherbutton";
+@import "component/3.1.inputText";
+@import "component/3.2.inputMisc";
+@import "component/3.3.form";
+@import "component/4.1.icon";
+@import "component/5.1.grid";
+@import "component/5.2.layout";
+@import "component/6.1.login";
+@import "component/7.1.itembanner";
+@import "component/7.2.search";
+@import "component/7.3.cart";
+@import "component/8.1.info";
+@import "component/8.2.banner";
+@import "component/9.1.mypage";
+
+@import "component/1000.1.cart";
+@import "component/1001.1.search";
+@import "component/1001.2.buttonsize";
+@import "component/1002.1.heading";
+
+@import "project/11.1.role";
+@import "project/11.2.header";
+@import "project/12.1.slider";
+@import "project/12.2.eyecatch";
+@import "project/12.3.button";
+@import "project/12.4.heading";
+@import "project/12.5.topics";
+@import "project/12.6.newItem";
+@import "project/12.7.category";
+@import "project/12.8.news";
+@import "project/13.1.searchnav";
+@import "project/13.2.shelf";
+@import "project/13.3.pager";
+@import "project/13.4.cartModal";
+@import "project/14.1.product";
+@import "project/15.1.cart";
+@import "project/15.2.order";
+@import "project/16.1.history";
+@import "project/16.2.historyDetail";
+@import "project/17.1.address";
+@import "project/18.1.password";
+@import "project/19.1.register";
+@import "project/19.2.contact";
+@import "project/19.3.customer";
+@import "project/20.1.404";
+@import "project/21.1.withdraw";
+@import "project/22.1.editComplete";
+
+@import "project/100.1.mainVisual";
+@import "project/100.2.recommend";
+@import "project/100.3.leftColumn";
+@import "project/100.4.shopRanking";
+@import "project/100.5.banner";
+@import "project/100.6.newItem";
+@import "project/100.8.hotProducts";
+@import "project/100.9.pickupProducts";
+@import "project/100.10.shoppingFlowGuide";
+@import "project/100.11.footer";
+@import "project/100.12.pageContent";
+@import "project/100.14.faq";
+@import "project/100.13.drawer";
+@import "project/101.1.searchnav";
+@import "project/101.2.shelf";
+@import "project/102.1.helpAbout";
+@import "project/103.1.register";
+@import "project/104.1.privacy";
+@import "project/105.1.product";
+@import "project/106.1.cart";
+
+body {
+  font-family: Lato, "Noto Sans JP", "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  @include media_tablet {
+    min-width: 1200px ;
+    margin: 0 auto !important;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+  body {
+    min-width: 100%;
+  }
+}
+
+// ========================================
+// Miscellaneous styles (from customize.css)
+// ========================================
+
+// Background overlay
+.bg-load-overlay {
+  opacity: 0;
+}
+
+// Report description
+.ec-reportDescription {
+  line-height: 1.7;
+}
+
+// Customer rank section
+#customer_rank {
+  margin-bottom: 0;
+  .heading02 {
+    background: #f8f8f8;
+    padding: 16px;
+    margin-top: 0;
+    font-size: 2rem;
+  }
+  .current-rank {
+    font-size: 1.6rem;
+    margin-bottom: 0;
+  }
+  span {
+    color: #c0392b;
+    font-weight: bold;
+  }
+  .rank {
+    color: #2981ba;
+    font-weight: bold;
+  }
+  .next_info {
+    background: #f7f7f9;
+    padding: 10px 25px;
+    border: 1px solid #e1e1e8;
+  }
+}
+
+// Terms box (scrollable)
+.terms-box {
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+// Breadcrumb
+.l-pankz {
+  margin-top: 2rem;
+  div.container {
+    max-width: 100%;
+    margin-left: 2%;
+  }
+  ul {
+    flex-wrap: wrap;
+    @media only screen and (max-width: $media_tablet_width - 1) {
+      padding: 0.5em 0;
+    }
+  }
+}
+
+// Attention raw
+.attention-raw {
+  @media only screen and (max-width: $media_tablet_width - 1) {
+    font-size: 1.1rem;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 5px;
+    padding: 0.5em;
+    background: #FFF0F5;
+  }
+}
+
+// Top KV
+.top__kv {
+  height: 100%;
+  overflow: hidden;
+  .top_item_nav {
+    display: none;
+  }
+  @media only screen and (max-width: $media_tablet_width - 1) {
+    height: auto;
+  }
+}
+
+
+// EC-CUBE header width
+.ec-header {
+  @media only screen and (max-width: $media_desktop_width - 1) {
+    width: 100%;
+  }
+}
+
+// ========================================
+// Global UX improvements
+// ========================================
+
+// Smooth image transitions on all product images
+.ec-shelfGrid__item a img,
+.ec-shopRankingItem a img,
+.ec-categoryRole a img {
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.ec-shelfGrid__item a:hover img,
+.ec-shopRankingItem a:hover img,
+.ec-categoryRole a:hover img {
+  opacity: 0.88;
+}
+
+// Category list items — hover lift
+.ec-categoryRole__listItem a {
+  display: block;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    opacity: 1;
+  }
+}
+
+// Section wrapper spacing — better breathing room
+.ec-shopRanking,
+.ec-newItem {
+  padding: 8px 0 24px;
+}
+
+// News section improvements
+.ec-newsRole {
+  background: #f8fafb;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+  @media only screen and (max-width: $media_tablet_width - 1) {
+    margin-bottom: 0;
+  }
+}
+
+.ec-newsList__item {
+  border-bottom: 1px solid #e8ecef;
+  padding: 12px 0;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba(81, 136, 137, 0.05);
+  }
+}
+
+// KV slider spacing (merged with .top__kv above)
+
+.ec-sliderRole {
+  margin-top: 12px;
+}
+
+// Category mini-banner grid (4-item 2x2)
+.ec-bannerRole {
+  display: grid;
+  padding: 0;
+  gap: 8px;
+
+  &.ec-bannerRole_col_2 {
+    grid-template-columns: 1fr 1fr;
+
+    @media only screen and (min-width: $media_tablet_width) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+  }
+}
+
+.ec-bannerItem {
+  overflow: hidden;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+
+  a {
+    display: block;
+    height: 100%;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+    opacity: 0.92;
+  }
+}
+
+// ========================================
+// Fix 2: Hide empty product sections
+// ========================================
+
+// NEW ITEM / 新入荷商品 — hide when list has no li items
+// Note: nested :has() is not supported; use :not(:has(li)) on parent directly
+.ec-newItem:not(:has(li)),
+.ec-hotProducts:not(:has(li)) {
+  display: none !important;
+}
+
+// ========================================
+// Fix: Section visual rhythm (alternating bg)
+// ========================================
+
+.ec-topicsItem {
+  background: #fff;
+  padding: 24px 0;
+}
+
+.ec-newItem {
+  background: #f4f7f7;
+}
+
+.ec-categoryRole {
+  background: #fff;
+}
+
+.ec-newsRole {
+  background: #f4f7f7;
+}
+
+// ========================================
+// Fix: Slick slider — brand color dots
+// ========================================
+
+.slick-dots li button::before {
+  color: $brand-primary !important;
+  opacity: 0.3;
+}
+
+.slick-dots li.slick-active button::before {
+  color: $brand-primary !important;
+  opacity: 0.85;
+}
+
+// Slick arrow buttons — brand-colored circle chevrons
+.slick-prev,
+.slick-next {
+  width: 36px;
+  height: 36px;
+  background: rgba(81, 136, 137, 0.85) !important;
+  border-radius: 50% !important;
+  z-index: 10;
+  font-size: 0 !important;   // hide default "Previous"/"Next" text
+  line-height: 0 !important;
+
+  &:hover {
+    background: $brand-primary !important;
+    opacity: 1;
+  }
+}
+
+.slick-prev {
+  left: 4px;
+}
+
+.slick-next {
+  right: 4px;
+}
+
+.slick-prev::before {
+  content: '\2039' !important; // ‹
+  font-family: serif !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+.slick-next::before {
+  content: '\203a' !important; // ›
+  font-family: serif !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+
+// ========================================
+// Fix: Search bar compact & nav padding
+// ========================================
+
+.ec-headerNavigation > ul > li > a {
+  padding: 10px 0;
+}
+
+// ========================================
+// Fix: CATEGORY heading consistency
+// ========================================
+
+.ec-secHeading {
+  text-align: center;
+  margin-bottom: 24px;
+
+  &__en {
+    font-size: 2.0rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #1a2e2e;
+  }
+
+  &__line {
+    display: none;
+  }
+
+  &__ja {
+    display: block;
+    font-size: 1.2rem;
+    color: #518889;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+}
+
+// ========================================
+// Fix: Product card in slider blocks
+// Override inline styles from block twig files
+// ========================================
+
+// Vertical product card layout (image top, text bottom)
+// Uses !important where necessary to override twig inline <style> blocks
+.product-item {
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 4px;
+
+  .product-item-left {
+    width: 100% !important;
+    flex-shrink: 0;
+
+    p.ec-shelfGrid__item-image {
+      width: 100% !important;
+      height: 0 !important;          // reset inline height
+      padding-top: 100% !important;  // 1:1 aspect ratio via existing pattern
+      position: relative !important;
+      overflow: hidden;
+      border-radius: $radius-md;
+      border: 1px solid #e8ecef;
+      margin-bottom: 0;
+
+      img {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border: none !important;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+
+  .product-item-right {
+    width: 100%;
+    padding: 8px 4px 4px;
+    min-height: 0 !important; // reset inline min-height
+  }
+
+  .ec-shelfGrid__item-name {
+    font-size: 1.2rem !important;
+    color: #1a2e2e !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    margin: 0 0 4px !important;
+    line-height: 1.4;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .ec-shelfGrid__item-price {
+    color: $brand-primary !important;
+    font-weight: 700;
+  }
+}
+
+// Improve slick slide images globally
+.slick-slide img {
+  border: none !important; // override inline style
+}
+
+// ========================================
+// Fix: Shopping guide — float → flex
+// ========================================
+
+.ec-shoppingGuide {
+  &_column_left,
+  &_column_right {
+    float: none;
+    width: 100%;
+
+    @media only screen and (min-width: $media_desktop_width) {
+      width: 47%;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
+
+// ========================================
+// Mobile — Comprehensive UX overhaul
+// ========================================
+
+@media only screen and (max-width: $media_tablet_width - 1) {
+
+  // Hide slider arrows on mobile (touch swipe is sufficient)
+  .top__kv .slick-prev,
+  .top__kv .slick-next {
+    display: none !important;
+  }
+
+  // Slider: make SP images taller (native images are 1140x300, very flat)
+  // Use aspect-ratio 16:7 with cover to make more impactful hero
+  .top__kv .sp-only.slick-slider,
+  .top__kv .sp-only {
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+  }
+
+  .top__kv .sp-only .slick-list,
+  .top__kv .sp-only .slick-track,
+  .top__kv .sp-only .slick-slide,
+  .top__kv .sp-only .slick-slide > div {
+    height: 100%;
+  }
+
+  .top__kv .sp-only .slick-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  // Seal the gap between main content and SHOP RANKING block
+  #main-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ec-layoutRole__mainBottom {
+    margin-top: 0;
+  }
+
+  // Fix: header icon labels — pc-only must not show on mobile
+  // Root cause: .icon-items .icon-item a .icon-name specificity (0,3,1) > .pc-only (0,1,0)
+  .icon-items .icon-item a .icon-name.pc-only {
+    display: none !important;
+  }
+
+  // Section headings — tighter on SP
+  .ec-secHeading {
+    margin-bottom: 16px;
+
+    &__en {
+      font-size: 1.6rem;
+    }
+
+    &__ja {
+      font-size: 1.1rem;
+    }
+  }
+
+  // Section vertical rhythm — reduce top/bottom padding
+  .ec-topicsItem,
+  .ec-newItem,
+  .ec-categoryRole,
+  .ec-newsRole {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  // SHOP RANKING — filter buttons on top, product grid below
+  .ec-shopRanking {
+    padding: 0 8px;
+    margin-top: 0;
+
+    &__wrapper {
+      padding-top: 8px;
+      // Flex column so we can reorder: buttons first, products second
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__tabButtons {
+      order: 1;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    &__tabs {
+      order: 2;
+    }
+  }
+
+  // Category banners — clean cards with shadow
+  .ec-categoryRole {
+    padding: 24px 0 16px;
+    background: #fff;
+  }
+
+  .ec-categoryRole__list {
+    padding: 0 12px;
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ec-categoryRole__listItem {
+    margin-bottom: 0;
+    border-radius: $radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+
+    a {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+
+  // Feature mini-banners — hidden on mobile (duplicate of CATEGORY section)
+  .ec-sliderRole {
+    display: none;
+  }
+
+  // SP navigation tabs — better touch targets
+  .ec-headerNavigation_media_sp ul {
+    display: flex;
+
+    li {
+      flex: 1;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 4px 2px;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  // News section — clean minimal style
+  .ec-newsRole {
+    padding: 24px 12px 16px;
+    background: #fff;
+  }
+
+  .ec-newsList__item {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  // PAGE TOP button — cleaner on mobile
+  .ec-blockTopBtn {
+    bottom: 20px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+
+  // Consistent section top/bottom padding
+  .ec-topicsItem {
+    padding: 0;
+  }
+
+  // Product item cards in slider — tighter on SP
+  .product-item {
+    margin: 0 2px;
+
+    .ec-shelfGrid__item-name {
+      font-size: 1.1rem !important;
+    }
+
+    .ec-shelfGrid__item-price {
+      font-size: 1.2rem;
+    }
+  }
+
+  // Footer — compact on mobile
+  .ec-footer {
+    padding: 20px 0 16px;
+  }
+
+  .ec-footerNav {
+    width: 100%;
+    padding: 0 12px 8px;
+    flex-wrap: wrap;
+    row-gap: 4px;
+
+    li {
+      font-size: 1.1rem;
+      padding: 0 8px;
+    }
+  }
+
+  .ec-footerRole {
+    padding-bottom: 0;
+  }
+
+  // Header: shrink the legal explanation text
+  .ec-headerSearch__note,
+  .ec-headerSearch p {
+    font-size: 1.0rem;
+    line-height: 1.4;
+    color: #666;
+    padding: 4px 8px;
+  }
+
+  // Reduce huge gaps from default EC-CUBE section wrappers
+  .ec-layoutRole__contentBottom {
+    padding-bottom: 0;
+  }
+
+  .ec-newsRole {
+    padding-bottom: 20px;
+  }
+}

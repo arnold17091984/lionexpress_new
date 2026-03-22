@@ -1,0 +1,58 @@
+@import "../mixins/media";
+/*
+会員登録
+
+新規会員登録 に関する Project コンポーネントを定義します。
+
+ex [新規会員登録画面　会員登録](http://demo3.ec-cube.net/entry)
+
+Markup:
+include /assets/tmpl/elements/19.1.register.pug
++ec-registerRole
+
+Styleguide 19.1
+
+*/
+.ec-registerRole{
+  @include container;
+  & > .ec-off1Grid {
+    & > .ec-off1Grid__cell {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  & &__actions {
+    padding-top:20px;
+    text-align: center;
+    @include media_desktop {
+      text-align: left;
+    }
+    & > .ec-off4Grid {
+      & > .ec-off4Grid__cell {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
+    }
+    p {
+      margin-bottom: 16px;
+    }
+  }
+  .ec-blockBtn--action,
+  .ec-blockBtn--cancel {
+    max-width: 273px;
+    margin: 15px auto 0;
+  }
+}
+.ec-registerCompleteRole {
+  @include container;
+  & > .ec-off2Grid,
+  & > .ec-off3Grid {
+    width: 100%;
+    & > .ec-off2Grid__cell,
+    & > .ec-off3Grid__cell {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * メインビジュアル
+ * トップページメインビジュアル
+ */
+
+.ec-mainVisual {
+  @include container;
+  margin: {
+    // top: 1em;
+    bottom: 40px;
+  }
+  display: grid;
+  grid-gap: 10px 20px;
+  grid-template:
+    "img1 img1" auto
+    "img2 img3" auto
+    / 1fr  1fr;
+  @include media_tablet {
+    grid-template:
+      "img1 img2" auto
+      "img1 img3" auto
+      / 55%  43%;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+
+    @for $i from 1 through 3 {
+      &:nth-of-type(#{$i}) {
+        grid-area: img#{$i};
+      }
+    }
+  }
+}

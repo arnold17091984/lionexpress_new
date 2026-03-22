@@ -1,0 +1,59 @@
+{#
+  ============================================================
+  特集・キャンペーン バナーブロック
+  ============================================================
+  管理画面（コンテンツ管理 → ブロック管理 → banners）から編集できます。
+
+  【バナーの追加方法】
+  以下の <a>...</a> ブロックをコピーして、画像パス・リンク先・ラベルを変更してください。
+
+  <a href="リンク先URL" class="nd-banner-card">
+    <img src="画像のURL" alt="説明文" loading="lazy" decoding="async" width="600" height="360">
+    <div class="nd-banner-card-overlay">
+      <span class="nd-banner-card-label">表示テキスト →</span>
+    </div>
+  </a>
+
+  【画像のアップロード】
+  管理画面 → コンテンツ管理 → ファイル管理 から画像をアップロードし、
+  パスを /html/user_data/assets/img/banner/ファイル名 に設定してください。
+
+  【バナーの削除】
+  不要な <a>...</a> ブロックを丸ごと削除してください。
+  ============================================================
+#}
+
+<section class="nd-section nd-section-brand" aria-labelledby="banners-heading">
+  <div class="nd-container">
+    <h2 class="section-title" id="banners-heading">特集・キャンペーン</h2>
+    <div class="nd-banners-grid">
+
+      {# ── バナー 1: 売れ筋ランキング特集 ── #}
+      <a href="/user_data/campaign_ranking" class="nd-banner-card">
+        <img src="{{ asset('assets/img/banner/mv_rank_1.webp', 'user_data') }}" alt="売れ筋ランキング特集" loading="lazy" decoding="async" width="600" height="360">
+        <div class="nd-banner-card-overlay">
+          <span class="nd-banner-card-label">売れ筋ランキング特集 →</span>
+        </div>
+      </a>
+
+      {# ── バナー 2: 会員登録キャンペーン ── #}
+      <a href="/user_data/campaign_register" class="nd-banner-card">
+        <img src="{{ asset('assets/img/common/TOP01_会員登録_TOP_0.jpg', 'user_data') }}" alt="会員登録で500ポイントプレゼント" loading="lazy" decoding="async" width="600" height="360">
+        <div class="nd-banner-card-overlay">
+          <span class="nd-banner-card-label">会員登録で500pt →</span>
+        </div>
+      </a>
+
+      {# ── バナー 3: 友達紹介プログラム ── #}
+      <a href="/user_data/campaign_referral" class="nd-banner-card">
+        <img src="{{ asset('assets/img/common/TOP02_友達紹介_TOP_0.jpg', 'user_data') }}" alt="友達紹介で双方に500ポイント" loading="lazy" decoding="async" width="600" height="360">
+        <div class="nd-banner-card-overlay">
+          <span class="nd-banner-card-label">友達紹介プログラム →</span>
+        </div>
+      </a>
+
+      {# ── バナー追加はここにコピペ ── #}
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,77 @@
+<script>
+    $('#form1').css('display', 'none');
+
+    $(function () {
+
+        // 「カートに入れる」ボタンの制御
+        $('.add-cart').each(function (i, elem) {
+            var observer = new MutationObserver(function (mutations) { // オブザーバインスタンスを作成
+                mutations.forEach(function (mutation) {
+                    var $this = $(mutation.target);
+                    if ($this.attr('disabled')) {
+                        $('.list-cart-in--action').prop('disabled', true);
+                    } else {
+                        $('.list-cart-in--action:not(.plg-apg-no-stock)').prop('disabled', false);
+                    }
+                });
+            });
+            observer.observe(elem, {attributes: true});
+        });
+
+        // 品切れ中チェック
+        $('.list-cart-in--action').each(function (i, elem) {
+            var $this = $(this);
+            var targetId = $this.data('target_input');
+            var $targetInput = $('#' + targetId);
+            var class_category1_id = $targetInput.data('class_category1');
+            var class_category2_id = $targetInput.data('class_category2');
+            $classCategory = eccube.classCategories[class_category1_id]['#' + class_category2_id];
+            if (!$classCategory['stock_find']) {
+                $this.prop('disabled', true);
+                $this.text('品切れ中');
+                $this.addClass('plg-apg-no-stock');
+                $targetInput.prop('disabled', true);
+            }
+        });
+
+        // 「カートに入れる」ボタン押下時の処理
+        $('.list-cart-in--action').click(function () {
+
+            var $this = $(this);
+            var targetId = $this.data('target_input');
+            var $targetInput = $('#' + targetId);
+            var class_category1_id = $targetInput.data('class_category1');
+            var class_category2_id = $targetInput.data('class_category2');
+            var $form = $('#form1');
+            var valid = true;
+
+            $('.input-plg-apg-quantity').removeAttr('required');
+
+            $targetInput.attr('required', 'required');
+
+            $classCategory = eccube.classCategories[class_category1_id]['#' + class_category2_id];
+            $('input[name="ProductClass"]').val($classCategory['product_class_id']);
+            if ($targetInput.val() && $targetInput.val() > 0) {
+                $targetInput[0].setCustomValidity('');
+                $('input[name="quantity"]').val($targetInput.val());
+            } else {
+                $targetInput[0].setCustomValidity('{{ 'front.product.invalid_quantity'|trans }}');
+                $('input[name="quantity"]').val("");
+                alert('数量が入力されていません。');
+                valid = false;
+            }
+
+            var $sele1 = $form.find('select[name=classcategory_id1]');
+            $sele1.val(class_category1_id);
+            {% if form.classcategory_id2 is defined %}
+            fnSetClassCategories(
+                $form, String(class_category2_id)
+            );
+            {% endif %}
+
+            if (valid) {
+                $('.add-cart').click();
+            }
+        });
+    });
+</script>

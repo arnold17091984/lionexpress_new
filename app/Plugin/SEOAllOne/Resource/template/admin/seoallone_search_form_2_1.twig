@@ -1,0 +1,37 @@
+{# エンティティ拡張の自動出力 #}
+{% for f in form|filter(f => f.vars.eccube_form_options.auto_render) %}
+    {% if f.vars.eccube_form_options.form_theme %}
+        {% form_theme f f.vars.eccube_form_options.form_theme %}
+        {{ form_row(f) }}
+    {% else %}
+        <div class="row">
+            <div class="col-3">
+                {% if f.vars.help.tooltips is defined and f.vars.help.tooltips is not null %}
+                <div class="d-inline-block" data-tooltip="true" data-placement="top" title="{{ f.vars.help.tooltips }}">
+                    <span class="card-title">
+                        {{ f.vars.label|trans }}
+                        <i class="fa fa-question-circle fa-lg ml-1"></i>
+                    </span>
+                </div>
+                {% else %}
+                <span>{{ f.vars.label|trans }}</span>
+                {% endif %}
+            </div>
+            <div class="col mb-2">
+                <div>
+                    {{ form_widget(f) }}
+                    {% if f.vars.label_format is defined and f.vars.label_format is not null  %}
+                    <span>{{ f.vars.label_format }}</span>
+                    {% endif %}
+                    {{ form_errors(f) }}
+                </div>
+                {% if f.vars.help is defined and f.vars.help is not null  %}
+                <span class="small">{{ f.vars.help }}</span>
+                {% endif %}
+                {% if f.vars.help.text is defined and f.vars.help.text is not null  %}
+                <span class="small">{{ f.vars.help.text }}</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

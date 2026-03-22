@@ -1,0 +1,50 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * バナー等(トップページ)
+ * サイト両サイドバナー
+ */
+
+.ec-bannerRole {
+  @include container;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &_col {
+    &_2 {
+      .ec-bannerItem {
+        flex-basis: 49%;
+        max-width: 49%;
+      }
+    }
+  }
+  @include media_tablet {
+    margin-bottom: 24px;
+  }
+}
+
+.ec-bannerItem {
+  margin-bottom: 10px;
+}
+
+.ec-siteBackground {
+  display: none;
+  @include media_desktop {
+    /*display: block; バナーをPC表示するときに戻す*/
+	display: none;
+  }
+  position: absolute;
+  top: 0;
+  width: 8.36%;
+  height: 100%;
+
+  &_left {
+   /* background: url(../img/common/site1.gif) 0 0 repeat-y;非表示*/
+    left: -10.36%;
+  }
+  &_right {
+    /*background: url(../img/common/site2.gif) 0 0 repeat-y;非表示*/
+    right: -10.36%;
+  }
+}

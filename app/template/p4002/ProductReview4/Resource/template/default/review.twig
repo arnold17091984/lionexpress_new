@@ -1,0 +1,582 @@
+{#
+/*
+ * This file is part of the ProductReview plugin
+ *
+ * Copyright (C) 2016 LOCKON CO.,LTD. All Rights Reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+#}
+
+{% import _self as stars %}
+
+{# 星テキスト生成用マクロ #}
+{% macro stars(positive, negative) %}
+{#    {% set positive_stars = ["", "★", "★★", "★★★", "★★★★", "★★★★★"] %}#}
+{#    {% set negative_stars = ["", "☆", "☆☆", "☆☆☆", "☆☆☆☆", "☆☆☆☆☆"] %}#}
+    {% set positive_stars = ["", '<i class="fas fa-star"></i>', '<i class="fas fa-star"></i><i class="fas fa-star"></i>', '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>', '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>', '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>'] %}
+    {% set negative_stars = ["", '<i class="far fa-star"></i>', '<i class="far fa-star"></i><i class="far fa-star"></i>', '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>', '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>', '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>'] %}
+    {{ positive_stars[positive]|raw }}{{ negative_stars[negative]|raw }}
+{% endmacro %}
+
+<style type="text/css">
+
+#product_review_area {
+    border-top: 1px solid #E8E8E8;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+}
+
+#product_review_area .ec-rectHeading {
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#product_review_area .ec-rectHeading.is_active i {
+    transform: rotate(180deg);
+}
+
+#product_review_area .review_list {
+    padding-left: 25px;
+}
+
+#product_review_area .review_list li {
+    margin-bottom: 16px;
+}
+
+#product_review_area .review_list .review_date {
+    font-weight: bold;
+}
+
+#product_review_area .recommend_average {
+    margin-left: 16px;
+    color: #DE5D50;
+}
+
+#product_review_area .review_list .recommend_level {
+    margin-left: 16px;
+    color: #DE5D50;
+}
+
+#product_review_area .review_list .recommend_name {
+    margin-left: 16px;
+}
+
+i.fas.fa-star {
+    color: #f4ac00;
+}
+i.far.fa-star {
+    color: #deded9;
+}
+#reviewContent li {
+    padding: 20px 10px;
+    border-bottom: 1px solid #dadada;
+}
+.review-item {
+    display: flex;
+    align-items: center;
+}
+.review-contents {
+    margin-left: 20px;
+}
+.review-item img {
+    width: 60px !important;
+}
+.disabled_btn {
+    display: block;
+    width: 360px;
+    margin: 30px auto;
+    padding: 15px 0;
+    color: #aaaaaa;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    background: #fafafa;
+    border: 1px solid #cacaca;
+    border-radius: 4px;
+}
+#item_review .review--btn {
+    width: 320px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 11px 0;
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top,#CBE7BC,#518889);
+    background: -moz-linear-gradient(top, #CBE7BC,#518889);
+    background: linear-gradient(to bottom, #CBE7BC,#518889);
+    border: 1px solid #518889;
+    border-radius: 4px;
+}
+.review_area h3 {
+    text-align: left;
+}
+.goto_login {
+    color: #1010ca;
+    text-decoration: underline;
+}
+#page_product_detail .ec-rectHeading {
+    display: none;
+}
+#page_product_detail #rating_body {
+    display: none;
+}
+#page_product_detail #item_review .scroll_btn {
+    display: none;
+}
+
+.review-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.strong-red {
+    padding: 0 5px 0 10px;
+    color: #d00000;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+#rating_body {
+    width: calc(100% - 30px);
+    max-width: 640px;
+    margin: 0 auto;
+    margin-top: 20px;
+
+}
+#rating_body .ON {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+#rating_body .title {
+    display: flex;
+    justify-content: center;
+}
+#rating_body .meter {
+    width: 75%;
+    padding: 2px 15px;
+}
+#rating_body .meter .meter_outer {
+    position: relative;
+    width: calc(100% - 2px);
+    height: 30px;
+    padding: 0;
+    background: -webkit-linear-gradient(top,#eee,#f6f6f6);
+    background: -moz-linear-gradient(top, #eee,#f6f6f6);
+    background: linear-gradient(to bottom, #eee,#f6f6f6);
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+}
+#rating_body .meter .meter_outer .meter_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 30px;
+    background: -webkit-linear-gradient(top,#fac040,#f0b030);
+    background: -moz-linear-gradient(top, #fac040,#f0b030);
+    background: linear-gradient(to bottom, #fac040,#f0b030);
+    border-right: 1px solid #da8a2a;
+    border-radius: 3px 0 0 3px;
+}
+#rating_body .count {
+    width: 64px;
+}
+#rating_body td {
+    vertical-align: middle;
+}
+#rating_body .ON .count p {
+    color: #1010ca;
+    text-decoration: underline;
+}
+#item_review .scroll_btn {
+    display: table;
+    min-width: 80%;
+    max-width: 80%;
+    margin: 30px auto 40px auto;
+}
+#item_review .scroll_btn li {
+    display: table-cell;
+    width: 16%;
+    max-width: 120px;
+}
+#item_review .scroll_btn li p.ON,
+#item_review .scroll_btn li a.ON {
+    color: #fff;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top,#CBE7BC,#518889);
+    background: -moz-linear-gradient(top, #CBE7BC,#518889);
+    background: linear-gradient(to bottom, #CBE7BC,#518889);
+}
+#item_review .scroll_btn li:first-child p,
+#item_review .scroll_btn li:first-child a {
+    border-radius: 4px 0 0 4px;
+}
+#item_review .scroll_btn li p,
+#item_review .scroll_btn li a {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 12px 0 36px 0;
+    color: #a0a0a0;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    background: #eaeaea;
+    border: 1px solid #518889;
+    border-right: none;
+}
+#item_review .scroll_btn li:last-child p,
+#item_review .scroll_btn li:last-child a {
+    border-right: 1px solid #518889;
+    border-radius: 0 4px 4px 0;
+}
+    #item_review .scroll_btn li p i,
+    #item_review .scroll_btn li a i {
+        position: absolute;
+        bottom: 5px;
+        left: 43%;
+    }
+
+@media only screen and (max-width: 1023px) {
+    .ec-grid2 {
+        display: block !important;
+    }
+    #item_review .scroll_btn li p,
+    #item_review .scroll_btn li a {
+        font-size: 12px;
+    }
+}
+
+</style>
+
+<script>
+    $(function() {
+        $('#item_review').appendTo($('div.ec-layoutRole__main, div.ec-layoutRole__mainWithColumn, div.ec-layoutRole__mainBetweenColumn'));
+
+        $('#item_review .ec-rectHeading').on('click', function() {
+            $content = $('#reviewContent');
+            if ($content.css('display') == 'none') {
+                $(this).addClass('is_active');
+                $content.addClass('is_active');
+                $content.slideDown(300);
+            } else {
+                $(this).removeClass('is_active');
+                $content.removeClass('is_active');
+                $content.slideUp(300);
+            }
+            return false;
+        });
+        
+        $('.filter_btn').on('click', function() {
+            var target = $(this).attr('data-target-rate');
+            if (target == 0) {
+                $('.review--data').map(function(){
+                    $(this).show();
+                });
+            } else {
+                $('.review--data').map(function(){
+                    $(this).show();
+                });
+                $('.review--data').map(function(){
+                    if ($(this).attr('data-star') == target) {
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            var adjust = 0;
+            var speed = 400;
+            var href= "#reviewContent";
+            var target = $(href == "#" || href == "" ? 'html' : href);
+            var position = target.offset().top + adjust;
+            $('body,html').animate({scrollTop:position}, speed, 'swing');
+            return false;
+        });
+    });
+</script>
+
+<!--▼レビューエリア-->
+<section id="item_review" class="no_padding">
+    <h2>口コミ・レビュー<div class="icon"></div></h2>
+    <div class="ec-role">
+
+        {# レビューの最大と最小 #}
+        {% set MaxProductReview = getMaxReview(Product.id) %}
+        {% set MinProductReview = getMinReview(Product.id) %}
+
+        {% if MinProductReview != null or MaxProductReview != null %}
+        <div class="max-min-review-area">
+            <div class="review-box">
+                <div class="left--box">
+                    {% if MaxProductReview != null %}
+                        {% set maxGood = MaxProductReview.recommend_level %}
+                        {% set maxBad = 5 - MaxProductReview.recommend_level %}
+                        <div class="good-title">良い評価</div>
+                        <div class="good-name">{{ MaxProductReview.reviewer_name }}さん</div>
+                        <div class="good-level">{{ getStar(maxGood, maxBad)|raw }}</div>
+                        <div class="good-comment">{{ MaxProductReview.comment }}</div>
+                    {% else %}
+                        <div class="good-title">良い評価</div>
+                        <div class="good-name">&nbsp;</div>
+                        <div class="good-level">&nbsp;</div>
+                        <div class="good-comment">&nbsp;</div>
+                    {% endif %}
+                </div>
+                <div class="right--box">
+                    {% if MinProductReview != null %}
+                        {% set minGood = MinProductReview.recommend_level %}
+                        {% set minBad = 5 - MinProductReview.recommend_level %}
+                        <div class="bad-title">悪い評価</div>
+                        <div class="bad-name">{{ MinProductReview.reviewer_name }}</div>
+                        <div class="bad-level">{{ getStar(minGood, minBad)|raw }}</div>
+                        <div class="bad-comment">{{ MinProductReview.comment }}</div>
+                    {% else %}
+                        <div class="bad-title">悪い評価</div>
+                        <div class="bad-name">&nbsp;</div>
+                        <div class="bad-level">&nbsp;</div>
+                        <div class="bad-comment">&nbsp;</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+
+
+        {% set positive_avg_star = ProductReviewAvg %}
+        {% set negative_avg_star = 5 - positive_avg_star %}
+{#
+        <div class="ec-rectHeading is_active">
+            <h4>{{ 'product_review.front.product_detail.title'|trans }}
+                <!--平均の星の数-->
+                <span class="recommend_average">{{ stars.stars(positive_avg_star, negative_avg_star) }}</span>
+                <!--レビュー数-->
+                <span>({{ ProductReviewCount }})</span>
+                <span class="chevron pull-right">
+                    <i class="fas fa-angle-up fa-lg"></i>
+                </span>
+            </h4>
+        </div>
+#}
+        <div class="ec-rectHeading">
+            {% set AvgGood = 0 %}
+            {% set AvgCnt = 0 %}
+            {% set AvgReview = getAvgReview(Product.id) %}
+            {% if AvgReview is not empty and AvgReview.star is defined and AvgReview.star is not null %}
+                {% set AvgGood = AvgReview.star * 2 %}
+                {% set AvgGood = AvgGood|round(0, 'floor') %}
+                {% set AvgGood = AvgGood / 2 %}
+            {% else %}
+                {% set AvgGood = 0 %}
+            {% endif %}
+            {% if AvgReview is not empty and AvgReview.cnt is defined and AvgReview.cnt is not null %}
+                {% set AvgCnt = AvgReview.cnt %}
+            {% endif %}
+            <div class="review-total">
+	            {{ getStar(AvgGood)|raw }}{% if AvgGood > 0 %}<div class="strong-red">{{ AvgGood|round(2) }}</div>{% endif %}({{ AvgCnt }})
+            </div>
+        </div>
+{% set Reviews = getReview(Product.id) %}
+        <table id="rating_body">
+            <tbody>
+                <tr class="filter_btn ON" data-target-rate="5">
+                    <td class="title">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </td>
+                    <td class="meter">
+                        <div class="meter_outer">
+                            <div id="meter_5" class="meter_bar" style="width: {{ Reviews[5]['meter'] == null? 0: Reviews[5]['meter'] }}%;"></div>
+                        </div>
+                    </td>
+                    <td class="count">
+                        <p><span id="rate_count_5">{{ Reviews[5]['cnt'] == null? 0: Reviews[5]['cnt'] }}</span>件</p>
+                    </td>
+                </tr>
+                <tr class="filter_btn ON" data-target-rate="4">
+                    <td class="title">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </td>
+                    <td class="meter">
+                        <div class="meter_outer">
+                            <div id="meter_4" class="meter_bar" style="width: {{ Reviews[4]['meter'] == null? 0: Reviews[4]['meter'] }}%;"></div>
+                        </div>
+                    </td>
+                    <td class="count">
+                        <p><span id="rate_count_4">{{ Reviews[4]['cnt'] == null? 0: Reviews[4]['cnt'] }}</span>件</p>
+                    </td>
+                </tr>
+                <tr class="filter_btn ON" data-target-rate="3">
+                    <td class="title">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </td>
+                    <td class="meter">
+                        <div class="meter_outer">
+                            <div id="meter_3" class="meter_bar" style="width: {{ Reviews[3]['meter'] == null? 0: Reviews[3]['meter'] }}%;"></div>
+                        </div>
+                    </td>
+                    <td class="count">
+                        <p><span id="rate_count_3">{{ Reviews[3]['cnt'] == null? 0: Reviews[3]['cnt'] }}</span>件</p>
+                    </td>
+                </tr>
+                <tr class="filter_btn ON" data-target-rate="2">
+                    <td class="title">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </td>
+                    <td class="meter">
+                        <div class="meter_outer">
+                            <div id="meter_2" class="meter_bar" style="width: {{ Reviews[2]['meter'] == null? 0: Reviews[2]['meter'] }}%;"></div>
+                        </div>
+                    </td>
+                    <td class="count">
+                        <p><span id="rate_count_2">{{ Reviews[2]['cnt'] == null? 0: Reviews[2]['cnt'] }}</span>件</p>
+                    </td>
+                </tr>
+                <tr class="filter_btn ON" data-target-rate="1">
+                    <td class="title">
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </td>
+                    <td class="meter">
+                        <div class="meter_outer">
+                            <div id="meter_1" class="meter_bar" style="width: {{ Reviews[1]['meter'] == null? 0: Reviews[1]['meter'] }}%;"></div>
+                        </div>
+                    </td>
+                    <td class="count">
+                        <p><span id="rate_count_1">{{ Reviews[1]['cnt'] == null? 0: Reviews[1]['cnt'] }}</span>件</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+{#        <ul class="scroll_btn">#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="0">全部<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="5">★５<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="4">★４<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="3">★３<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="2">★２<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#            <li>#}
+{#                <p class="filter_btn ON" data-target-rate="1">★１<i class="fas fa-arrow-alt-circle-down"></i></p>#}
+{#            </li>#}
+{#        </ul>#}
+
+
+        <div id="reviewContent">
+            {% if ProductReviews %}
+                <ul class="review_list">
+                    {% for ProductReview in ProductReviews %}
+                        <li class="review--data" data-star="{{ ProductReview.recommend_level }}">
+                            <div class="review-item">
+                                {% if ProductReview.Sex == '男性' %}
+                                    <img src="{{ asset('men.png', 'save_image') }}" alt="男性">
+                                {% elseif ProductReview.Sex == '女性' %}
+                                    <img src="{{ asset('women.png', 'save_image') }}" alt="女性">
+                                {% else %}
+                                    <img src="{{ asset('unknown.png', 'save_image') }}" alt="性別不明">
+                                {% endif %}
+                                <div class="review-contents">
+                                    <!--星の数-->
+                                    {% set positive_star = ProductReview.recommend_level %}
+                                    {% set negative_star = 5 - positive_star %}
+                                    <div class="recommend_level">
+                                        {{ stars.stars(positive_star, negative_star) }}
+                                    </div>
+                                    <!--投稿日-->
+                                    <div class="recommend_date">
+                                        {{ ProductReview.create_date|date_day }}
+                                    </div>
+                                    <!--投稿者-->
+                                    <div class="recommend_name">
+                                        {% if ProductReview.reviewer_url %}
+                                            <a href="{{ ProductReview.reviewer_url }}" target="_blank" rel="noopener noreferrer">
+                                                {{ 'product_review.front.product_detail.name'|trans({ '%name%': ProductReview.reviewer_name }) }}
+                                            </a>
+                                        {% else %}
+                                            {{ 'product_review.front.product_detail.name'|trans({ '%name%': ProductReview.reviewer_name }) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+{#                            <!--タイトル-->#}
+{#                            <div class="recommend_title">#}
+{#                                <strong>{{ ProductReview.title }}</strong>#}
+{#                            </div>#}
+                            <!--レビューコメント-->
+                            <div class="recommend_comment">
+                                {{ ProductReview.comment|nl2br }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>{{ 'product_review.front.product_detail.no_review'|trans }}</p>
+            {% endif %}
+        </div>
+        
+{#        <a href="{{ url(eccube_config.eccube_user_data_route, {'route': 'review_list'}) }}" class="review--btn" target="_blank" rel="noopener noreferrer">全ての口コミ・レビューを見る</a>#}
+        <a href="{{ url('product_review_list', {'id': Product.id}) }}" class="review--btn" target="_blank" rel="noopener noreferrer">全ての口コミ・レビューを見る</a>
+        
+        <div class="review_area" id="post_review">
+            <h3>口コミ・レビューを投稿する</h3>
+            {% if isReview(Product.id, app.user.id) > 0 %}
+                <div class="review-btn">
+                    <a href="{{ url('product_review_index', { id: Product.id }) }}" class="review--btn">
+                        {{ 'product_review.front.product_detail.post_review'|trans }}
+                    </a>
+                </div>
+            {% else %}
+                <div class="review-btn">
+                    <p class="disabled_btn">レビューを投稿する</p>
+                </div>
+            {% endif %}
+            <p class="ml_20">口コミ・レビューの透明性を保つため、商品を購入した方のみ投稿できるようにしております。<br>
+            お手数ですがサイトに<a href="{{ url('mypage_login') }}" class="goto_login">ログイン</a>の上、口コミ・レビュー投稿をしてください。</p>
+        </div>
+
+    </div>
+</div>
+<!-- ▲レビューエリア -->

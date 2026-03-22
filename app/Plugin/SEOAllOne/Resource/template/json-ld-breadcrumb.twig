@@ -1,0 +1,33 @@
+<script type="application/ld+json">
+    [{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "{{ '全て'|trans }}",
+            "item": "{{ url('homepage') }}"
+        }
+        {% if Category.path is defined and Category.path is not null %}
+        ,
+            {% for Path in Category.path %}
+                {% if loop.last %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ loop.index + 1}},
+                    "name": "{{ Path.name }}"
+                }
+                {% else %}
+                {
+                    "@type": "ListItem",
+                    "position": {{ loop.index + 1}},
+                    "name": "{{ Path.name }}",
+                    "item": "{{ url('product_list') }}?category_id={{ Path.id }}"
+                },
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      ]
+    }]
+</script>

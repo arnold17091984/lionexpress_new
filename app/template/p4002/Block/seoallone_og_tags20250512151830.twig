@@ -1,0 +1,112 @@
+{% if SEOAllOneConfig is defined and SEOAllOneConfig is not null and (app.request.get('_route') == 'homepage' or app.request.get('_route') == 'product_list' or app.request.get('_route') == 'product_detail') %}	
+	{% if app.request.get('_route') == 'homepage' or app.request.get('_route') == 'homepage' %}
+		<!-- ▼seoallone_meta▼ -->
+		<meta property="og:title" content="{% if seoallone_og_title is defined and seoallone_og_title is not null %}{{ seoallone_og_title }} - {% elseif seoallone_title is defined and seoallone_title is not null %}{{ seoallone_title }} - {% elseif title is defined and title is not empty %}{{ title }} - {% endif %}{{ BaseInfo.shop_name }}">
+		{% if seoallone_og_type is defined and seoallone_og_type is not null %}
+		<meta property="og:type" content="{{seoallone_og_type}}">
+		{% else %}
+		<meta property="og:type" content="website">
+		{% endif %}
+		{% if seoallone_og_site_name is defined and seoallone_og_site_name is not null %}
+		<meta property="og:site_name" content="{{seoallone_og_site_name}}">
+		{% else %}
+		<meta property="og:site_name" content="{{ BaseInfo.shop_name }}">
+		{% endif %}
+		{% if seoallone_og_description is defined and seoallone_og_description is not null %}
+		<meta property="og:description" content="{{ seoallone_og_description }}">
+		{% elseif seoallone_description is defined and seoallone_description is not null %}
+		<meta property="og:description" content="{{ seoallone_description }}">
+		{% elseif Page.description is not empty %}
+			<meta property="og:description" content="{{ Page.description }}">
+		{% endif %}
+		{% if seoallone_og_url is defined and seoallone_og_url is not null %}
+		<meta property="og:url" content="{{seoallone_og_url}}">
+		{% else %}
+		<meta property="og:url" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">
+		{% endif %}
+		{% if seoallone_og_image is defined and seoallone_og_image is not null %}
+		<meta property="og:image" content="{{seoallone_og_image}}">
+		{% endif %}
+		<!-- ▲seoallone_meta▲ -->
+	{% elseif app.request.get('_route') == 'product_detail_code' or app.request.get('_route') == 'product_detail' %}
+		<!-- ▼seoallone_meta▼ -->
+		<meta property="og:title" content="{% if Product.og_title is defined and Product.og_title is not null %}{{ Product.og_title }} - {{ BaseInfo.shop_name }}{% elseif Product.seo_title is defined and Product.seo_title is not null %}{{ Product.seo_title }} - {{ BaseInfo.shop_name }}{% else %}{% if subtitle is defined and subtitle is not empty %}{{ subtitle }} - {% elseif title is defined and title is not empty %}{{ title }} - {% endif %}{{ BaseInfo.shop_name }}{% endif %}">
+		
+		{% if Product.og_type is defined and Product.og_type is not null %}
+		<meta property="og:type" content="{{Product.og_type}}">
+		{% else %}
+		<meta property="og:type" content="product">
+		{% endif %}
+		{% if Product.og_site_name is defined and Product.og_site_name is not null %}
+		<meta property="og:site_name" content="{{Product.og_site_name}}">
+		{% else %}
+		<meta property="og:site_name" content="{{ BaseInfo.shop_name }}">
+		{% endif %}
+		{% if Product.og_description is defined and Product.og_description is not null %}
+		<meta property="og:description" content="{{ Product.og_description }}">
+		{% elseif Product.seo_description is defined and Product.seo_description is not null %}
+		<meta property="og:description" content="{{ Product.seo_description }}">
+		{% elseif Page.description is not null %}
+		<meta property="og:description" content="{{ Page.description }}">
+		{% endif %}
+		{% if Product.og_url is defined and Product.og_url is not null %}
+		<meta property="og:url" content="{{Product.og_url}}">
+		{% else %}
+		<meta property="og:url" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">
+		{% endif %}
+		{% if Product.og_image is defined and Product.og_image is not null %}
+		<meta property="og:image" content="{{ Product.og_image }}">
+		{% elseif Product.main_list_image is not null %}
+		{#show default image_path#}
+		<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ asset(Product.main_list_image, 'save_image') }}">
+		{% elseif Product.og_image_metatag is not defined or Product.og_image_metatag is null or Product.og_image_metatag == false %}
+		<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ asset('no_image_product', 'save_image') }}">
+		{% endif %}
+		<!-- ▲seoallone_meta▲ -->
+	{% elseif app.request.get('_route') == 'product_list' %}
+		<!-- ▼seoallone_meta▼ -->
+		<meta property="og:title" content="{% if Category.og_title is defined and Category.og_title is not null %}{{ Category.og_title }} - {{ BaseInfo.shop_name }}
+		{% elseif Category.seo_title is defined and Category.seo_title is not null %}{{ Category.seo_title }} - {{ BaseInfo.shop_name }}
+		{% else %}{% if subtitle is defined and subtitle is not empty %}{{ subtitle }} - {% elseif title is defined and title is not empty %}{{ title }} - {% endif %}{{ BaseInfo.shop_name }} {% endif %}">
+		{% if Category.og_type is defined and Category.og_type is not null %}
+		<meta property="og:type" content="{{Category.og_type}}">
+		{% else %}
+		<meta property="og:type" content="article">
+		{% endif %}
+		{% if Category.og_site_name is defined and Category.og_site_name is not null %}
+		<meta property="og:site_name" content="{{Category.og_site_name}}">
+		{% else %}
+		<meta property="og:site_name" content="{{ BaseInfo.shop_name }}">
+		{% endif %}
+		{% if Category.og_description is defined and Category.og_description is not null %}
+		<meta property="og:description" content="{{ Category.og_description }}">
+		{% elseif Category.seo_description is defined and Category.seo_description is not null %}
+		<meta property="og:description" content="{{ Category.seo_description }}">
+		{% elseif Page.description is not null %}
+		<meta property="og:description" content="{{ Page.description }}">
+		{% endif %}
+		{% if Category.og_url is defined and Category.og_url is not null %}
+		<meta property="og:url" content="{{Category.og_url}}">
+		{% else %}
+		<meta property="og:url" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}{{strApiJsonParame}}">
+		{% endif %}
+		{% if Category.og_image is defined and Category.og_image is not null %}
+		<meta property="og:image" content="{{ Category.og_image }}">
+		{% elseif Category.og_image_metatag is not defined or Category.og_image_metatag is null or Category.og_image_metatag == false %}
+			{% set image =  asset('no_image_product', 'save_image') %}
+			{% if pagination.totalItemCount > 0 %}
+				{% set break =  false %}
+				{% for Product in pagination %}
+					{% if break == false %}
+						{% if Product.main_list_image is not null %}
+							{% set image = asset(Product.main_list_image, 'save_image') %}
+							{% set break =  true %}
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		<meta property="og:image" content="{{ app.request.scheme ~'://' ~ app.request.httpHost }}{{ image }}" >
+		{% endif %}
+		<!-- ▲seoallone_meta▲ -->
+	{% endif %}
+{% endif %}

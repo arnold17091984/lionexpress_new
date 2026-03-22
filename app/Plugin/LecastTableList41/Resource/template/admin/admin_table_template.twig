@@ -1,0 +1,132 @@
+{#
+/*
+  * This file is part of the LecastTableList41 plugin
+  *
+  * Copyright (C) >=2018 lecast system.
+  * @author Tetsuji Shiro 
+  *
+  * このプラグインは再販売禁止です。
+  */
+#}
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['content', 'plg_admin_table_list'] %}
+
+
+{% block title %}表テンプレート管理{% endblock %}
+{% block sub_title %}テンプレート一覧{% endblock %}
+
+{% form_theme form '@admin/Form/bootstrap_4_horizontal_layout.html.twig' %}
+
+
+{% block stylesheet %}
+{{ include("LecastTableList41/Resource/template/admin/admin_assets_css.twig")}}
+{% endblock %}
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+{{ include("LecastTableList41/Resource/template/admin/admin_assets_js.twig")}}
+{% endblock %}
+{% block main %}
+<div class="c-contentsArea__cols">
+    <div class="c-contentsArea__primaryCol">
+        <div class="card">
+            <div id="sortable_list" class="box">
+                <div  class="card-header">
+                    <strong>{{ total_item_count }} 件</strong> のテンプレートが保存されています
+                </div><!-- /.box-header -->
+                {% if pagination %}
+                <div id="sortable_list_box" class="card-body">
+                    <div class="sortable_list">
+                        <div class="item_list">
+                            {% for TemplateList in pagination %}
+                            <div class="item_box row justify-content-around border-bottom pt-3" data-template-id="{{ TemplateList.id }}">
+                                <div class="col product_name">
+                                    <div>{{ TemplateList.template_name }}</div>
+                                    <div class="table-template py-3"><table><tbody>{{ TemplateList.template_value|raw }}</tbody></table></div>
+                                </div>
+                                <div class="col-2 text-center" data-toggle="tooltip"
+                                     data-placement="top" title="{{ 'admin.common.delete'|trans }}">
+                                    <a class="btn btn-ec-actionIcon" data-toggle="modal"
+                                       data-target="#delete_{{ TemplateList.id }}">
+                                        <i class="fa fa-close fa-lg text-secondary"
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <div class="modal fade" id="delete_{{ TemplateList.id }}" tabindex="-1"
+                                         role="dialog"
+                                         aria-labelledby="delete_{{ TemplateList.id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title font-weight-bold">{{ 'admin.common.delete_modal__title'|trans }}</h5>
+                                                    <button class="close" type="button"
+                                                            data-dismiss="modal"
+                                                            aria-label="Close"><span
+                                                                aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-left">
+                                                    <p class="text-left">{{ 'admin.common.delete_modal__message'|trans({'%name%': TemplateList.template_name}) }}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-ec-sub" type="button"
+                                                            data-dismiss="modal">{{ 'admin.common.cancel'|trans }}</button>
+                                                    <a class="btn btn-ec-delete"
+                                                       href="{{ url('admin_table_list_delete', {'id':TemplateList.id}) }}" {{ csrf_token_for_anchor() }}
+                                                       data-method="delete"
+                                                       data-confirm="false">{{ 'admin.common.delete'|trans }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+                {% endif %}
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+</div>
+<div class="c-contentsArea__cols">
+    <div class="c-contentsArea__primaryCol">
+        <form name="spec_add" id="form1" method="post" action="" class="card">
+            {{ form_row(form._token) }}
+            <div class="card-header" style="text-align:center">
+                <div style="width: 30%;display: inline-block;">表テンプレートを追加</div>
+            </div>
+            <div class="card-body">
+                <div id="itemtablelist">
+                    <div class="itl_btnarea">
+                        <button type="button" id="addrow">行を追加</button>
+                        <button type="button" id="addcol">列を追加</button>
+                        <button type="button" id="addcap">見出しにする</button>
+                    </div>
+                    <table>
+                        <thead><div class="itl_header">※複数選択するにはCtrlキーを押しながら選択して下さい</div></thead>
+                        <tbody id="selectable"></tbody>
+                    </table>
+                    <div class="itl_btnarea">
+                        <button type="button" id="delrow">行を削除</button>
+                        <button type="button" id="delcol">列を削除</button>
+                    </div>
+                </div>
+                <div class="form-group isl_form_textbox" style="text-align:center">
+                    <div style="width: 30%;display: inline-block;">{{ form_widget(form.template_name) }}</div>
+                    <div style="width: 20%;margin:6px auto;"><button class="btn btn-primary btn-block btn-lg" type="submit">新規追加</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    <div class="col-md-12" style="background:#fff;border-radius: 6px">
+        <div class="box-header with-arrow" >
+            <p>表を商品詳細画面に表示するには、レイアウト編集からブロックを追加して頂く必要がございます。</p>
+            <p>商品詳細「表」というブロックをレイアウトに追加してください。</p>
+        </div>
+        <div class="box-header with-arrow" >
+            <p><small>お問い合わせ:<a href="mailto:lecast.shiro@gmail.com">lecast.shiro@gmail.com</a></small></p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,302 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'front_page' %}
+
+{% block javascript %}
+<script>
+(function () {
+  /* ===== ランキングタブ ===== */
+  var tabs   = document.querySelectorAll('.nd-ranking-tab');
+  var panels = document.querySelectorAll('.nd-ranking-panel');
+  var tabKeys = ['all', 'diet', 'hair', 'skin', 'ed'];
+
+  tabs.forEach(function (tab, idx) {
+    tab.addEventListener('click', function () {
+      /* ボタン状態切替 */
+      tabs.forEach(function (t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+
+      /* パネル表示切替 */
+      var key = tabKeys[idx] || 'all';
+      panels.forEach(function (p) {
+        p.style.display = (p.dataset.tab === key) ? '' : 'none';
+      });
+    });
+  });
+}());
+</script>
+{% endblock javascript %}
+
+{% block main %}
+
+{# SEO: Hidden H1 for homepage — search engines need this #}
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">海外医薬品・サプリメント個人輸入代行のLion Express</h1>
+
+{# SEO: Organization Schema #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ BaseInfo.shop_name }}",
+  "url": "https://lion-express.com",
+  "logo": "https://lion-express.com/html/user_data/assets/img/logo_1_2.png",
+  "description": "海外医薬品・サプリメントの個人輸入代行専門店",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "Customer Service",
+    "email": "{{ BaseInfo.email01|default('info@lion-express.com') }}",
+    "availableLanguage": "ja"
+  }{% if BaseInfo.phone_number is not empty %},
+  "telephone": "{{ BaseInfo.phone_number }}"{% endif %}
+}
+</script>
+
+{# ===== 1. TRUST STRIP — 実績数字で即信頼構築 ===== #}
+<div class="nd-trust-strip">
+  <div class="nd-container">
+    <div class="nd-trust-grid">
+      <div class="nd-trust-item">
+        <div class="nd-trust-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8 21 12 21 16 21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M7 4H3v3a5 5 0 0 0 4 4.9"/><path d="M17 4h4v3a5 5 0 0 1-4 4.9"/><path d="M7 4h10v9a5 5 0 0 1-10 0V4z"/></svg>
+        </div>
+        <div class="nd-trust-text">
+          <div class="num num--sm">安心の実績</div>
+          <div class="label">信頼の運営体制</div>
+        </div>
+      </div>
+      <div class="nd-trust-item">
+        <div class="nd-trust-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+        <div class="nd-trust-text">
+          <div class="num num--sm">迅速対応</div>
+          <div class="label">最短で発送手配</div>
+        </div>
+      </div>
+      <div class="nd-trust-item">
+        <div class="nd-trust-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg>
+        </div>
+        <div class="nd-trust-text">
+          <div class="num num--sm">豊富な品揃え</div>
+          <div class="label">幅広いカテゴリ</div>
+        </div>
+      </div>
+      <div class="nd-trust-item">
+        <div class="nd-trust-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="nd-trust-text">
+          <div class="num num--sm">安心保証</div>
+          <div class="label">未着・破損時も対応</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ===== NEWS — 管理画面の「新着情報管理」から投稿可能 ===== #}
+
+{# ===== NEWS — 管理画面の「新着情報管理」から投稿可能 ===== #}
+<section class="nd-section" aria-labelledby="news-heading" style="padding-top:24px;padding-bottom:16px;">
+  <div class="nd-container">
+    <h2 class="section-title" id="news-heading">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/></svg>
+      お知らせ
+    </h2>
+    {{ include('Block/news.twig') }}
+  </div>
+</section>
+
+{# ===== 2. SHOP RANKING — 社会的証明を最上位に ===== #}
+<section class="nd-section" aria-labelledby="ranking-heading">
+  <div class="nd-container">
+    <div class="nd-ranking-header">
+      <h2 class="section-title nd-ranking-title" id="ranking-heading">
+        <svg class="nd-ranking-title-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        売れ筋ランキング
+      </h2>
+      <div class="nd-ranking-tabs" role="tablist" aria-label="ランキングカテゴリ">
+        <button class="nd-ranking-tab active" role="tab" aria-selected="true">総合</button>
+        <button class="nd-ranking-tab" role="tab" aria-selected="false">ダイエット</button>
+        <button class="nd-ranking-tab" role="tab" aria-selected="false">薄毛・育毛</button>
+        <button class="nd-ranking-tab" role="tab" aria-selected="false">美白・スキンケア</button>
+        <button class="nd-ranking-tab" role="tab" aria-selected="false">ED・性機能</button>
+      </div>
+    </div>
+    {{ include('Block/topic.twig') }}
+    <div class="nd-cta-center">
+      <a href="{{ path('product_list') }}" class="nd-btn nd-btn-outline">全ての商品を見る →</a>
+    </div>
+  </div>
+</section>
+
+{# ===== 3. COMPACT CATEGORIES — ナビ補助、コンパクトに ===== #}
+<div class="nd-compact-cat-bar">
+  <div class="nd-container">
+    <div class="nd-compact-cat-inner">
+      <div class="nd-compact-cat-scroll">
+        <a href="{{ url('product_list', {'category_id': 11}) }}" class="nd-compact-cat-item">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg>
+          </div>
+          <span>ED・性機能</span>
+        </a>
+        <a href="{{ url('product_list', {'category_id': 76}) }}" class="nd-compact-cat-item">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <span>ダイエット</span>
+        </a>
+        <a href="{{ url('product_list', {'category_id': 34}) }}" class="nd-compact-cat-item">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span>スキンケア</span>
+        </a>
+        <a href="{{ url('product_list', {'category_id': 1}) }}" class="nd-compact-cat-item">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+          </div>
+          <span>薄毛・育毛</span>
+        </a>
+        <a href="{{ url('product_list', {'category_id': 5}) }}" class="nd-compact-cat-item">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5c-1.5-2-3.5-3-5-2.5S4 5.5 4 8c0 2.5 1 4 2 6s2 4 2 6h8c0-2 1-4 2-6s2-3.5 2-6c0-2.5-1-5-3-5s-3.5.5-5 2.5z"/></svg>
+          </div>
+          <span>歯科ケア</span>
+        </a>
+        <a href="{{ url('product_list') }}" class="nd-compact-cat-item nd-compact-cat-all">
+          <div class="nd-compact-cat-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </div>
+          <span>すべて見る</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ===== 4. NEW ARRIVALS ===== #}
+<section class="nd-section nd-section-alt" aria-labelledby="new-arrivals-heading">
+  <div class="nd-container">
+    <h2 class="section-title" id="new-arrivals-heading">新入荷商品</h2>
+    {{ include('Block/new_item.twig') }}
+    <div class="nd-cta-center">
+      <a href="{{ path('product_list') }}" class="nd-btn nd-btn-outline">新入荷商品をすべて見る →</a>
+    </div>
+  </div>
+</section>
+
+{# ===== 5. TRUST BANNER (なぜ選ばれるのか) ===== #}
+<div class="nd-trust-banner">
+  <div class="nd-container">
+    <div class="nd-trust-banner-inner">
+      <div class="nd-trust-banner-text">
+        <h2>なぜLion Expressが<br>選ばれるのか</h2>
+        <p>
+          当サイトでは、全て正規品を取り扱っております。
+          信頼性の高い業者のみを利用し、定期的に倉庫のチェックを行っております。
+          不良品が混入しないよう、厳格な管理を徹底していますので、安心してご購入ください。
+        </p>
+        <a href="{{ path('help_about') }}" class="nd-btn-hero-primary">
+          詳しくはこちら →
+        </a>
+      </div>
+      <div class="nd-trust-points">
+        <div class="nd-trust-point">
+          <div class="nd-trust-point-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="nd-trust-point-text">
+            <h3>全品正規品のみ取り扱い</h3>
+            <p>信頼性の高い業者のみを利用し、正規品だけをお届けしています。</p>
+          </div>
+        </div>
+        <div class="nd-trust-point">
+          <div class="nd-trust-point-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="nd-trust-point-text">
+            <h3>厳格な品質管理</h3>
+            <p>定期的な倉庫チェックを実施し、不良品の混入を防ぐ管理体制を徹底しています。</p>
+          </div>
+        </div>
+        <div class="nd-trust-point">
+          <div class="nd-trust-point-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="nd-trust-point-text">
+            <h3>日本語サポート</h3>
+            <p>LINE・メールで日本語による丁寧なサポート。疑問やご不安もすぐに解決します。</p>
+          </div>
+        </div>
+        <div class="nd-trust-point">
+          <div class="nd-trust-point-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+          </div>
+          <div class="nd-trust-point-text">
+            <h3>未着・破損時の補償</h3>
+            <p>万が一の未着・破損の場合は再送または返金で対応いたします。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ===== 6. BANNERS (特集・キャンペーン) — 管理画面のブロック管理から編集可能 ===== #}
+{{ include('Block/banners.twig') }}
+
+{# ===== 7. 注文の流れ ===== #}
+<section class="nd-faq-section" aria-labelledby="order-flow-heading">
+  <div class="nd-container">
+    <h2 class="section-title section-title-center" id="order-flow-heading">ご注文の流れ</h2>
+    <div class="nd-order-flow nd-order-flow--wide">
+      <div class="nd-order-step">
+        <div class="nd-order-step-num">1</div>
+        <div class="nd-order-step-body">
+          <h3>商品をカートに入れる</h3>
+          <p>商品ページからカートに追加してください。</p>
+        </div>
+      </div>
+      <div class="nd-order-step">
+        <div class="nd-order-step-num">2</div>
+        <div class="nd-order-step-body">
+          <h3>会員登録・ログイン</h3>
+          <p>初回はご登録が必要です（無料・1分で完了）。</p>
+        </div>
+      </div>
+      <div class="nd-order-step">
+        <div class="nd-order-step-num">3</div>
+        <div class="nd-order-step-body">
+          <h3>お支払い</h3>
+          <p>銀行振込でのお支払いに対応しています。</p>
+        </div>
+      </div>
+      <div class="nd-order-step">
+        <div class="nd-order-step-num">4</div>
+        <div class="nd-order-step-body">
+          <h3>商品お届け</h3>
+          <p>約2週間でご自宅へ直接お届けします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

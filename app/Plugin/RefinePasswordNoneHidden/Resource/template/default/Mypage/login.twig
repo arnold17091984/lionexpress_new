@@ -1,0 +1,152 @@
+{#
+This file is part of Refine
+
+Copyright(c) 2024 Refine Co.,Ltd. All Rights Reserved.
+
+https://www.re-fine.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'mypage' %}
+
+{% block main %}
+    <div class="ec-role">
+        <div class="ec-pageHeader">
+            <h1>{{ 'ログイン'|trans }}</h1>
+        </div>
+        <div class="ec-off2Grid">
+            <div class="ec-off2Grid__cell">
+                <form name="login_mypage" id="login_mypage" method="post" action="{{ url('mypage_login') }}">
+                    {% if app.session.flashBag.has('eccube.login.target.path') %}
+                        {% for targetPath in app.session.flashBag.peek('eccube.login.target.path') %}
+                            <input type="hidden" name="_target_path" value="{{ targetPath }}" />
+                        {% endfor %}
+                    {% endif %}
+                    <div class="ec-login">
+                        <div class="ec-login__icon">
+                            <div class="ec-icon"><img src="{{ asset('assets/icon/user.svg') }}" alt=""></div>
+                        </div>
+                        <div class="ec-login__input">
+                            <div class="ec-input">
+                                {{ form_widget(form.login_email, {'attr': {'style' : 'ime-mode: disabled;', 'placeholder' : 'メールアドレス', 'autofocus': true}}) }}
+                                {#{{ form_widget(form.login_pass,  {'attr': {'placeholder' : 'パスワード' }}) }}#}
+                                <label id="pass_label">
+                                    {{ form_widget(form.login_pass,  {'attr': {'style' : 'border: none;', 'placeholder' : 'パスワード' }}) }}
+                                    <input type="checkbox" id="passwordCheck">
+                                    <span class="iconEye"><img src="{{ asset('assets/img/common/icon_eye.png') }}" alt=""></span>
+                                </label>
+                            </div>
+                            {% if BaseInfo.option_remember_me %}
+                            <div class="ec-checkbox">
+                                <label>
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <input type="hidden" name="login_memory" value="1">
+                                    {% else %}
+                                        {{ form_widget(form.login_memory, { 'label': '次回から自動的にログインする'|trans }) }}
+                                    {% endif %}
+                                </label>
+                            </div>
+                            {% endif %}
+                            {% for reset_complete in app.session.flashbag.get('password_reset_complete') %}
+                                <p>{{ reset_complete|trans }}</p>
+                            {% endfor %}
+                            {% if error %}
+                                <p class="ec-errorMessage">{{ error.messageKey|trans(error.messageData, 'validators')|nl2br }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="ec-grid2">
+                            <div class="ec-grid2__cell">
+                                <div class="ec-login__actions">
+                                    <button type="submit"
+                                            class="ec-blockBtn--cancel">{{ 'ログイン'|trans }}</button>
+                                </div>
+                            </div>
+                            <div class="ec-grid2__cell">
+                                <div class="ec-login__link"><a class="ec-link"
+                                                               href="{{ url('forgot') }}">{{ 'ログイン情報をお忘れですか？'|trans }}</a>
+                                </div>
+                                <div class="ec-login__link"><a class="ec-link"
+                                                               href="{{ url('entry') }}">{{ '新規会員登録'|trans }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                </form>
+            </div>
+        </div>
+    </div>
+    <style>
+        label#pass_label {
+            align-items: center;
+            background: white;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 0px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .pass_label_focus {
+            transition: 1s;
+            border: 1px solid #1A9DC9;
+        }
+        input#passwordCheck {
+            border: none;
+            font-size: 18px;
+        }
+        input#passwordCheck[type=checkbox] {
+            cursor: pointer;
+            opacity: 0;
+            position: absolute;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            z-index: 2;
+        }
+        .iconEye::after {
+            background: rgba(255 255 255 0);
+            background-size: contain;
+            content: '';
+            display: block;
+            width: 0px;
+            height: 100%;
+        }
+        .iconEye img {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            z-index: 1;
+        }
+        #login_pass {
+            margin: 0;
+            background-color:white;
+        }
+    </style>
+    <script>
+        $(function() {
+            $('#passwordCheck').change(function() {
+                if ($(this).prop('checked')) {
+                    $('#login_pass').attr('type', 'text');
+                    $('.iconEye img').css('opacity', '0.5');
+                } else {
+                    $('#login_pass').attr('type', 'password');
+                    $('.iconEye img').css('opacity', '1');
+                }
+            });
+            $('#login_pass').focus(function() {
+                $('#pass_label').css('border', 'solid 1px #1A9DC9');
+            });
+            $('#login_pass').blur(function() {
+                $('#pass_label').css('border', 'solid 1px #ccc');
+            });
+        });
+    </script>
+{% endblock %}

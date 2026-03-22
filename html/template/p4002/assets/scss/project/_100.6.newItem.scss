@@ -1,0 +1,27 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * NEW ITEM(新着商品ブロック)
+ */
+
+.ec-newItem {
+  @include container;
+  display: none;
+  @include media_tablet {
+    display: block;
+  }
+
+  &__title {
+    @include sectionTitle;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+}
+
+.ec-newItemListItem {
+  &__title {
+    font-size: 0.9em;
+    margin: 1em 0;
+  }
+}

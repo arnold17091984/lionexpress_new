@@ -1,0 +1,49 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * HOT ITEM STYLE 
+ * 新入荷商品特集ブロック(eyecatch.twig)
+ */
+
+.ec-hotProducts {
+  @include container;
+  &__title {
+    @include sectionTitle;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  &__list {
+    display: flex;
+    margin-bottom: 16px;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .ec-hotProductsItem {
+    padding: 0 5px;
+    &__image {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    &__detailName {
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: normal;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      @include media_tablet {
+        font-size: 1.4rem;
+      }
+    }
+    &__detailPrice {
+      margin-bottom: 15px;
+      color: #ff0024;
+      font-size: 1.1rem;
+      @include media_tablet {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+

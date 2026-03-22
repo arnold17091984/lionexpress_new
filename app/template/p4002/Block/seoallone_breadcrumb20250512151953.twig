@@ -1,0 +1,98 @@
+{% set current_route = app.request.attributes.get('_route') %}
+    {% set current_page = repository('Eccube\\Entity\\Page').findOneBy({'url' : current_route}) %}
+    {% if SEOAllOneConfig is defined and SEOAllOneConfig is not null and SEOAllOneConfig.breadcrumbFlg == 1 and current_page is not null and (current_page.getUrl() == 'product_list' or current_page.getUrl() == 'product_detail') %}
+    {% 
+        set Breadcrumbs = [{ 
+            'name': BaseInfo.shop_name,
+            'url': url("homepage")
+        }]
+    %}
+    {% if current_page.getUrl() == 'product_list' %}
+        {% set category_id = app.request.get('category_id') %}
+        {% if category_id matches '/^\\d+$/' %}
+            {% set category = repository('Eccube\\Entity\\Category').findOneBy({'id': category_id}) %}
+        {% else %}
+            {% set category = null %}
+        {% endif %}
+        {% if category is not null %}
+            {% set c_list = [] %}
+            {% set parents = category.getParents() %}
+            {% if parents is not null %}
+                {% for p in parents %}
+                    {% set c_list = c_list | merge([{ 'name':p.getName(), 'url': url('product_list') ~ '?category_id=' ~ p.getId() }]) %}
+                {% endfor %}
+            {% endif %}
+            {% set c_list = c_list | merge([{ 'name': category.getName(), 'url': url('product_list') ~ '?category_id=' ~ category.getId()}]) %}
+        {% set Breadcrumbs = Breadcrumbs | merge(c_list) %}
+        {% else %}
+            {% set Breadcrumbs = Breadcrumbs | merge([{ 'name': '全ての商品'|trans, 'url': url('product_list') }]) %}
+        {% endif %}
+    {% elseif current_page.getUrl() == 'product_detail' %}
+        {% set c_list = [] %}
+        {% if Product.ProductCategories is not empty %}
+            {% set firstCategory = Product.ProductCategories[0] %}
+                {% for Category in firstCategory.Category.path %}
+                    {% set c_list = c_list | merge([{ 'name':Category.getName(), 'url': url('product_list') ~ '?category_id=' ~ Category.getId() }]) %}
+                {% endfor %}
+        {% else %}
+        {% set c_list = [{ 'name': '全ての商品'|trans, 'url': url('product_list')}] %}
+        {% endif %}
+        {% set c_list = c_list | merge([{ 'name':Product.getName(), 'url': url('product_detail', {'id': Product.getId()}) }]) %}
+        {% set Breadcrumbs = Breadcrumbs | merge(c_list) %}
+
+    {% endif %}
+
+    <div class="l-pankz">
+        <div class="container">
+        <ul class="container" itemscope itemtype="http://schema.org/BreadcrumbList">
+            {% for b in Breadcrumbs %}
+                <li itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem">
+                    {% if loop.last == FALSE %}
+                        <a itemprop="item" href="{{ b.url }}">
+                            <span itemprop="name">{{ b.name }}</span>
+                        </a>
+                    {% else %}
+                        <span itemprop="name">{{ b.name }}</span>
+                    {% endif %}
+                    <meta itemprop="position" content="{{ loop.index }}">
+                </li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+    {% block stylesheet %}
+        <style type="text/css">
+            .l-pankz div.container {
+                max-width: 1130px;
+            }
+
+            .l-pankz ul {
+                margin: 0 auto;
+                width: 100%;
+                overflow-x: auto;
+                display: flex;
+                font-size: 1.5rem;
+                padding: .5em;
+                justify-content: flex-start;
+            }
+
+            .l-pankz ul li {
+                margin-right: .3em;
+                word-break: keep-all;
+                list-style: none;
+            }
+
+            .l-pankz ul li a{
+                text-decoration:none;
+                cursor: pointer;
+            }
+
+            .l-pankz ul li a:after {
+                content: "/";
+                padding-left: .3em;
+                color: #000;
+            }
+        </style>
+    {% endblock %}
+{% endif %}

@@ -1,0 +1,129 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% extends 'default_frame.twig' %}
+
+{% block stylesheet %}
+<style>
+.nd-contact-complete {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 16px 80px;
+  text-align: center;
+}
+.nd-complete-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--brand-pale, #e8f4f4);
+  color: var(--brand-primary, #518889);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+.nd-contact-complete h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--neutral-900, #111);
+  margin: 0 0 16px;
+}
+.nd-contact-complete p {
+  font-size: 1.4rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.8;
+  margin: 0 0 12px;
+}
+.nd-complete-note {
+  background: var(--neutral-50, #f9fafb);
+  border: 1px solid var(--neutral-200, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 28px 0;
+  font-size: 1.3rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.7;
+  text-align: left;
+}
+.nd-complete-note strong { color: var(--neutral-900, #111); }
+.nd-complete-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.nd-complete-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nd-complete-actions .nd-btn-primary {
+  background: var(--brand-primary, #518889);
+  color: #fff;
+}
+.nd-complete-actions .nd-btn-primary:hover {
+  background: var(--brand-dark, #3d6a6b);
+  transform: translateY(-1px);
+}
+.nd-complete-actions .nd-btn-outline {
+  background: #fff;
+  color: var(--brand-primary, #518889);
+  border: 1.5px solid var(--brand-primary, #518889);
+}
+.nd-complete-actions .nd-btn-outline:hover {
+  background: var(--brand-pale, #e8f4f4);
+}
+</style>
+{% endblock %}
+
+{% block main %}
+
+<div class="nd-contact-complete">
+
+  <div class="nd-complete-icon">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+  </div>
+
+  <h1>送信が完了しました</h1>
+
+  <p>
+    お問い合わせいただきありがとうございます。<br>
+    内容を確認のうえ、担当者よりご連絡差し上げます。
+  </p>
+
+  <div class="nd-complete-note">
+    <strong>ご確認ください</strong><br>
+    ご入力いただいたメールアドレス宛に確認メールを送信しております。
+    万一メールが届かない場合は、迷惑メールフォルダをご確認いただくか、
+    <strong>info@lion-express.com</strong> まで直接ご連絡ください。<br><br>
+    休業日にいただいたお問い合わせは、翌営業日以降の対応となります。
+  </div>
+
+  <div class="nd-complete-actions">
+    <a href="{{ url('homepage') }}" class="nd-btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      トップページへ
+    </a>
+    <a href="{{ url('product_list') }}" class="nd-btn-outline">
+      商品を探す
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}

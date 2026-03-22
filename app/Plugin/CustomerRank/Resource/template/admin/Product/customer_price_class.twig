@@ -1,0 +1,30 @@
+{#
+* Plugin Name : CustomerRank
+*
+* Copyright (C) BraTech Co., Ltd. All Rights Reserved.
+* http://www.bratech.co.jp/
+*
+* For the full copyright and license information, please view the LICENSE
+* file that was distributed with this source code.
+#}
+
+{% for CustomerRank in CustomerRanks %}
+<span id="customer_price_th_{{ loop.index }}" style="display:none;">
+    {{ CustomerRank.name }}{{ 'customerrank.common.customer_price'|trans }}
+</span>
+{% endfor %}
+
+{% set index = 0 %}
+{% for product_class_form in form.product_classes %}
+{% set index = index + 1 %}
+{% for CustomerRank in CustomerRanks %}
+{% set value = 'customer_price_' ~ CustomerRank.id %}
+<div id="customer_price_{{ index }}_{{ loop.index }}" style="display:none;">
+    {{ form_widget(product_class_form[value]) }}
+    {{ form_errors(product_class_form[value]) }}
+</div>
+{% endfor %}
+{% endfor %}
+
+
+

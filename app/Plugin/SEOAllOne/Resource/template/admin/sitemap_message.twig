@@ -1,0 +1,6 @@
+{% if start is defined or end is defined %}
+<div>{{ start }}</div>
+<div>{{ end }}</div>
+{% elseif msg is defined %}
+<div>{{ msg }}</div>
+{% endif %}

@@ -1,0 +1,1 @@
+{"name":"ec-cube\/seoallone","version":"1.2.4","description":"SEOAllOne","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.6 || ^2.0"},"extra":{"code":"SEOAllOne","id":2095}}

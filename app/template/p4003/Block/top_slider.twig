@@ -1,0 +1,207 @@
+{% block stylesheet %}
+<style>
+.ec-bannerRole {
+    margin-bottom: 0;
+}
+.top__kv {
+    padding-bottom: 10px;
+}
+{# スライダー画像 #}
+.top__kv .slick-slider {
+    margin-bottom: 0px;
+}
+/* Slider arrows are styled by style.min.css (.slick-prev / .slick-next) */
+.top__kv .slick-prev { left: 12px !important; }
+.top__kv .slick-next { right: 12px !important; }
+.top__kv .slick-dots {
+    position: absolute;
+    bottom: -45px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+.top__kv .slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+}
+.top__kv .slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.top__kv .slick-dots li button:hover,
+.top__kv .slick-dots li button:focus {
+    outline: none;
+}
+.top__kv .slick-dots li button:hover:before,
+.top__kv .slick-dots li button:focus:before {
+    opacity: 1;
+}
+.top__kv .slick-dots li button:before {
+    content: " ";
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    opacity: .25;
+    background-color: black;
+    border-radius: 50%;
+
+}
+.top__kv .slick-dots li.slick-active button:before {
+    opacity: .75;
+    background-color: black;
+}
+.top__kv .slick-dots li button.thumbnail img {
+    width: 0;
+    height: 0;
+}
+/* サムネイル */
+.top__kv .top_item_nav {
+    padding: 0 3px;
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+}
+.top__kv .top_item_nav .slick-slide {
+    padding-top: 20px;
+}
+.top__kv .top_item_nav .slideThumb {
+    position: relative;
+}
+.top__kv .top_item_nav .slick-current img {
+    position: relative;
+    border: 3px solid #518889;
+}
+.top__kv .top_item_nav .slick-current:before {
+    position: absolute;
+    top: -4px;
+    left: calc(50% - 12px);
+    width: 0;
+    height: 0;
+    content: " ";
+    border-color: transparent transparent #518889 transparent;
+    border-style: solid solid solid solid;
+    border-width: 12px 12px 12px 12px;
+}
+.top__kv .slick-slide{
+  padding:2px;
+}
+.top__kv .top_item_nav .slideThumb {
+}
+.top__kv .top_item_nav .slideThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media only screen and (max-width: 1024px) {
+    .top_item_nav .slideThumb {
+        height: auto;
+    }
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script>
+$(function() {
+    // $('.top_visual').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     prevArrow: '<i class="fas fa-chevron-left"></i>',
+    //     nextArrow: '<i class="fas fa-chevron-right"></i>',
+    //     autoplay: true,
+    //     adaptiveHeight: true,
+    //     responsive: [{
+    //         breakpoint: 768,
+    //         settings: {
+    //             dots: true
+    //         }
+    //     }]
+    // });
+
+    // $('.slideThumb').on('click', function() {
+    //     var index = $(this).attr('data-index');
+    //     $('.top_visual').slick('slickGoTo', index, false);
+    // })
+    $(".top_visual").slick({
+        asNavFor:".top_item_nav",
+        autoplay: true,
+        autoplaySpeed: 6000,
+        speed: 1000,
+    });
+    $(".top_item_nav").slick({
+        asNavFor:".top_visual",
+        slidesToShow: 3,
+    });
+    $(".top_item_nav .slick-slide").on("click",function(){
+        let index=$(this).attr("data-slick-index")
+        $(".top_visual").slick("slickGoTo",index)
+    })
+});
+</script>
+{% endblock %}
+<div class="top__kv">
+    <div class="top_visual pc-only">
+        <div class="slide-item">
+            <a href="https://lion-express.com/mypage/">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP01_会員登録_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+        <div class="slide-item">
+            <a href="#">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP02_友達紹介_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+        <div class="slide-item">
+            <a href="https://lion-express.com/mypage/">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP03_送料無料_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+    </div>
+    <div class="top_visual sp-only">
+        <div class="slide-item">
+            <a href="https://lion-express.com/mypage/">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP01_会員登録_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+        <div class="slide-item">
+            <a href="#">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP02_友達紹介_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+        <div class="slide-item">
+            <a href="https://lion-express.com/mypage/">
+                <img src="{{ asset('/html/user_data/assets/img/common/TOP03_送料無料_TOP_0.jpg') }}"alt="" width="" height="">
+            </a>
+        </div>
+    </div>
+    <div class="top_item_nav">
+        <div class="slideThumb" data-index="1">
+            <img src="{{ asset('/html/user_data/assets/img/banner/mv_kv_1.webp') }}"alt="" width="" height="">
+        </div>
+        <div class="slideThumb" data-index="2">
+            <img src="{{ asset('/html/user_data/assets/img/banner/mv_pet_1.webp') }}"alt="" width="" height="">
+        </div>
+        <div class="slideThumb" data-index="0">
+            <img src="{{ asset('/html/user_data/assets/img/banner/mv_rank_1.webp') }}"alt="" width="" height="">
+        </div>
+    </div>
+</div>

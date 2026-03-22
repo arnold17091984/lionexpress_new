@@ -1,0 +1,99 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{# Styles moved to theme SCSS: _11.2.header.scss #}
+
+{% set Carts = get_all_carts() %}
+{% set totalPrice = get_carts_total_price() %}
+{% set totalQuantity = get_carts_total_quantity() %}
+
+{# カートクリック時のポップアップに表示される商品の部品です #}
+{% macro cartItem(CartItem) %}
+  {% set ProductClass = CartItem.ProductClass %}
+  {% set Product = ProductClass.Product %}
+
+  <div class="ec-cartItem">
+    <div class="ec-cartItem__image">
+      <img src="{{ asset(Product.MainListImage|no_image_product, 'save_image') }}" alt="{{ Product.name }}">
+    </div>
+    <div class="ec-cartItem__info">
+      <p class="ec-cartItem__name">{{ Product.name }}</p>
+      <p class="ec-cartItem__kikaku">
+        {% if ProductClass.ClassCategory1 and ProductClass.ClassCategory1.id %}
+          {{ ProductClass.ClassCategory1.ClassName.name }}：{{ ProductClass.ClassCategory1 }}
+        {% endif %}
+        {% if ProductClass.ClassCategory2 and ProductClass.ClassCategory2.id %}
+          <br>{{ ProductClass.ClassCategory2.ClassName.name }}：{{ ProductClass.ClassCategory2 }}
+        {% endif %}
+      </p>
+      <p class="ec-cartItem__price">
+        {{ CartItem.price|price }}<span class="ec-cartItem__incTaxLabel">{{ '税込'|trans }}</span>
+      </p>
+      <p class="ec-cartItem__qty">
+        <span class="ec-cartItem__qtyLabel">{{ '数量'|trans }}</span>{{ CartItem.quantity|number_format }}
+      </p>
+    </div>
+  </div>
+    <p class="cart_price sp">合計 <span class="price">{{ CartItem.totalPrice|price }}-</span></p>
+{% endmacro %}
+
+{# カートが空でない時に表示されます #}
+{% macro cartIsSet(Carts) %}
+  {% import _self as self %}
+
+  <div class="ec-cartPopup ec-cartPopup_is_set">
+    {% for Cart in Carts %}
+      {% for CartItem in Cart.CartItems %}
+        {{ self.cartItem(CartItem) }}
+      {% endfor %}
+    {% endfor %}
+    <div class="ec-cartPopup__action">
+      <a class="ec-blockBtn ec-blockBtn_action" href="{{ url('cart') }}">{{ 'カートへ進む'|trans }}</a>
+      <a class="ec-blockBtn ec-blockBtn_cancel">{{ 'キャンセル'|trans }}</a>
+    </div>
+  </div>
+{% endmacro %}
+
+{# カートが空の時に表示されます #}
+{% macro cartIsNotSet() %}
+  <div class="ec-cartPopup ec-cartPopup_is_empty">
+    <p class="ec-cartPopup__message">現在カート内に<br>商品はございません。</p>
+  </div>
+{% endmacro %}
+
+{% import _self as self %}
+
+<div class="ec-cartRole">
+  <div class="ec-cart">
+    <div class="ec-cart__icon">
+      {#<svg class="cb cb-shopping-cart"><use xlink:href="#cb-shopping-cart"/></svg>#}
+      <img class="cb cb-shopping-cart" src="{{ asset('/html/user_data/assets/img/common/cart.svg', 'user_data') }}" alt="カート">
+      <span class="ec-cart__badgeLabel">商品数</span>
+      <span class="ec-cart__badge">{{ totalQuantity|number_format }}</span>
+    </div>
+    <div class="ec-cart__icon_close">
+      <svg class="cb cb-close"><use xlink:href="#cb-close"/></svg>
+    </div>
+    <div class="ec-cart__label">
+      <p class="ec-cart__price">{{ totalPrice|price }}</p>
+    </div>
+    <a class="ec-cart__button" href="{{ url('cart') }}">
+      <img src="{{ asset('assets/img/button/shopping_cart.gif') }}" alt="{{ 'カートへ'|trans }}">
+    </a>
+  </div>
+
+  <div class="ec-cartPopupRole">
+    {% if totalQuantity > 0 %}
+      {{ self.cartIsSet(Carts) }}
+    {% else %}
+      {{ self.cartIsNotSet() }}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,89 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<footer class="nd-site-footer" role="contentinfo">
+  <div class="nd-container">
+    <div class="nd-footer-inner">
+
+      {# ブランド情報 #}
+      <div class="nd-footer-brand">
+        <a href="{{ url('homepage') }}" class="nd-footer-logo-link">
+          <img src="{{ asset('', 'user_data') }}assets/img/logo_1_2.png" alt="{{ BaseInfo.shop_name }}" class="nd-footer-logo-img">
+          <span class="nd-footer-logo-ja">個人輸入代行専門店</span>
+        </a>
+        <p>海外医薬品・サプリメントの個人輸入代行サービス。正規品・品質保証・安心のサポートで、世界の医薬品をお届けします。</p>
+        <div class="nd-footer-badges">
+          <span class="nd-footer-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            SSL暗号化
+          </span>
+          <span class="nd-footer-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            個人情報保護
+          </span>
+          <span class="nd-footer-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            正規品保証
+          </span>
+        </div>
+        <div class="nd-footer-payment">
+          <span class="nd-footer-payment-label">対応決済：</span>
+          <span class="nd-footer-payment-icons">
+            <span class="nd-pay-badge">銀行振込</span>
+          </span>
+        </div>
+      </div>
+
+      {# ショップ情報 #}
+      <nav class="nd-footer-nav" aria-label="ショップ情報">
+        <h3>ショップ情報</h3>
+        <ul>
+          <li><a href="{{ url('help_about') }}">会社概要</a></li>
+          <li><a href="{{ url('help_tradelaw') }}">特定商取引法に基づく表記</a></li>
+          <li><a href="{{ url('help_privacy') }}">プライバシーポリシー</a></li>
+          <li><a href="{{ url('help_guide') }}">免責事項</a></li>
+        </ul>
+      </nav>
+
+      {# ご利用ガイド #}
+      <nav class="nd-footer-nav" aria-label="ご利用ガイド">
+        <h3>ご利用ガイド</h3>
+        <ul>
+          <li><a href="{{ url('help_guide') }}">個人輸入について</a></li>
+          <li><a href="{{ url('help_guide') }}">注文の流れ</a></li>
+          <li><a href="{{ url('help_guide') }}">支払い方法</a></li>
+          <li><a href="{{ url('help_guide') }}">配送について</a></li>
+          <li><a href="{{ url('help_guide') }}">よくある質問</a></li>
+        </ul>
+      </nav>
+
+      {# お問い合わせ #}
+      <nav class="nd-footer-nav" aria-label="お問い合わせ">
+        <h3>お問い合わせ</h3>
+        <ul>
+          <li><a href="https://line.me/R/ti/p/@229ulhco" target="_blank" rel="noopener noreferrer">LINEで問い合わせ</a></li>
+          <li><a href="{{ url('contact') }}">メールで問い合わせ</a></li>
+          <li><a href="{{ url('help_guide') }}">返品・返金について</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="nd-footer-bottom">
+      <p>&copy; 2010–{{ "now"|date("Y") }} {{ BaseInfo.shop_name }}. All rights reserved.</p>
+      <div class="nd-footer-bottom-links">
+        <a href="{{ url('help_guide') }}">利用規約</a>
+        <a href="{{ url('help_privacy') }}">プライバシーポリシー</a>
+        <a href="{{ url('help_tradelaw') }}">特定商取引法</a>
+      </div>
+    </div>
+  </div>
+</footer>

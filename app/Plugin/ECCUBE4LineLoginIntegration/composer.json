@@ -1,0 +1,1 @@
+{"name":"ec-cube\/eccube4lineloginintegration","version":"1.3.1","description":"LINExEC-CUBE\u30ed\u30b0\u30a4\u30f3\u9023\u643a\u30d7\u30e9\u30b0\u30a4\u30f3","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.6 || ^2.0"},"extra":{"code":"ECCUBE4LineLoginIntegration","id":1837}}

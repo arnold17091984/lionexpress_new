@@ -1,0 +1,117 @@
+<script>
+    $(function() {
+    $( "#selectable" ).selectable({
+        filter: 'td,th',
+        start: function(){
+            $('.itl_header').show();
+        },
+        stop: function(e) {
+            var selectedItems = $('.ui-selected', this);
+            if(selectedItems.length === 1){
+                selectcell(e, $('.ui-selected', this));
+            }
+            $('.itl_header').hide();
+        }
+    })
+    var tbl = $('#itemtablelist');
+    //列を追加
+    $('#addcol').on('click', function(){
+        var o = tbl.find('tr');
+        if(o.length === 0){
+            tbl.find('tbody').append('<tr><td>');
+            return false;
+        }
+        o.each(function(i){
+            $(this).append('<td>');
+        })
+        return false;
+    })
+    //行を追加
+    $('#addrow').on('click', function(){
+        var o = tbl.find('tr');
+        if(o.length === 0){
+            tbl.find('tbody').append('<tr><td>');
+            return false;
+        }
+        var c = o.children().length;
+        var row = $('<tr>');
+        o.eq(0).children().each(function(){
+            row.append('<td>');
+        })
+        tbl.find('tbody').append(row);
+        return false;
+    })
+    //列を削除
+    $('#delcol').on('click', function(){
+        tbl.find('tr').each(function(i){
+            var c = $(this).children();
+            c.last().remove();
+            if(!$(this).children()[0]){
+                $(this).remove();
+            }
+        })
+        return false;
+    })
+    //行を削除
+    $('#delrow').on('click', function(){
+        var row = tbl.find('tr:last-child').remove();
+        return false;
+    })
+    //セルの編集
+    var selectcell = function(e, o){
+        if(o.find('input')[0]){
+            return;
+        }
+        var t = o.text();
+        o.empty();
+        var ipt = $('<input>').prop('value',t).blur(function(){sel_blur($(this))});
+        o.append(ipt).addClass('itl_sel');
+        ipt.focus();
+    }
+    var sel_blur = function(o){
+        var t = o.val();
+        o.parent().text(t).removeClass('itl_sel');
+        o.remove();
+    }
+    //見出しの設定
+    $(tbl).on('click', '#addcap', function(){
+        tbl.find('.itl_caption').removeClass('itl_caption')
+        tbl.find('.ui-selected').addClass('itl_caption')
+    })
+
+    //範囲外クリックの処理
+    $(document).on('click touchend', function(event) {
+        if (!$(event.target).closest('#itemtablelist')[0]) {
+            tbl.find('.ui-selected').removeClass('ui-selected');
+        }
+    });
+    //テンプレートを選択
+    $('#admin_product_TableTemplate').on('change', function(){
+        if($(this).val().length){
+            $('#selectable').empty().append($(this).val())
+        }
+    })
+    $('#form1').on('submit', function(event) {
+        var table_json = [];
+        tbl.find('tr').each(function(){
+            var tr = [];
+            $(this).children().each(function(){
+                var txt = $(this).text();
+                var tag = ( $(this).hasClass('itl_caption') || $(this).prop("tagName") == 'TH' )? 'th': 'td';
+                tr.push([tag, txt]);
+            })
+        table_json.push(tr)
+        })
+        if(table_json.length <= 0){
+            //alert('テーブルが入力されていません。');location.reload();return false;
+        }
+        var json = ''+JSON.stringify(table_json);
+        if(!$('input[name="admin_product[template_value]"]').length){
+            var ipt = $('<input>').prop({'value': json, 'name':'admin_product[template_value]','type': 'hidden'});
+            $('#form1').append(ipt);
+        }else{
+            $('input[name="admin_product[template_value]"]').val(json);
+        }
+    });
+});
+</script>

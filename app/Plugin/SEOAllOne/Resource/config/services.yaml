@@ -1,0 +1,20 @@
+parameters:
+  DEFAULT_SITEMAP_HOMEPAGE_CHANGE_FREQ: 'daily'
+  DEFAULT_SITEMAP_HOMEPAGE_PRIORITY: 1.0
+
+  DEFAULT_SITEMAP_PRODUCT_LIST_CHANGE_FREQ: 'daily'
+  DEFAULT_SITEMAP_PRODUCT_LIST_PRIORITY: 0.9
+
+  DEFAULT_SITEMAP_PRODUCT_DETAIL_CHANGE_FREQ: 'daily'
+  DEFAULT_SITEMAP_PRODUCT_DETAIL_PRIORITY: 0.8
+
+  DEFAULT_SITEMAP_CHANGE_FREQ: 'weekly'
+  DEFAULT_SITEMAP_PRIORITY: 0.5
+
+  EXCLUDE_SITEMAP_PAGES: ['entry_activate','preview','contact_complete','entry','entry_complete','shopping_login','shopping_nonmember','forgot']
+ 
+services:
+  Plugin\SEOAllOne\EventListener\RedirectExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception, priority: 1024 }
+        

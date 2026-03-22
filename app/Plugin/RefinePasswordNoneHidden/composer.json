@@ -1,0 +1,1 @@
+{"name":"ec-cube\/refinepasswordnonehidden","version":"4.0.2","description":"\u30ed\u30b0\u30a4\u30f3\u6642\u30d1\u30b9\u30ef\u30fc\u30c9\u8868\u793a\u30d7\u30e9\u30b0\u30a4\u30f3","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.7  || ^2.0"},"extra":{"code":"RefinePasswordNoneHidden","id":2370}}

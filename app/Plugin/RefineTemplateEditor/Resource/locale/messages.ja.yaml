@@ -1,0 +1,14 @@
+#/*
+# * This file is part of Refine
+# *
+# * Copyright(c) 2022 Refine Co.,Ltd. All Rights Reserved.
+# *
+# * https://www.re-fine.jp/
+# *
+# * For the full copyright and license information, please view the LICENSE
+# * file that was distributed with this source code.
+# */
+admin.menu.content.template_editor: テンプレートエディタ
+admin.menu.content.template_edit: テンプレート編集
+admin.menu.content.template_list: テンプレート一覧
+

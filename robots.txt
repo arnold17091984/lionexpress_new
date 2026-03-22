@@ -1,0 +1,12 @@
+User-agent: *
+Disallow: /administrator/
+Disallow: /mypage/
+Disallow: /cart/
+Disallow: /shopping/
+Disallow: /entry/
+Disallow: /forgot/
+Disallow: /*.csv$
+Disallow: /var/
+Disallow: /vendor/
+
+Sitemap: https://lion-express.com/sitemap.xml

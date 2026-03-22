@@ -1,0 +1,63 @@
+{% if form.classcategory_id2 is defined %}
+    <div class="ec-productRole__actions">
+        <div class="plg-apg-table-scroll">
+            <table class="plg-apg-cart-table">
+                <tr>
+                    <th>&nbsp;</th>
+                    {% for headerId2, headerName2 in classCategoryNames2 %}
+                        <th>{{ headerName2 }}</th>
+                    {% endfor %}
+                </tr>
+                {% for classCategoryId1, classCategoryName1 in classCategoryNames1 %}
+                    <tr>
+                        <th>{{ classCategoryName1 }}</th>
+                        {% for classCategoryId2, classCategoryName2 in classCategoryNames2 %}
+                            <td class="plg-apg-radio-select">
+                                {% if Product.hasProductClassByClassId(classCategoryId1, classCategoryId2) %}
+                                    <label for="input-plg-apg-class-{{ loop.parent.loop.index }}_{{ loop.index }}"
+                                           class="plg-apg-price02">
+                                        {{ Product.getProductClassPrice02(classCategoryId1, classCategoryId2, true)|price }}
+                                    </label>
+                                    <input class="input-plg-apg-class"
+                                           required="required"
+                                           id="input-plg-apg-class-{{ loop.parent.loop.index }}_{{ loop.index }}"
+                                           data-class_category1="{{ classCategoryId1 }}"
+                                           data-class_category2="{{ classCategoryId2 }}"
+                                           type="radio" name="plg_apg_class" value="1" minlength="1"
+                                           maxlength="9">
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% elseif form.classcategory_id1 is defined %}
+    <div class="ec-productRole__actions">
+        <div class="scroll">
+            <table class="plg-apg-cart-table">
+                {% for classCategoryId1, classCategoryName1 in classCategoryNames1 %}
+                    <tr>
+                        <th>{{ classCategoryName1 }}</th>
+                        <td class="plg-apg-radio-select">
+                            <label for="input-plg-apg-class-{{ loop.index }}"
+                                   class="plg-apg-price02">
+                                {{ Product.getProductClassPrice02(classCategoryId1, null, true)|price }}
+                            </label>
+                            <input class="input-plg-apg-class"
+                                   id="input-plg-apg-class-{{ loop.index }}"
+                                   data-class_category1="{{ classCategoryId1 }}"
+                                   data-class_category2=""
+                                   type="radio" name="plg_apg_class" value="1" minlength="1"
+                                   maxlength="9">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endif %}

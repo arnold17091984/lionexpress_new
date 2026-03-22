@@ -1,0 +1,32 @@
+// メディアクエリ: ディスプレイ幅
+//   注意: media_tablet_width を変更した際は
+//   assets/js/function.jsのmedia_tablet_widthも変更してください
+$media_tablet_width: 768px;
+$media_desktop_width: 1024px;
+
+// 色
+$clrRed: #DE5D50;
+$clrRich: #9a947e;
+$clrGray: #F3F3F3;
+$clrRightGray: #B8BEC4;
+$clrExtraGray: #636378;
+$clrDarkGray:#525263;
+
+// Brand colors - Lion Express
+$brand-primary: #518889;
+$brand-dark: #336b87;
+$brand-light: #c4dfe6;
+$brand-accent: #a1d6e2;
+$brand-bg: #f1f1f2;
+
+// Design tokens
+$shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+$shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.14);
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-pill: 100px;
+$transition-base: all 0.22s ease;
+$footer-bg: #1a2e2e;
+
+@import "../../../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";

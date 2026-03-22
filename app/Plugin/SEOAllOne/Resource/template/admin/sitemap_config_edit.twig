@@ -1,0 +1,73 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['SEOAllOne', 'seoallone_admin_sitemap_config'] %}
+
+{% block title %}SEO All One{% endblock %}
+{% block sub_title %}設定{% endblock %}
+
+
+{% block stylesheet %}{% endblock stylesheet %}
+
+{% block javascript %}{% endblock javascript %}
+
+{% block main %}
+    <form role="form" method="post">
+
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.Page, { attr : { style : 'display: none;' } } ) }}
+        <div class="c-contentsArea__cols">
+            <div class="c-contentsArea__primaryCol">
+                <div class="c-primaryCol">
+                    <div class="card rounded border-0 mb-4">
+                        <div class="card-header"><span>設定</span></div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-3"><span>Page</span></div>
+                                <div class="col mb-2">
+                                    {{ Page.name }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><span>Change Frequency</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.changefreq) }}
+                                    {{ form_errors(form.changefreq) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3"><span>Priority</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.priority) }}
+                                    {{ form_errors(form.priority) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-conversionArea">
+            <div class="c-conversionArea__container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6">
+                        <div class="c-conversionArea__leftBlockItem">
+                            <a class="c-baseLink"
+                               href="{{ url('seoallone_admin_sitemap_config') }}">
+                                <i class="fa fa-backward" aria-hidden="true"></i>
+                                <span>Sitemap setting</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row align-items-center justify-content-end">
+                            <div class="col-auto">
+                                <button class="btn btn-ec-conversion px-5"
+                                        type="submit">登録</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

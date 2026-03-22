@@ -1,0 +1,36 @@
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{% if Product.seo_title is defined and Product.seo_title is not null %}{{ Product.seo_title }}{% else %}{{ Product.name }}{% endif %}",
+  "image": [{% if Product.ProductImage|length > 0 %}{% for ProductImage in Product.ProductImage %}{% if loop.index > 1 %},{% endif %}"{{url('homepage')}}html/upload/save_image/{{ ProductImage|no_image_product }}"{% endfor %}
+{% else %}
+"{{ eccube_config.eccube_save_image_dir }}/{{ ''|no_image_product }}"{% endif %}],
+  "description": "{{ Product.description_detail|striptags|raw}}",
+  {% if Product.json_category is defined %}
+  "category":[{% for Category in  Product.json_category%}{% if loop.last %}"{{ Category }}"{% else %}"{{ Category }}",{% endif %}{% endfor %}],
+  {% endif %}
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ BaseInfo.shop_name }}"
+  },
+  "sku": "{{ Product.id }}",
+{% if Product.global_id is defined and Product.global_id is not null %}  "{{ Product.global_id_type }}": "{{ Product.global_id }}",
+{% endif %}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ url('product_detail', {'id': Product.id}) }}",
+    "priceCurrency": "JPY",
+    "price": "{{  Product.getPrice02Min  }}",
+{% if Product.valid_price_until is defined and Product.valid_price_until is not null %}    "priceValidUntil": "{{ Product.valid_price_until }}",
+{% endif %}
+    "itemCondition": "http://schema.org/NewCondition",
+    "availability": {% if Product.stock_find %}"http://schema.org/InStock"{% else %}"http://schema.org/OutOfStock"{% endif %},
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ BaseInfo.company_name }}"
+    }
+  }
+}
+</script>

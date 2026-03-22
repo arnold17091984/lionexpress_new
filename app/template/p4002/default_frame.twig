@@ -1,0 +1,201 @@
+<!doctype html>
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<html lang="{{ eccube_config.locale }}">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="eccube-csrf-token" content="{{ csrf_token(constant('Eccube\\Common\\Constant::TOKEN_NAME')) }}">
+    <title>{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} / {{ subtitle }}{% elseif title is defined and title is not empty %} / {{ title }}{% endif %}</title>
+    {% if Page.author is not empty %}
+        <meta name="author" content="{{ Page.author }}">
+    {% endif %}
+    {% if Page.description is not empty %}
+        <meta name="description" content="{{ Page.description }}">
+    {% endif %}
+    {% if Page.keyword is not empty %}
+        <meta name="keywords" content="{{ Page.keyword }}">
+    {% endif %}
+    {% if Page.meta_robots is not empty %}
+        <meta name="robots" content="{{ Page.meta_robots }}">
+    {% endif %}
+    {% if Page.meta_tags is not empty %}
+        {{ include(template_from_string(Page.meta_tags)) }}
+    {% endif %}
+    <link rel="icon" href="{{ asset('assets/img/common/favicon.ico', 'user_data') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
+    <link rel="preconnect" href="https://use.fontawesome.com" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}">
+    {# animate.min.css removed: 60KB for only 1 usage. Animations added inline where needed. #}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}?v=20260318">
+    <link rel="stylesheet" href="{{ asset('assets/css/new-design.css') }}?v=20260319b">
+    {% block stylesheet %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/vue.min.js') }}"></script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                'headers': {
+                    'ECCUBE-CSRF-TOKEN': $('meta[name="eccube-csrf-token"]').attr('content')
+                }
+            });
+        });
+    </script>
+    {# Layout: HEAD #}
+    {% if Layout.Head %}
+        {{ include('block.twig', {'Blocks': Layout.Head}) }}
+    {% endif %}
+    {# プラグイン用styleseetやmetatagなど #}
+    {% if plugin_assets is defined %}{{ include('@admin/snippet.twig', { snippets: plugin_assets }) }}{% endif %}
+    <link rel="stylesheet" href="{{ asset('assets/css/customize.css', 'user_data') }}">
+    <style>[v-cloak] { display: none; }</style>
+    <style>
+        /* Skip link - visible only on focus for keyboard accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            padding: 8px 16px;
+            background: #333;
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+            z-index: 99999;
+            border-bottom-right-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body id="page_{{ app.request.get('_route') }}" class="{{ body_class|default('other_page') }}">
+<a href="#main-content" class="skip-link">本文へスキップ</a>
+{# Layout: BODY_AFTER #}
+{% if Layout.BodyAfter %}
+    {{ include('block.twig', {'Blocks': Layout.BodyAfter}) }}
+{% endif %}
+
+<div class="ec-layoutRole">
+    <div class="ec-siteBackground ec-siteBackground_left"></div>
+    <div class="ec-siteBackground ec-siteBackground_right"></div>
+    {# Layout: HEADER #}
+    {% if Layout.Header %}
+        <div class="ec-layoutRole__header">
+            {{ include('block.twig', {'Blocks': Layout.Header}) }}
+        </div>
+    {% endif %}
+
+    {# Layout: CONTENTS_TOP #}
+    {% if Layout.ContentsTop %}
+        <div class="ec-layoutRole__contentTop">
+            {{ include('block.twig', {'Blocks': Layout.ContentsTop}) }}
+        </div>
+    {% endif %}
+
+    <div class="ec-layoutRole__contents">
+        {# Layout: SIDE_LEFT #}
+        {% if Layout.SideLeft %}
+            <div class="ec-layoutRole__left">
+                {{ include('block.twig', {'Blocks': Layout.SideLeft}) }}
+            </div>
+        {% endif %}
+
+        {% set layoutRoleMain = 'ec-layoutRole__main' %}
+        {% if Layout.ColumnNum == 2 %}
+            {% set layoutRoleMain = 'ec-layoutRole__mainWithColumn' %}
+        {% elseif Layout.ColumnNum == 3 %}
+            {% set layoutRoleMain = 'ec-layoutRole__mainBetweenColumn' %}
+        {% endif %}
+
+        <div class="{{ layoutRoleMain }}">
+            {# Layout: MAIN_TOP #}
+            {% if Layout.MainTop %}
+                <div class="ec-layoutRole__mainTop">
+                    {{ include('block.twig', {'Blocks': Layout.MainTop}) }}
+                </div>
+            {% endif %}
+
+            {# MAIN AREA #}
+            <div id="main-content" tabindex="-1">
+            {% block main %}{% endblock %}
+            </div>
+
+            {# Layout: MAIN_Bottom #}
+            {% if Layout.MainBottom %}
+                <div class="ec-layoutRole__mainBottom">
+                    {{ include('block.twig', {'Blocks': Layout.MainBottom}) }}
+                </div>
+            {% endif %}
+        </div>
+
+        {# Layout: SIDE_RIGHT #}
+        {% if Layout.SideRight %}
+            <div class="ec-layoutRole__right">
+                {{ include('block.twig', {'Blocks': Layout.SideRight}) }}
+            </div>
+        {% endif %}
+    </div>
+
+    {# Layout: CONTENTS_BOTTOM #}
+    {% if Layout.ContentsBottom %}
+        <div class="ec-layoutRole__contentBottom">
+            {{ include('block.twig', {'Blocks': Layout.ContentsBottom}) }}
+        </div>
+    {% endif %}
+
+    {# Layout: CONTENTS_FOOTER #}
+    {% if Layout.Footer %}
+        <div class="ec-layoutRole__footer">
+            {{ include('block.twig', {'Blocks': Layout.Footer}) }}
+        </div>
+    {% endif %}
+</div><!-- ec-layoutRole -->
+
+{# Layout: DRAWER - category_nav_sp.twig outputs ec-drawerRole wrapper itself, so no wrapper here #}
+{% if Layout.Drawer %}
+    {{ include('block.twig', {'Blocks': Layout.Drawer}) }}
+{% endif %}
+<div class="ec-blockTopBtn pagetop ec-blockTopBtn_media_pc ec-blockTopBtn_media_tablet">
+    <img src="{{ asset('assets/img/common/pagetop.gif') }}" alt="{{ 'ページトップへ'|trans }}" loading="lazy" width="50" height="50">
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+{% include('@common/lang.twig') %}
+<script>
+    $(function() {
+        $.ajax('{{ asset("assets/img/common/svg.html") }}')
+        .done(function(data){
+        $('body').prepend($(data).hide());
+        }).fail(function(data){ if (window.console) { console.warn('SVG sprite load failed'); } });
+    });
+</script>
+<script src="{{ asset('assets/js/function.js') }}"></script>
+<script src="{{ asset('assets/js/eccube.js') }}"></script>
+{% block javascript %}{% endblock %}
+{# Layout: CLOSE_BODY_BEFORE #}
+{% if Layout.CloseBodyBefore %}
+    {{ include('block.twig', {'Blocks': Layout.CloseBodyBefore}) }}
+{% endif %}
+{# プラグイン用Snippet #}
+{% if plugin_snippets is defined %}
+    {{ include('snippet.twig', { snippets: plugin_snippets }) }}
+{% endif %}
+    <script src="{{ asset('assets/js/customize.js', 'user_data') }}"></script>
+</body>
+</html>

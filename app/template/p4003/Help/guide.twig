@@ -1,0 +1,292 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% set page_title = '利用規約' %}
+
+{% block stylesheet %}
+<style>
+.nd-terms { max-width: 880px; margin: 0 auto; padding: 32px 20px 60px; }
+.nd-terms h1 { font-size: 26px; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 8px; }
+.nd-terms .nd-lead { text-align: center; color: #666; font-size: 14px; margin-bottom: 32px; }
+
+/* TOC */
+.nd-terms-toc { background: #f7fafa; border-radius: 14px; padding: 24px 28px; margin-bottom: 32px; }
+.nd-terms-toc h2 { font-size: 16px; font-weight: 700; color: #333; margin: 0 0 14px; }
+.nd-terms-toc ol { padding-left: 20px; margin: 0; columns: 2; }
+.nd-terms-toc li { margin-bottom: 6px; break-inside: avoid; }
+.nd-terms-toc a { color: #518889; font-size: 13px; text-decoration: none; }
+.nd-terms-toc a:hover { text-decoration: underline; }
+@media(max-width:600px){ .nd-terms-toc ol { columns: 1; } }
+
+/* Section */
+.nd-terms-section { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); padding: 28px 24px; margin-bottom: 20px; }
+.nd-terms-section h2 { font-size: 18px; font-weight: 700; color: #518889; margin: 0 0 14px; padding-bottom: 10px; border-bottom: 2px solid #e8f0f0; }
+.nd-terms-section h3 { font-size: 15px; font-weight: 600; color: #333; margin: 18px 0 8px; }
+.nd-terms-section p { font-size: 14px; line-height: 1.85; color: #444; margin: 0 0 12px; }
+.nd-terms-section ul, .nd-terms-section ol { padding-left: 20px; margin: 0 0 12px; }
+.nd-terms-section li { font-size: 13px; line-height: 1.8; color: #444; margin-bottom: 4px; }
+
+/* Alert boxes */
+.nd-terms-important { background: #fef2f2; border-left: 4px solid #e53e3e; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 14px 0; }
+.nd-terms-important p { margin: 0; font-size: 13px; color: #991b1b; }
+.nd-terms-note { background: #f0f7f7; border-left: 4px solid #518889; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 14px 0; }
+.nd-terms-note p { margin: 0; font-size: 13px; color: #2d5f5f; }
+
+/* Back to top */
+.nd-terms-top { text-align: right; margin-top: 8px; }
+.nd-terms-top a { font-size: 12px; color: #518889; text-decoration: none; }
+
+/* Last updated */
+.nd-terms-updated { text-align: center; font-size: 12px; color: #999; margin-top: 32px; }
+
+@media(max-width:600px){
+    .nd-terms-section { padding: 20px 16px; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="nd-terms" id="main-content">
+    <h1>{{ page_title }}</h1>
+    <p class="nd-lead">ライオンエキスプレスのサービスをご利用いただく前に、必ずお読みください。<br>ご注文後は、本規約にご同意いただいたものとみなします。</p>
+
+    {# ── 目次 ── #}
+    <div class="nd-terms-toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#t-about">サービスについて</a></li>
+            <li><a href="#t-eligibility">ご利用対象</a></li>
+            <li><a href="#t-order">ご注文について</a></li>
+            <li><a href="#t-products">取扱商品について</a></li>
+            <li><a href="#t-quantity">輸入量の制限</a></li>
+            <li><a href="#t-shipping">配送について</a></li>
+            <li><a href="#t-customs">税関の通関保留</a></li>
+            <li><a href="#t-missing">商品未着について</a></li>
+            <li><a href="#t-refund">返金について</a></li>
+            <li><a href="#t-return">返品・交換について</a></li>
+            <li><a href="#t-exempt">免責対象（保証対象外）</a></li>
+            <li><a href="#t-withdraw">退会について</a></li>
+            <li><a href="#t-law">準拠法</a></li>
+        </ol>
+    </div>
+
+    {# ── 1. サービスについて ── #}
+    <div class="nd-terms-section" id="t-about">
+        <h2>1. サービスについて</h2>
+        <p>ライオンエキスプレス（以下「弊社」）は、お客様の個人輸入の手続きを代行する<strong>個人輸入代行サービス</strong>です。</p>
+        <p>弊社では、メーカー正規品であることを確認のうえ、世界中の高品質な医薬品・ジェネリック医薬品を安価でご提供しています。</p>
+        <p>日本の「医薬品、医療機器等の品質、有効性及び安全性の確保等に関する法律」が定めるルールを厳守しており、ご購入可能数・郵送先等についてお客様のご要望にお応えできない場合もございます。</p>
+
+        <div class="nd-terms-note">
+            <p><strong>プライバシー保護：</strong>ご登録情報・発送先は厳重にセキュリティ管理を行っています。商品発送時は商品名がわからないよう無記名で中身が見えない形でお届けします。</p>
+        </div>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 2. ご利用対象 ── #}
+    <div class="nd-terms-section" id="t-eligibility">
+        <h2>2. ご利用対象</h2>
+        <p>以下のすべてに該当する方がご利用いただけます。</p>
+        <ul>
+            <li>自己の行動に責任を持てる<strong>20歳以上</strong>の方</li>
+            <li>日本における個人輸入・医薬品医療機器等法について十分な知識と理解がある方</li>
+            <li>注文者ご本人が、ご注文商品を<strong>個人使用する目的</strong>である方</li>
+            <li>医師（商品により歯科医師）から処方された処方せんを持っている方、あるいは医師免許・歯科医師免許を持っている方</li>
+            <li>弊社からの通信手段により連絡がとれる方</li>
+        </ul>
+
+        <div class="nd-terms-important">
+            <p>代理注文および第三者への譲渡・転売は法律で禁じられています。</p>
+        </div>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 3. ご注文について ── #}
+    <div class="nd-terms-section" id="t-order">
+        <h2>3. ご注文について</h2>
+        <ul>
+            <li>ご入金後・発注後の注文キャンセルおよび内容変更は<strong>一切承ることができません</strong></li>
+            <li>受取人は必ず使用者ご本人様の名義にしてください</li>
+            <li>男性専用商品は女性名義で、女性専用商品は男性名義でのご注文はできません</li>
+            <li>送り先は使用者ご本人様のご自宅住所でお願いします（企業様・店舗様宛ては不可）</li>
+            <li>商品価格には商品代金・送料・代行手数料が含まれています</li>
+            <li>ご注文後<strong>10営業日以内</strong>に入金確認ができない場合は自動キャンセルとなります</li>
+        </ul>
+
+        <h3>商品価格について</h3>
+        <p>弊社で取り扱う商品は海外製品のため、弊社独自の為替レートに合わせて価格設定をしています。価格は為替変動により予告なく変更する場合があります。</p>
+
+        <h3>在庫について</h3>
+        <p>お客様からのご注文を受けてから海外の発送元へ発注するため、在庫数が変動する場合があります。ご注文後に在庫切れとなる可能性がある旨、あらかじめご了承ください。</p>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 4. 取扱商品 ── #}
+    <div class="nd-terms-section" id="t-products">
+        <h2>4. 取扱商品について</h2>
+        <ul>
+            <li>商品使用に起因する副作用等のトラブルは<strong>お客様の自己責任</strong>となります</li>
+            <li>サイト上の商品情報は薬効成分等の一般的な作用機序の解説であり、服用を推奨するものではありません</li>
+            <li>商品に関するアドバイスは薬機法に抵触する可能性があるためお答えできません</li>
+            <li>ご使用前には必ず医師・歯科医師・薬剤師にご相談ください</li>
+            <li>効果には個人差があります</li>
+            <li>妊娠中または妊娠の可能性がある方は必ず服用前に医師へご相談ください</li>
+        </ul>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 5. 輸入量 ── #}
+    <div class="nd-terms-section" id="t-quantity">
+        <h2>5. 輸入量の制限</h2>
+        <p>個人輸入できる数量は法律により以下のとおり制限されています。</p>
+
+        <h3>基本制限</h3>
+        <ul>
+            <li><strong>医薬品・医薬部外品</strong> — 2ヶ月分以内（毒薬・劇薬・処方せん薬は1ヶ月分以内）</li>
+            <li><strong>外用剤</strong>（毒薬等を除く）— 1品目24個以内</li>
+            <li><strong>化粧品</strong> — 1品目24個以内</li>
+            <li><strong>医療機器</strong> — 1セット（家庭用のみ）</li>
+        </ul>
+
+        <h3>特別な注意が必要な成分</h3>
+
+        <div class="nd-terms-important">
+            <p><strong>ミノキシジル（水溶液）：</strong>複数個の注文不可。前回輸入から規定日数（1本セット：約4週間、2本セット：約8週間）の間隔が必要です。</p>
+        </div>
+
+        <div class="nd-terms-important">
+            <p><strong>シルデナフィル・ニコチン・リパーゼ：</strong>1ヶ月分のみ注文可能。超過分は約1ヶ月間隔での分納発送となります。</p>
+        </div>
+
+        <h3>注射用医薬品</h3>
+        <p>ご注文時に同意書の提出が必須です。通関時に薬監証明書・インボイスの提示が求められる場合があります。</p>
+
+        <h3>沖縄県へのお届け</h3>
+        <p>沖縄税関では開封検査による没収の可能性が高いため、医薬品は1ヶ月分以内または30錠以下のみ承っています。</p>
+
+        <div class="nd-terms-note">
+            <p>輸入量は他社での注文分も合算されます。輸入量の遵守はご注文者様の責任となります。</p>
+        </div>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 6. 配送 ── #}
+    <div class="nd-terms-section" id="t-shipping">
+        <h2>6. 配送について</h2>
+        <ul>
+            <li>通常、手配日より<strong>7〜10営業日前後</strong>でのお届け（目安であり確定期日ではありません）</li>
+            <li>商品によって発送国が異なります</li>
+            <li>追跡番号をお知らせしますので、配送状況はご自身でご確認ください</li>
+            <li>配達日・時間の指定はできません</li>
+        </ul>
+
+        <div class="nd-terms-important">
+            <p><strong>受け取り拒否は絶対にしないでください。</strong>受け取りを拒否された場合は保証対象外となり、返送手数料を請求させていただきます。</p>
+        </div>
+
+        <p>長期不在等で受け取れなかった場合は、保管期間後に発送元へ返送扱いとなります。再発送をご希望の場合は返送手数料・再発送手数料をお客様にご負担いただきます。</p>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 7. 税関 ── #}
+    <div class="nd-terms-section" id="t-customs">
+        <h2>7. 税関の通関保留について</h2>
+        <p>非常にまれですが、税関で商品が止められる（通関保留）場合があります。その際は商品受取までに日数がかかります。</p>
+        <p>通関保留の場合、税関からお客様へ通達が届きます。薬監証明の提示を求められる場合がありますが、薬監証明については厚生労働省にご確認ください。</p>
+
+        <div class="nd-terms-important">
+            <p>本規約に遵守せず注文し通関保留となった場合は、いかなる場合も保証対象外となり返金・返品は承れません。</p>
+        </div>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 8. 未着 ── #}
+    <div class="nd-terms-section" id="t-missing">
+        <h2>8. 商品未着について</h2>
+        <p>商品が発送国を離れた日より<strong>2週間経過</strong>しても届かない場合は、必ず弊社までご連絡ください。</p>
+        <p><strong>3週間経過</strong>しても日本へ未入国の場合は、弊社にて調査のうえ以下の対応をいたします。</p>
+        <ul>
+            <li><strong>同商品の再発送</strong>（ただし重複して届いた場合は受取拒否をしてください）</li>
+            <li><strong>商品代金の返金</strong></li>
+        </ul>
+
+        <div class="nd-terms-note">
+            <p>発送から21日経過してもお客様から連絡がない場合は、商品が届いたものと判断し、以降は保証対象外とさせていただきます。</p>
+        </div>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 9. 返金 ── #}
+    <div class="nd-terms-section" id="t-refund">
+        <h2>9. 返金について</h2>
+        <p>以下の場合に返金対応を行います。</p>
+        <ul>
+            <li>注文商品が発送できない状態となり、今後の再入荷予定がない場合</li>
+            <li>その他弊社が返金対応することが適当と判断した場合</li>
+        </ul>
+        <p>返金方法は「お客様ご指定の銀行口座への返金」または「ポイント/デポジットにて相殺」のいずれかとなります。</p>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 10. 返品 ── #}
+    <div class="nd-terms-section" id="t-return">
+        <h2>10. 返品・交換について</h2>
+        <p>商品到着後は<strong>すぐに内容を確認</strong>してください。数量不足・破損・不良・注文と異なる商品が届いた場合は、<strong>未使用状態で到着後7日以内</strong>に弊社までお知らせください。</p>
+
+        <div class="nd-terms-important">
+            <p>到着後7日を超えた場合は保証対象外となり、返品・交換・追加発送等は一切対応できません。</p>
+        </div>
+
+        <p>問題がある場合は、インボイス・外箱（外観やラベル）と商品の画像を弊社に提出してください。画像提出ができない場合は対応できません。</p>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 11. 免責 ── #}
+    <div class="nd-terms-section" id="t-exempt">
+        <h2>11. 免責対象（保証対象外）</h2>
+        <p>個人輸入代行は日本のクーリングオフ制度の対象外です。以下の場合は保証対象外となります。</p>
+        <ul>
+            <li>商品到着後7日を経過している場合</li>
+            <li>商品に瑕疵が確認できない場合、または弊社発送荷物と確認できない場合</li>
+            <li>商品を一部でも使用している場合</li>
+            <li>お客様の注文情報に虚偽・誤入力・入力不足があり商品が不達となった場合</li>
+            <li>受け取り拒否・長期不在等お客様都合で受け取れなかった場合</li>
+            <li>輸送中の事故・配送業者の不手際による場合</li>
+            <li>パッケージの相違や変更がある場合</li>
+            <li>使用に影響のない軽微な箱潰れ等がある場合</li>
+            <li>薬機法違反による税関での保留・破棄・返送がある場合</li>
+            <li>天災・戦争・テロ等の不可抗力による場合</li>
+        </ul>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 12. 退会 ── #}
+    <div class="nd-terms-section" id="t-withdraw">
+        <h2>12. 退会について</h2>
+        <p>退会を希望される場合は、会員ページの退会ボタン、またはお問い合わせフォームから会員名・電話番号・パスワードを記載のうえお申し出ください。退会手数料はかかりません。</p>
+        <p>土日を挟む場合、退会申請から返信まで3日程度お時間をいただく場合があります。</p>
+
+        <h3>メール配信停止</h3>
+        <p><a href="mailto:info@lion-express.com" style="color:#518889;">info@lion-express.com</a> までメール配信停止の旨をご連絡ください。</p>
+        <div class="nd-terms-top"><a href="#main-content">▲ 目次へ戻る</a></div>
+    </div>
+
+    {# ── 13. 準拠法 ── #}
+    <div class="nd-terms-section" id="t-law">
+        <h2>13. 準拠法</h2>
+        <p>本規約および本規約に定める権利義務に関しては日本法に従うものとし、訴訟の必要が発生した場合には、東京地方裁判所を第一審の専属管轄裁判所と定めます。</p>
+        <p>本規約は予告なく改定（変更・追加・削除・補充）することがあります。改定後は最新の規約内容が有効となります。</p>
+    </div>
+
+    <p class="nd-terms-updated">本規約に関するご質問は <a href="{{ url('contact') }}" style="color:#518889;">お問い合わせフォーム</a> よりご連絡ください。</p>
+</div>
+{% endblock %}

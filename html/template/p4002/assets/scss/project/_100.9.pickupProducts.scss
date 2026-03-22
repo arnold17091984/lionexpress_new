@@ -1,0 +1,65 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * PICK UP STYLE 
+ * 新入荷商品特集ブロック(eyecatch.twig)
+ */
+
+.ec-pickupProducts {
+  @include container;
+
+  &__title {
+    @include sectionTitle;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+}
+
+.ec-pickupProductsItem {
+  flex-basis: calc(33.3% - 6.6px);
+  max-width: calc(33.3% - 6.6px);
+  margin: 0 10px 15px 0;
+  @media only screen and (max-width: $media_tablet_width - 1) {
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+  @include media_tablet {
+    flex-basis: calc(25% - 7.5px);
+    max-width: calc(25% - 7.5px);
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+  }
+  &__image {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  &__name,
+  &__price {
+    line-height: 1.2;
+    font-size: 1.2rem;
+    @include media_tablet {
+      line-height: 1.3;
+      font-size: 1.4rem;
+    }
+  }
+  &__name {
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  &__price {
+    color: #ff0024;
+    margin-bottom: 5px;
+  }
+}

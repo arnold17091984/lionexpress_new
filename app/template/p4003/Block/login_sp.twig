@@ -1,0 +1,60 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<div class="ec-headerLinkArea ec-headerLink">
+  <div class="ec-headerLink__list">
+
+    {% if is_granted('ROLE_USER') %}
+
+      <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('mypage') }}">
+        <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+          <svg class="cb cb-user-circle"><use xlink:href="#cb-user-circle" /></svg>
+        </div>
+        <span>{{ 'マイページ'|trans }}</span>
+      </a>
+      {% if BaseInfo.option_favorite_product %}
+        <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('mypage_favorite') }}">
+          <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+            <svg class="cb cb-heart-circle"><use xlink:href="#cb-heart-circle"></use></svg>
+          </div>
+          <span>{{ 'お気に入り'|trans }}</span>
+        </a>
+      {% endif %}
+      <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('logout') }}">
+        <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+          <svg class="cb cb-lock-circle"><use xlink:href="#cb-lock-circle" /></svg>
+        </div>
+        <span>{{ 'ログアウト'|trans }}</span>
+      </a>
+    {% else %}
+      <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('entry') }}">
+        <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+          <svg class="cb cb-user-circle"><use xlink:href="#cb-user-circle" /></svg>
+        </div>
+        <span>{{ '新規会員登録'|trans }}</span>
+      </a>
+      {% if BaseInfo.option_favorite_product %}
+        <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('mypage_favorite') }}">
+          <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+            <svg class="cb cb-heart-circle"><use xlink:href="#cb-heart-circle"></use></svg>
+          </div>
+          <span>{{ 'お気に入り'|trans }}</span>
+        </a>
+      {% endif %}
+      <a class="ec-headerLink__item ec-headerLinkItem" href="{{ url('mypage_login') }}">
+        <div class="ec-headerLink__icon ec-headerLinkItem__icon">
+          <svg class="cb cb-lock-circle"><use xlink:href="#cb-lock-circle" /></svg>
+        </div>
+        <span>{{ 'ログイン'|trans }}</span>
+      </a>
+    {% endif %}
+  </div>
+</div>

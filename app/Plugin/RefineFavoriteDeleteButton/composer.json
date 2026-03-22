@@ -1,0 +1,1 @@
+{"name":"ec-cube\/refinefavoritedeletebutton","version":"4.0.2","description":"\u304a\u6c17\u306b\u5165\u308a\u5546\u54c1\u8a73\u7d30\u30da\u30fc\u30b8\u3067\u524a\u9664\u30dc\u30bf\u30f3\u30d7\u30e9\u30b0\u30a4\u30f3","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.7 || ^2.0"},"extra":{"code":"RefineFavoriteDeleteButton","id":2366}}

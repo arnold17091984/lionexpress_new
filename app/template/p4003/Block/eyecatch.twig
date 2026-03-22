@@ -1,0 +1,94 @@
+{#
+  eyecatch.twig — ヒーロースライドショー
+  【管理画面対応】
+  管理画面 > コンテンツ管理 > ブロック管理 > "eyecatch"
+
+  ■ スライド追加方法:
+  1. nd-hero-slider 内の .nd-hero-slide をコピー
+  2. 背景画像・テキスト・リンクを変更
+  3. 画像なしスライドはクラス nd-hero-slide--gradient を使用
+
+  ■ 設定変更:
+  - autoplay / speed / dots などは下部の slick 初期化 JS を編集
+  - 1枚だけの場合はスライダーは自動的に無効化されます
+#}
+
+{# === スライドショー本体 === #}
+<div class="nd-hero-slider">
+
+  {# --- Slide 1: グラデーション背景（デフォルト） --- #}
+  <section class="nd-hero nd-hero-slide nd-hero-slide--gradient">
+    <div class="nd-container">
+      <div class="nd-hero-content">
+        <div class="nd-hero-eyebrow">薬事法準拠の合法代行 ・ 安心・安全・信頼</div>
+        <h1 class="nd-hero-title">
+          世界の医薬品を<br>
+          <span class="nd-highlight">確かな品質</span>で<br>
+          あなたのもとへ
+        </h1>
+        <p class="nd-hero-sub">
+          Lion Expressは個人輸入代行の専門店です。<br>
+          正規ルートで仕入れた安全・安心の海外医薬品を<br>
+          迅速・丁寧にお届けします。
+        </p>
+        <div class="nd-hero-actions">
+          <a href="{{ path('product_list') }}" class="nd-btn-hero-primary">商品を探す →</a>
+          <a href="https://line.me/R/ti/p/@229ulhco" class="nd-btn-hero-line" target="_blank" rel="noopener noreferrer">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            LINEで注文する
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# --- Slide 2: 画像背景テンプレ（コメントアウト — 使用時に解除） ---
+  <section class="nd-hero nd-hero-slide">
+    <div class="nd-hero-image">
+      <img src="{{ asset('assets/img/common/slide2.webp', 'user_data') }}"
+           alt="キャンペーン名"
+           loading="lazy"
+           width="1280" height="600">
+    </div>
+    <div class="nd-container">
+      <div class="nd-hero-content">
+        <div class="nd-hero-eyebrow">期間限定キャンペーン</div>
+        <h2 class="nd-hero-title">
+          スライド2の<br>
+          <span class="nd-highlight">見出し</span>
+        </h2>
+        <p class="nd-hero-sub">
+          キャンペーンの説明テキスト
+        </p>
+        <div class="nd-hero-actions">
+          <a href="#" class="nd-btn-hero-primary">詳しく見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  #}
+
+</div>
+
+{# === Slick スライダー初期化 === #}
+<script>
+$(function(){
+  var $slider = $('.nd-hero-slider');
+  // Only init if more than 1 slide
+  if ($slider.children('.nd-hero-slide').length > 1) {
+    $slider.slick({
+      autoplay: true,
+      autoplaySpeed: 5000,
+      speed: 600,
+      fade: true,
+      cssEase: 'ease-in-out',
+      dots: true,
+      arrows: false,
+      pauseOnHover: true,
+      pauseOnFocus: true,
+      adaptiveHeight: false,
+      dotsClass: 'nd-hero-dots'
+    });
+  }
+});
+</script>

@@ -1,0 +1,21 @@
+{#
+/*
+  * This file is part of the LecastTableList41 plugin
+  *
+  * Copyright (C) >=2018 lecast system.
+  * @author Tetsuji Shiro 
+  *
+  * このプラグインは再販売禁止です。
+  */
+#}
+{# Styles moved to new-design.css: .ct, .ttitle, .tvalue, #itl_wrapper, #itl_contents #}
+{% if Product is defined %}
+<div id="itl_wrapper">
+    <div id="itl_contents">
+        {#<table>#}
+        {#    <tbody>{{ Product.template_value|raw }}</tbody>#}
+        {#</table>#}
+{{ convertTable(Product.template_value) }}
+    </div>
+</div>
+{% endif %}

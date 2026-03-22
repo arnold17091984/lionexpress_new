@@ -1,0 +1,121 @@
+{#
+This file is part of Refine
+
+Copyright(c) 2022 Refine Co.,Ltd. All Rights Reserved.
+
+https://www.re-fine.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['content','refine_template_editor', 'template_editor'] %}
+
+{% block title %}{{ 'admin.menu.content.template_editor'|trans }}{% endblock %}
+{% block sub_title %}{{ 'admin.menu.content.template_editor'|trans }}{% endblock %}
+
+
+{% block javascript %}
+<script>
+
+    $(function() {
+    // 削除モーダルのhrefとmessageの変更
+    $('#DeleteModal').on('shown.bs.modal', function (event) {
+        var target = $(event.relatedTarget);
+        // hrefの変更
+        $(this).find('[data-method="delete"]').attr('href', target.data('url'));
+
+        // messageの変更
+        $(this).find('p.modal-message').text(target.data('message'));
+    })
+
+});
+</script>
+{% endblock %}
+
+{% block main %}
+    <div class="c-contentsArea__cols">
+        <div class="c-contentsArea__primaryCol">
+            <div class="c-primaryCol">
+                <div class="d-block mb-3">
+
+                </div>
+                {# ThemeTemplates #}
+
+                {% for TemplateKey, Items in Templates %}
+                    <div class="card rounded border-0 mb-4">
+                        <div class="card-header">
+                            <div class="row plugin-name"
+                                 data-collapse-target="layout-{{ TemplateKey|replace({'%#%':'','%.%':''}) }}">
+                                <div class="col-8">
+                                    <i class="fa fa-fw fa-desktop fa-lg mr-2"></i>
+                                    <span class="card-title align-middle"
+                                    >{{ TemplateKey }}</span>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <a
+                                        href="#layout-{{ TemplateKey|replace({'%#%':'','%.%':''}) }}"
+                                        data-toggle="collapse"
+                                        aria-expanded="false"
+                                        aria-controls="layout-{{ TemplateKey }}">
+                                        <i class="fa fa-angle-down fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Pages #}
+                        {% if Items|length > 0 %}
+                            <div class="collapse ec-cardCollapse"
+                                 id="layout-{{ TemplateKey|replace({'%#%':'','%.%':''}) }}">
+                                {% for Item in Items %}
+                                    <div class="card-body p-0">
+                                        <div class="row justify-content-between p-3">
+                                            <div class="col-auto">
+                                                <a href="{{ url('refine_template_editor_content_template_editor_edit', { code: Item.code }) }}">{{ Item.name }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="collapse ec-cardCollapse"
+                                 id="layout-{{ TemplateKey|replace({'%#%':'','%.%':''}) }}">
+                                <div class="p-0 empty-item">
+                                    <div class="d-block p-3">
+                                        <span class="text-muted">{{ 'admin.content.layout_no_page'|trans }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModal"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ 'admin.common.delete_modal__title'|trans }}</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="modal-message"><!-- jsでメッセージを挿入 --></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-ec-sub w-25" type="button"
+                                        data-dismiss="modal">{{ 'admin.common.cancel'|trans }}</button>
+                                <a href="#" class="btn btn-ec-delete" {{ csrf_token_for_anchor() }} data-method="delete"
+                                   data-confirm="false">
+                                    {{ 'admin.common.delete'|trans }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

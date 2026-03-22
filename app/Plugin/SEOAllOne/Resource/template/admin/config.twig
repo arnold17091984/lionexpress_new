@@ -1,0 +1,227 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['SEOAllOne', 'seo_all_one_admin_config'] %}
+
+{% block title %}SEO All One{% endblock %}
+{% block sub_title %}設定{% endblock %}
+
+{% form_theme form '@admin/Form/bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block stylesheet %}{% endblock stylesheet %}
+
+{% block main %}
+    <form role="form" method="post">
+
+        {{ form_widget(form._token) }}
+
+        <div class="c-contentsArea__cols">
+            <div class="c-contentsArea__primaryCol">
+                <div class="c-primaryCol">
+                    <div class="card rounded border-0 mb-4">
+                        <div class="card-header"><span>設定</span></div>
+                        <div class="card-body">
+                            <div class="row col-12">
+                                <div class="col-3"><span>リッチスニペット</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.rich_snippet_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.rich_snippet_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3"><span>SNSボタン設定</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.sns_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.sns_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3"><span>サイトマップ生成</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.sitemap_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.sitemap_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3"><span>商品一覧ページのprev、nextタグ</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.pagination_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.pagination_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3"><span>パンくずリスト</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.breadcrumb_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.breadcrumb_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3"><span>トップページtitleタグの末尾に店名を表示</span></div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.shop_name_top_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.shop_name_top_flg) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                
+                    <div class="card rounded border-0 mb-4" id="sns_buttons_form" {% if Config.getSnsFlg() == 0 %}style="display:none"{% endif %}>
+                        <div class="card-header"><span>SNSボタン</span></div>
+                        <div class="card-body">
+                            <div class="row col-12">
+                                <div class="col-3">
+                                    <span>Facebook ボタン</span>
+                                </div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.facebook_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.facebook_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3">
+                                    <span>Twitter ボタン</span>
+                                </div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.twitter_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.twitter_flg) }}
+                                </div>
+                            </div><hr>
+                            <div class="row col-12">
+                                <div class="col-3">
+                                    <span>Line ボタン</span>
+                                </div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.line_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.line_flg) }}
+                                </div>
+                            </div>
+                            
+                            <div class="row col-12">
+                                <div style="margin-top: 20px">                                    
+                                    ※オリジナルのテンプレートをご利用時など、ソーシャルボタンが表示されない場合は、「<a href="{{ url('admin_content_page_edit', { id : 3 }) }}">商品詳細ページ</a>」のソーシャルボタンを表示したい箇所に下記のコードを挿入してください。
+                                    <div style="background-color: lightgray; margin-top: 10px; padding: 15px 15px 5px">
+                                    <pre><code>&lt;div class=seo-all-in-social-button&gt;&lt;/div&gt;</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card rounded border-0 mb-4">
+                        <div class="card-header"><span>リッチスニペット設定</span></div>
+                        <div class="card-body">
+                            <div class="row col-12">
+                                <div class="col-3">
+                                    <span>グローバル（商品固有） ID</span>
+                                </div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.global_id_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.global_id_flg) }}
+                                </div>
+                            </div>
+                            <div class="row col-12" id="global_id_type_form" {% if Config.getGlobalIdFlg() == 0 %}style="display:none"{% endif %}>
+                                <div class="col-3">
+                                    <span>バーコード種類</span>
+                                </div>
+                                <div class="col mb-2 col-4" style="margin-left: 18px">
+                                    {{ form_widget(form.global_id_type, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.global_id_type) }}
+                                </div>
+                            </div>
+                            <div class="row col-12">
+                                <div class="col-3">
+                                    <span>priceValidUntil</span>
+                                </div>
+                                <div class="col mb-2">
+                                    {{ form_widget(form.valid_price_flg, {'attr': {'class': 'form-check-inline'}}) }}
+                                    {{ form_errors(form.valid_price_flg) }}
+                                </div>
+                            </div>
+                            <div class="row col-12" id="valid_price_month_form" {% if Config.getValidPriceFlg() == 0 %}style="display:none"{% endif %}>
+                                <div class="col-3">
+                                    <span></span>
+                                </div>
+                                <div class="col mb-2" style="margin-left: 18px">
+                                    初期値: {{ form_widget(form.valid_price_month, {'attr': {'class': 'form-check-inline', 'style': 'width:80px; text-align: center;'}, 'id': 'valid_price_month'}) }}ヶ月
+                                    {{ form_errors(form.valid_price_month) }}
+                                    <p class="help-block">※Googleの価格の有効期限情報です。基本的には変更する必要はありません。</p>
+                                </div>
+                            </div>
+                        </div>
+                                    
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-conversionArea">
+            <div class="c-conversionArea__container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6">
+                        <div class="c-conversionArea__leftBlockItem">
+                            <a class="c-baseLink"
+                               href="{{ url('admin_store_plugin') }}">
+                                <i class="fa fa-backward" aria-hidden="true"></i>
+                                <span>プラグイン一覧</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row align-items-center justify-content-end">
+                            <div class="col-auto">
+                                <button class="btn btn-ec-conversion px-5"
+                                        type="submit">登録</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $(function(){
+        $('input[name="config[sns_flg]"]').on('change', function(e) {
+            console.log(e.target.value);
+            if (e.target.value == 0)
+            {
+                $('#sns_buttons_form').hide();
+            }
+            else
+            {
+                $('#sns_buttons_form').show();
+            }
+        });
+        
+        $('input[name="config[global_id_flg]"]').on('change', function(e) {
+            if (e.target.value == 0)
+            {
+                $('#global_id_type_form').hide();
+            }
+            else
+            {
+                $('#global_id_type_form').show();
+            }
+        });
+        
+        if (parseInt($('#valid_price_month').val()) == 0){
+            //$('#valid_price_month').val('');
+        }
+        $('input[name="config[valid_price_flg]"]').on('change', function(e) {
+            if (e.target.value == 0)
+            {
+                $('#valid_price_month_form').hide();
+            }
+            else
+            {
+                $('#valid_price_month_form').show();
+                if (parseInt($('#valid_price_month').val()) == 0){
+                    $('#valid_price_month').val('');
+                }
+            }
+        });
+    });
+</script>
+{% endblock javascript %}

@@ -1,0 +1,52 @@
+{#
+  category.twig — カテゴリグリッド
+  【管理画面対応】
+  管理画面 > コンテンツ管理 > ブロック管理 > "category"
+  → カテゴリ名・リンク先を変更する場合はここを編集してください
+  → category_id は EC-CUBE管理画面 > 商品管理 > カテゴリ で確認できます
+#}
+<div class="nd-category-grid">
+
+  <a href="{{ url('product_list', {'category_id': 11}) }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg>
+    </div>
+    <div class="nd-category-name">ED・<br>バイアグラ系</div>
+  </a>
+
+  <a href="{{ url('product_list', {'category_id': 76}) }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+    </div>
+    <div class="nd-category-name">ダイエット<br>サプリ</div>
+  </a>
+
+  <a href="{{ url('product_list', {'category_id': 34}) }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    </div>
+    <div class="nd-category-name">スキンケア<br>美白</div>
+  </a>
+
+  <a href="{{ url('product_list', {'category_id': 1}) }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+    </div>
+    <div class="nd-category-name">薄毛<br>育毛</div>
+  </a>
+
+  <a href="{{ url('product_list', {'category_id': 5}) }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5c-1.5-2-3.5-3-5-2.5S4 5.5 4 8c0 2.5 1 4 2 6s2 4 2 6h8c0-2 1-4 2-6s2-3.5 2-6c0-2.5-1-5-3-5s-3.5.5-5 2.5z"/></svg>
+    </div>
+    <div class="nd-category-name">歯科<br>オーラルケア</div>
+  </a>
+
+  <a href="{{ url('product_list') }}" class="nd-category-card">
+    <div class="nd-category-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="nd-category-name">生活習慣病<br>サポート</div>
+  </a>
+
+</div>

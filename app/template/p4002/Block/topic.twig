@@ -1,0 +1,51 @@
+{#
+  topic.twig — 売れ筋ランキング
+  【管理画面対応】管理画面 > コンテンツ管理 > ブロック管理 > "topic"
+  → 商品IDを変更する場合は下記 rankingTabs を編集
+#}
+
+{% set rankingTabs = {
+  'all':  [10, 46, 257, 309],
+  'diet': [76, 80, 85, 90],
+  'hair': [1, 3, 6, 9],
+  'skin': [34, 37, 40, 43],
+  'ed':   [11, 14, 17, 20]
+} %}
+{% set rankClass = ['gold', 'silver', 'bronze', ''] %}
+{% set tabKeys   = ['all', 'diet', 'hair', 'skin', 'ed'] %}
+
+{% for tabKey in tabKeys %}
+  {% set found = [] %}
+  {% for pid in rankingTabs[tabKey] %}
+    {% set Ps = repository('Eccube\\Entity\\Product').findBy({id: pid}) %}
+    {% if Ps|length > 0 %}
+      {% set found = found|merge([Ps[0]]) %}
+    {% endif %}
+  {% endfor %}
+  {% if found|length == 0 %}
+    {% set found = repository('Eccube\\Entity\\Product').findBy({}, {id: 'ASC'}, 4, 0) %}
+  {% endif %}
+
+  <div class="nd-ranking-grid nd-ranking-panel" data-tab="{{ tabKey }}"
+       {% if not loop.first %}style="display:none"{% endif %}>
+    {% for P in found %}
+      {% set rank = loop.index %}
+      <a href="{{ url('product_detail', {id: P.id}) }}" class="nd-product-card">
+        <div class="nd-product-card-image">
+          <img src="{{ asset(P.main_list_image|no_image_product, 'save_image') }}"
+               alt="{{ P.name }}"
+               width="300" height="300"
+               loading="{{ rank <= 2 ? 'eager' : 'lazy' }}"
+               decoding="async">
+          <div class="nd-rank-num {{ rankClass[rank - 1]|default('') }}" aria-label="{{ rank }}位">{{ rank }}</div>
+        </div>
+        <div class="nd-product-card-body">
+          <p class="nd-product-card-name">{{ P.name }}</p>
+          <p class="nd-product-card-price">
+            {{ P.getPrice02IncTaxMin|number_format }}<small>円</small>
+          </p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+{% endfor %}

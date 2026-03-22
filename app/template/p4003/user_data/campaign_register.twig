@@ -1,0 +1,461 @@
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'page_campaign_register' %}
+
+{% block stylesheet %}
+<style>
+/* ========================================================
+   Campaign: Register  –  nd-campaign-* scoped styles
+   ======================================================== */
+:root {
+    --brand-primary: #518889;
+    --brand-dark: #3d6a6b;
+    --brand-pale: #e8f4f4;
+    --neutral-900: #111;
+    --neutral-600: #4b5563;
+    --white: #fff;
+}
+
+/* --- breadcrumb --- */
+.nd-campaign-breadcrumb {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
+    color: var(--neutral-600);
+}
+.nd-campaign-breadcrumb a {
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+.nd-campaign-breadcrumb a:hover {
+    text-decoration: underline;
+}
+.nd-campaign-breadcrumb span {
+    margin: 0 0.6rem;
+}
+
+/* --- hero --- */
+.nd-campaign-hero {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    border-radius: 0 0 2.4rem 2.4rem;
+}
+.nd-campaign-hero__badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.6rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+}
+.nd-campaign-hero__title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0 0 1.6rem;
+}
+.nd-campaign-hero__sub {
+    font-size: 1.6rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* --- section wrapper --- */
+.nd-campaign-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+}
+.nd-campaign-section__title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    text-align: center;
+    margin: 0 0 4rem;
+    position: relative;
+}
+.nd-campaign-section__title::after {
+    content: '';
+    display: block;
+    width: 4rem;
+    height: 0.3rem;
+    background: var(--brand-primary);
+    border-radius: 2px;
+    margin: 1.2rem auto 0;
+}
+
+/* --- steps --- */
+.nd-campaign-steps {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+}
+.nd-campaign-step {
+    flex: 0 1 22rem;
+    background: var(--white);
+    border: 1px solid #e5e7eb;
+    border-radius: 1.6rem;
+    padding: 3.2rem 2.4rem;
+    text-align: center;
+    position: relative;
+}
+.nd-campaign-step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+}
+.nd-campaign-step__label {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0 0 0.8rem;
+}
+.nd-campaign-step__desc {
+    font-size: 1.3rem;
+    color: var(--neutral-600);
+    margin: 0;
+    line-height: 1.6;
+}
+.nd-campaign-step__icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    margin-bottom: 1.2rem;
+    color: var(--brand-primary);
+}
+.nd-campaign-arrow {
+    display: flex;
+    align-items: center;
+    padding-top: 4rem;
+    color: var(--brand-primary);
+}
+.nd-campaign-arrow svg {
+    width: 2.4rem;
+    height: 2.4rem;
+}
+
+/* --- benefits grid --- */
+.nd-campaign-benefits {
+    background: var(--brand-pale);
+    border-radius: 1.6rem;
+    padding: 4.8rem 3.2rem;
+}
+.nd-campaign-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.4rem;
+    margin-top: 3.2rem;
+}
+.nd-campaign-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.6rem;
+    background: var(--white);
+    border-radius: 1.2rem;
+    padding: 2.4rem;
+}
+.nd-campaign-benefit__icon {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    color: var(--brand-primary);
+}
+.nd-campaign-benefit__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0 0 0.4rem;
+}
+.nd-campaign-benefit__text {
+    font-size: 1.3rem;
+    color: var(--neutral-600);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* --- CTA --- */
+.nd-campaign-cta {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+.nd-campaign-cta__btn {
+    display: inline-block;
+    background: var(--brand-primary);
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 1.8rem 4.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(81,136,137,0.25);
+}
+.nd-campaign-cta__btn:hover {
+    background: var(--brand-dark);
+    transform: translateY(-2px);
+}
+
+/* --- trust --- */
+.nd-campaign-trust {
+    display: flex;
+    justify-content: center;
+    gap: 3.2rem;
+    margin-top: 2.4rem;
+    flex-wrap: wrap;
+}
+.nd-campaign-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.3rem;
+    color: var(--neutral-600);
+}
+.nd-campaign-trust__item svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--brand-primary);
+}
+
+/* --- FAQ --- */
+.nd-campaign-faq {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+}
+.nd-campaign-faq__item {
+    border-bottom: 1px solid #e5e7eb;
+}
+.nd-campaign-faq__q {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    padding: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    cursor: pointer;
+    list-style: none;
+}
+.nd-campaign-faq__q::-webkit-details-marker { display: none; }
+.nd-campaign-faq__q-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.nd-campaign-faq__chevron {
+    margin-left: auto;
+    transition: transform 0.25s;
+}
+.nd-campaign-faq__chevron svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--neutral-600);
+}
+.nd-campaign-faq__item[open] .nd-campaign-faq__chevron {
+    transform: rotate(180deg);
+}
+.nd-campaign-faq__a {
+    padding: 0 0 2rem 4rem;
+    font-size: 1.4rem;
+    color: var(--neutral-600);
+    line-height: 1.8;
+}
+
+/* --- responsive --- */
+@media (max-width: 767px) {
+    .nd-campaign-hero { padding: 4rem 1.6rem 3.6rem; border-radius: 0 0 1.6rem 1.6rem; }
+    .nd-campaign-hero__title { font-size: 2.4rem; }
+    .nd-campaign-hero__sub { font-size: 1.4rem; }
+    .nd-campaign-steps { flex-direction: column; align-items: center; }
+    .nd-campaign-arrow { padding-top: 0; transform: rotate(90deg); }
+    .nd-campaign-step { flex: 0 1 100%; max-width: 32rem; }
+    .nd-campaign-benefits__grid { grid-template-columns: 1fr; }
+    .nd-campaign-section { padding: 4rem 1.6rem; }
+    .nd-campaign-section__title { font-size: 2rem; }
+    .nd-campaign-cta__btn { font-size: 1.6rem; padding: 1.6rem 3.2rem; }
+    .nd-campaign-trust { gap: 1.6rem; }
+    .nd-campaign-faq__a { padding-left: 0; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+{# --- Breadcrumb --- #}
+<nav class="nd-campaign-breadcrumb" aria-label="パンくずリスト">
+    <a href="{{ url('homepage') }}">TOP</a>
+    <span>&gt;</span>
+    会員登録キャンペーン
+</nav>
+
+{# --- Hero --- #}
+<section class="nd-campaign-hero">
+    <span class="nd-campaign-hero__badge">期間限定キャンペーン</span>
+    <h1 class="nd-campaign-hero__title">新規会員登録で<br>500ポイントプレゼント！</h1>
+    <p class="nd-campaign-hero__sub">今すぐ無料登録して、次回のお買い物にご利用いただけるポイントを受け取りましょう。</p>
+</section>
+
+{# --- 3-Step Flow --- #}
+<section class="nd-campaign-section">
+    <h2 class="nd-campaign-section__title">かんたん3ステップ</h2>
+    <div class="nd-campaign-steps">
+        {# Step 1 #}
+        <div class="nd-campaign-step">
+            <div>
+                <svg class="nd-campaign-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            </div>
+            <span class="nd-campaign-step__number">1</span>
+            <p class="nd-campaign-step__label">会員登録</p>
+            <p class="nd-campaign-step__desc">メールアドレスと基本情報を入力するだけ。約1分で完了します。</p>
+        </div>
+
+        <div class="nd-campaign-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        {# Step 2 #}
+        <div class="nd-campaign-step">
+            <div>
+                <svg class="nd-campaign-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/></svg>
+            </div>
+            <span class="nd-campaign-step__number">2</span>
+            <p class="nd-campaign-step__label">メール認証</p>
+            <p class="nd-campaign-step__desc">届いたメールのリンクをクリックして本人確認を完了します。</p>
+        </div>
+
+        <div class="nd-campaign-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        {# Step 3 #}
+        <div class="nd-campaign-step">
+            <div>
+                <svg class="nd-campaign-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <span class="nd-campaign-step__number">3</span>
+            <p class="nd-campaign-step__label">500ptゲット</p>
+            <p class="nd-campaign-step__desc">認証完了と同時にアカウントへ500ポイントが自動付与されます。</p>
+        </div>
+    </div>
+</section>
+
+{# --- Benefits --- #}
+<section class="nd-campaign-section" style="padding-top:0;">
+    <div class="nd-campaign-benefits">
+        <h2 class="nd-campaign-section__title">会員になるとこんなメリット</h2>
+        <div class="nd-campaign-benefits__grid">
+            <div class="nd-campaign-benefit">
+                <svg class="nd-campaign-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <div>
+                    <p class="nd-campaign-benefit__title">ポイント利用可能</p>
+                    <p class="nd-campaign-benefit__text">貯まったポイントを1ポイント＝1円としてお買い物にご利用いただけます。</p>
+                </div>
+            </div>
+            <div class="nd-campaign-benefit">
+                <svg class="nd-campaign-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <div>
+                    <p class="nd-campaign-benefit__title">注文履歴管理</p>
+                    <p class="nd-campaign-benefit__text">過去のご注文をいつでも確認でき、配送状況の追跡も簡単です。</p>
+                </div>
+            </div>
+            <div class="nd-campaign-benefit">
+                <svg class="nd-campaign-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <div>
+                    <p class="nd-campaign-benefit__title">お気に入り機能</p>
+                    <p class="nd-campaign-benefit__text">気になる商品をお気に入りに追加して、いつでもすぐにアクセスできます。</p>
+                </div>
+            </div>
+            <div class="nd-campaign-benefit">
+                <svg class="nd-campaign-benefit__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <div>
+                    <p class="nd-campaign-benefit__title">再注文が簡単</p>
+                    <p class="nd-campaign-benefit__text">注文履歴からワンクリックで同じ商品をカートに追加できます。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# --- CTA --- #}
+<section class="nd-campaign-cta">
+    <a href="{{ url('entry') }}" class="nd-campaign-cta__btn">今すぐ無料会員登録する</a>
+    <div class="nd-campaign-trust">
+        <span class="nd-campaign-trust__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            登録無料
+        </span>
+        <span class="nd-campaign-trust__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1分で完了
+        </span>
+        <span class="nd-campaign-trust__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            個人情報保護
+        </span>
+    </div>
+</section>
+
+{# --- FAQ --- #}
+<section class="nd-campaign-faq">
+    <h2 class="nd-campaign-section__title">よくあるご質問</h2>
+
+    <details class="nd-campaign-faq__item">
+        <summary class="nd-campaign-faq__q">
+            <span class="nd-campaign-faq__q-badge">Q</span>
+            ポイントはいつ付与されますか？
+            <span class="nd-campaign-faq__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </summary>
+        <div class="nd-campaign-faq__a">メール認証が完了した時点で、自動的にアカウントへ500ポイントが付与されます。マイページのポイント履歴からご確認いただけます。</div>
+    </details>
+
+    <details class="nd-campaign-faq__item">
+        <summary class="nd-campaign-faq__q">
+            <span class="nd-campaign-faq__q-badge">Q</span>
+            ポイントに有効期限はありますか？
+            <span class="nd-campaign-faq__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </summary>
+        <div class="nd-campaign-faq__a">ポイントの有効期限は最終利用日から1年間です。期間内にお買い物またはポイント獲得があれば、有効期限が延長されます。</div>
+    </details>
+
+    <details class="nd-campaign-faq__item">
+        <summary class="nd-campaign-faq__q">
+            <span class="nd-campaign-faq__q-badge">Q</span>
+            会員登録に費用はかかりますか？
+            <span class="nd-campaign-faq__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </summary>
+        <div class="nd-campaign-faq__a">いいえ、会員登録は完全無料です。年会費や月額費用も一切かかりません。</div>
+    </details>
+
+    <details class="nd-campaign-faq__item">
+        <summary class="nd-campaign-faq__q">
+            <span class="nd-campaign-faq__q-badge">Q</span>
+            登録に必要な情報は何ですか？
+            <span class="nd-campaign-faq__chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </summary>
+        <div class="nd-campaign-faq__a">メールアドレス、お名前、パスワードの設定のみで登録できます。お届け先住所はご注文時に入力いただけます。</div>
+    </details>
+</section>
+{% endblock %}

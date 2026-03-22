@@ -1,0 +1,398 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% extends 'default_frame.twig' %}
+
+{% form_theme form 'Form/form_div_layout.twig' %}
+
+{% block javascript %}
+    <script src="//yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+{% endblock javascript %}
+
+{% block stylesheet %}
+<style>
+/* ── Contact form — scoped styles ── */
+.nd-contact { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+.nd-contact-hero {
+  text-align: center;
+  padding: 48px 20px 16px;
+}
+.nd-contact-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--neutral-900, #111);
+  margin: 0 0 12px;
+}
+.nd-contact-hero p {
+  font-size: 1.4rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* Alternative channels */
+.nd-contact-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 24px 0 36px;
+}
+.nd-contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--brand-pale, #e8f4f4);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--neutral-900, #111);
+  transition: box-shadow 0.2s;
+}
+.nd-contact-channel:hover {
+  box-shadow: 0 4px 16px rgba(81,136,137,0.15);
+}
+.nd-contact-channel-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-primary, #518889);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nd-contact-channel-text strong {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.nd-contact-channel-text span {
+  font-size: 1.2rem;
+  color: var(--neutral-500, #6b7280);
+}
+
+/* Notice */
+.nd-contact-notice {
+  background: #fef3cd;
+  border: 1px solid #f59e0b;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #92400e;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.nd-contact-notice svg { flex-shrink: 0; margin-top: 2px; }
+
+/* Form card */
+.nd-contact-form-card {
+  background: #fff;
+  border: 1px solid var(--neutral-200, #e5e7eb);
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.nd-contact-form-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--neutral-900, #111);
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* Form rows */
+.nd-form-group {
+  margin-bottom: 20px;
+}
+.nd-form-group label.nd-form-label {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--neutral-700, #374151);
+  margin-bottom: 6px;
+}
+.nd-form-group label.nd-form-label .nd-required {
+  display: inline-block;
+  background: #ef4444;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.nd-form-group .ec-halfInput,
+.nd-form-group .ec-input,
+.nd-form-group .ec-telInput,
+.nd-form-group .ec-zipInput,
+.nd-form-group .ec-select {
+  margin-bottom: 8px;
+}
+.nd-form-group input[type="text"],
+.nd-form-group input[type="email"],
+.nd-form-group input[type="tel"],
+.nd-form-group input[type="number"],
+.nd-form-group textarea,
+.nd-form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--neutral-300, #d1d5db);
+  border-radius: 10px;
+  font-size: 1.4rem;
+  color: var(--neutral-900, #111);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.nd-form-group input:focus,
+.nd-form-group textarea:focus,
+.nd-form-group select:focus {
+  border-color: var(--brand-primary, #518889);
+  box-shadow: 0 0 0 3px rgba(81,136,137,0.15);
+}
+.nd-form-group textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+.nd-form-group .ec-halfInput {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.nd-form-hint {
+  font-size: 1.2rem;
+  color: var(--neutral-500, #6b7280);
+  margin-top: 4px;
+}
+
+/* Submit */
+.nd-contact-submit {
+  text-align: center;
+  margin-top: 28px;
+}
+.nd-contact-submit button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 280px;
+  padding: 14px 36px;
+  background: var(--brand-primary, #518889);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.nd-contact-submit button:hover {
+  background: var(--brand-dark, #3d6a6b);
+  transform: translateY(-1px);
+}
+
+/* Trust footer */
+.nd-contact-trust {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.nd-contact-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  color: var(--neutral-500, #6b7280);
+}
+.nd-contact-trust-item svg {
+  color: var(--brand-primary, #518889);
+}
+
+@media (max-width: 767px) {
+  .nd-contact { padding: 0 12px 40px; }
+  .nd-contact-hero { padding: 32px 12px 12px; }
+  .nd-contact-form-card { padding: 24px 18px; }
+  .nd-form-group .ec-halfInput { grid-template-columns: 1fr; }
+  .nd-contact-submit button { width: 100%; min-width: auto; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+
+<div class="nd-contact">
+
+  <div class="nd-contact-hero">
+    <h1>お問い合わせ</h1>
+    <p>商品に関するご質問、ご注文に関するお問い合わせなど、お気軽にご連絡ください。</p>
+  </div>
+
+  {# Alternative channels #}
+  <div class="nd-contact-channels">
+    <a href="https://line.me/R/ti/p/@229ulhco" class="nd-contact-channel" target="_blank" rel="noopener noreferrer">
+      <div class="nd-contact-channel-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="nd-contact-channel-text">
+        <strong>LINEで問い合わせ</strong>
+        <span>即時対応可能</span>
+      </div>
+    </a>
+    <a href="mailto:info@lion-express.com" class="nd-contact-channel">
+      <div class="nd-contact-channel-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="nd-contact-channel-text">
+        <strong>メールで直接送信</strong>
+        <span>info@lion-express.com</span>
+      </div>
+    </a>
+  </div>
+
+  {# Notice #}
+  <div class="nd-contact-notice">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <div>
+      現在、お問い合わせフォームからの送信が届かない場合がございます。
+      返信がない場合は、<strong>info@lion-express.com</strong> または <strong>LINE</strong> へ直接ご連絡ください。
+    </div>
+  </div>
+
+  {# Form card #}
+  <div class="nd-contact-form-card">
+    <h2>お問い合わせフォーム</h2>
+    <form method="post" action="{{ url('contact') }}" class="h-adr" novalidate>
+      <span class="p-country-name" style="display:none;">Japan</span>
+      {{ form_widget(form._token) }}
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">お名前 <span class="nd-required">必須</span></label>
+        <div class="ec-halfInput{{ has_errors(form.name.name01, form.name.name02) ? ' error' }}">
+          {{ form_widget(form.name.name01, {'attr': { 'placeholder': '姓' }}) }}
+          {{ form_widget(form.name.name02, {'attr': { 'placeholder': '名' }}) }}
+        </div>
+        {{ form_errors(form.name.name01) }}
+        {{ form_errors(form.name.name02) }}
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">お名前（カナ）<span class="nd-required">必須</span></label>
+        <div class="ec-halfInput{{ has_errors(form.kana.kana01, form.kana.kana02) ? ' error' }}">
+          {{ form_widget(form.kana.kana01, {'attr': { 'placeholder': 'セイ' }}) }}
+          {{ form_widget(form.kana.kana02, {'attr': { 'placeholder': 'メイ' }}) }}
+        </div>
+        {{ form_errors(form.kana.kana01) }}
+        {{ form_errors(form.kana.kana02) }}
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">郵便番号</label>
+        <div class="ec-zipInput{{ has_errors(form.postal_code) ? ' error' }}">
+          {{ form_widget(form.postal_code, {'attr': { 'placeholder': '1000001' }}) }}
+        </div>
+        {{ form_errors(form.postal_code) }}
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">住所</label>
+        <div class="ec-select{{ has_errors(form.address.pref) ? ' error' }}" style="margin-bottom:8px;">
+          {{ form_widget(form.address.pref) }}
+          {{ form_errors(form.address.pref) }}
+        </div>
+        <div class="ec-input{{ has_errors(form.address.addr01) ? ' error' }}" style="margin-bottom:8px;">
+          {{ form_widget(form.address.addr01, { 'attr': { 'placeholder': '市区町村名（例：大阪市北区）' }}) }}
+          {{ form_errors(form.address.addr01) }}
+        </div>
+        <div class="ec-input{{ has_errors(form.address.addr02) ? ' error' }}">
+          {{ form_widget(form.address.addr02,  { 'attr': { 'placeholder': '番地・ビル名（例：西梅田1丁目6-8）' }}) }}
+          {{ form_errors(form.address.addr02) }}
+        </div>
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">電話番号 <span class="nd-required">必須</span></label>
+        <div class="ec-telInput{{ has_errors(form.phone_number) ? ' error' }}">
+          {{ form_widget(form.phone_number, {'attr': { 'placeholder': '09012345678' }}) }}
+          {{ form_errors(form.phone_number) }}
+        </div>
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">メールアドレス <span class="nd-required">必須</span></label>
+        <div class="ec-input{{ has_errors(form.email) ? ' error' }}">
+          {{ form_widget(form.email, {'attr': { 'placeholder': 'example@mail.com' }}) }}
+          {{ form_errors(form.email) }}
+        </div>
+      </div>
+
+      <div class="nd-form-group">
+        <label class="nd-form-label">お問い合わせ内容 <span class="nd-required">必須</span></label>
+        <div class="ec-input{{ has_errors(form.contents) ? ' error' }}">
+          {{ form_widget(form.contents, {'attr': { 'placeholder': 'ご質問やご相談内容をご記入ください。\nご注文に関するお問い合わせの場合は「ご注文番号」をご記入ください。' }}) }}
+          {{ form_errors(form.contents) }}
+        </div>
+        <p class="nd-form-hint">ご注文に関するお問い合わせには、必ず「ご注文番号」をご記入ください。</p>
+      </div>
+
+      {# Entity extensions #}
+      {% for f in form if f.vars.eccube_form_options.auto_render %}
+          {% if f.vars.eccube_form_options.form_theme %}
+              {% form_theme f f.vars.eccube_form_options.form_theme %}
+              {{ form_row(f) }}
+          {% else %}
+              <div class="nd-form-group">
+                  {{ form_label(f) }}
+                  <div class="{{ f.vars.eccube_form_options.style_class }}{{ has_errors(f) ? ' error' }}">
+                      {{ form_widget(f) }}
+                      {{ form_errors(f) }}
+                  </div>
+              </div>
+          {% endif %}
+      {% endfor %}
+
+      <div class="nd-contact-submit">
+        <button type="submit" name="mode" value="confirm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          確認ページへ進む
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {# Trust indicators #}
+  <div class="nd-contact-trust">
+    <div class="nd-contact-trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      SSL暗号化通信
+    </div>
+    <div class="nd-contact-trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      個人情報保護
+    </div>
+    <div class="nd-contact-trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      24時間受付
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

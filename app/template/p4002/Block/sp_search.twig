@@ -1,0 +1,29 @@
+{% form_theme form 'Form/form_div_layout.twig' %}
+<div class="nd-search-bar">
+  <form method="get" class="nd-search-form" action="{{ path('product_list') }}">
+    <input type="hidden" name="search_select" value="search_default">
+    <div class="nd-search-input-wrap">
+      <svg class="nd-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      {{ form_widget(form.name, {
+        'id': null,
+        'attr': {
+          'class': 'nd-search-input',
+          'placeholder': '商品名を入力してください（例：バイアグラ、プロペシア）',
+          'autocomplete': 'off'
+        }
+      }) }}
+    </div>
+    <button class="nd-search-btn" type="submit" aria-label="検索">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <span class="nd-search-btn-label">検索</span>
+    </button>
+  </form>
+</div>

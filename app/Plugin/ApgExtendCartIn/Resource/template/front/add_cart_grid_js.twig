@@ -1,0 +1,62 @@
+<script>
+    $('#form1').find('.ec-select').css('display', 'none');
+    $('.add-cart').prop('disabled', true);
+
+    $(function () {
+
+        $('.plg-apg-radio-select').click(function () {
+            var $this = $(this);
+            $this.find('input[type="radio"]').prop('checked', true).trigger('change');
+       });
+
+        // 「カートに入れる」ボタンの制御
+        $('.add-cart').each(function (i, elem) {
+            var observer = new MutationObserver(function (mutations) { // オブザーバインスタンスを作成
+                mutations.forEach(function (mutation) {
+                    var $this = $(mutation.target);
+                    if ($this.attr('disabled')) {
+                        $('.input-plg-apg-class').prop('disabled', true);
+                    } else {
+                        $('.input-plg-apg-class').prop('disabled', false);
+                    }
+                });
+            });
+            observer.observe(elem, {attributes: true});
+        });
+
+        // 品切れ中チェック
+        $('.input-plg-apg-class').each(function (i, elem) {
+            var $targetInput = $(this);
+            var class_category1_id = $targetInput.data('class_category1');
+            var class_category2_id = $targetInput.data('class_category2');
+            $classCategory = eccube.classCategories[class_category1_id]['#' + class_category2_id];
+            if (!$classCategory['stock_find']) {
+                $targetInput.after('×品切れ');
+                $targetInput.remove();
+            }
+        });
+
+        // ラジオボタン選択時の処理
+        $('input[name="plg_apg_class"]').change(function () {
+
+            var $targetInput = $(this);
+            var class_category1_id = $targetInput.data('class_category1');
+            var class_category2_id = $targetInput.data('class_category2');
+            var $form = $('#form1');
+
+            $classCategory = eccube.classCategories[class_category1_id]['#' + class_category2_id];
+            $('input[name="ProductClass"]').val($classCategory['product_class_id']);
+
+            $('.add-cart').prop('disabled', false);
+
+            var $sele1 = $form.find('select[name=classcategory_id1]');
+            $sele1.val(class_category1_id);
+            {% if form.classcategory_id2 is defined %}
+            fnSetClassCategories(
+                $form, String(class_category2_id)
+            );
+            {% endif %}
+
+        });
+    });
+</script>

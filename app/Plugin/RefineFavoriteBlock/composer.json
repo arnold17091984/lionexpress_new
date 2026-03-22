@@ -1,0 +1,1 @@
+{"name":"ec-cube\/refinefavoriteblock","version":"4.0.2","description":"\u304a\u6c17\u306b\u5165\u308a\u5546\u54c1\u30d6\u30ed\u30c3\u30af\u5316\u30d7\u30e9\u30b0\u30a4\u30f3","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.7 || ^2.0"},"extra":{"code":"RefineFavoriteBlock","id":2367}}

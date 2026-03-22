@@ -1,0 +1,195 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% block stylesheet %}
+<style>
+    .ec-shelfRole .ec-shelfRole__tags {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+        padding-bottom: 16px;
+    }
+    .ec-shelfRole .ec-shelfRole__tag {
+        display: inline-block;
+        font-size: 80%;
+        list-style: none;
+        color: #525263;
+        border: solid 2px #d7dadd;
+        border-radius: 3px;
+        background-color: #f5f7f8;
+        padding: 2px 5px;
+    }
+
+    {% for Tag in DesignTags|default([]) %}
+    {% if Tag.show_product_list_flg %}
+    .ec-shelfRole .ec-shelfRole__tag.tag_{{ Tag.id }}{
+    {% if Tag.text_color %}color: {{ Tag.text_color }};{% endif %}
+    {% if Tag.background_color %}background-color: {{ Tag.background_color }};{% endif %}
+    {% if Tag.border_color %}border-color: {{ Tag.border_color }};{% endif %}
+    }
+    {% endif %}
+    {% endfor %}
+
+.ec-shopRanking__title {
+    padding-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-left: 5px;
+    border-left: 10px solid #518889;
+    border-bottom: 1px solid #518889;
+}
+.product-item {
+    margin: 0 10px;
+}
+{# 画像 #}
+.slick-slide img {
+    border: 1px solid #c0c0c0;
+}
+{# タグ #}
+.item_tag {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0
+}
+.item_tag li {
+    margin: 3px 6px 3px 0;
+    padding: 5px;
+    color: #404040;
+    font-size: 12px;
+    line-height: 1;
+    border: 1px solid #808080;
+    border-radius: 2px;
+}
+{# 商品名 #}
+.ec-shelfGrid__item-name {
+    margin: 4px;
+    color: #337ab7;
+    text-decoration: underline;
+}
+{# 料金 #}
+.ec-shelfGrid__item-price.price02-default {
+    margin-bottom: 8px;
+    color: #ff0024;
+    font-size: 1.6rem;
+}
+</style>
+{% endblock %}
+
+<script>
+$(function(){
+  $('.ec-topics2List').slick({
+    infinite: false,
+    arrows: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+      breakpoint: 769,//モニターの横幅が769px以下の見せ方
+      settings: {
+        slidesToShow: 3,//スライドを画面に2枚見せる
+        slidesToScroll: 1,//1回のスクロールで2枚の写真を移動して見せる
+      }
+    }
+    ]
+  });
+});
+</script>
+
+{% macro tree(Product) %}
+    {% from _self import tree %}
+    <a href="{{ url('product_detail', {'id': Product.id}) }}">
+        <div class="product-item">
+            <div class="product-item-left">
+                <p class="ec-shelfGrid__item-image">
+                    <img src="{{ asset(Product.main_list_image|no_image_product, 'save_image') }}">
+                </p>
+            </div>
+            <div class="product-item-right">
+                <p class="ec-shelfGrid__item-name">{{ Product.name }}</p>
+                {# タグ #}
+                {{ include('@DesignTag4/tag_list.twig', ignore_missing = true) }}
+                {#<div class="item_desc_body1">#}
+                {#    <ul class="item_tag">#}
+                {#        {% for Tag in Product.Tags %}#}
+                {#            <li>{{ Tag }}</li>#}
+                {#        {% endfor %}#}
+                {#    </ul>#}
+                {#</div>#}
+                {% if Product.description_list %}
+                    <p class="ec-shelfGrid__item-description">{{ Product.description_list|raw|nl2br }}</p>
+                {% endif %}
+                <p class="ec-shelfGrid__item-price price02-default">
+                    {% set isBreak = false %}
+                    {% for ProductClass in Product.ProductClasses %}
+                        {% if isBreak == false and ProductClass.visible == 1 %}
+                            {% set ClassCategory1 = ProductClass.ClassCategory1 %}
+                            {% if ClassCategory1 is not null %}
+                                {% set unitPrice = convertPrice(ClassCategory1.name, ProductClass.unit, ProductClass.price02) %}
+                                <span class="title">1{{ ProductClass.unit }}：{{ unitPrice|number_format }}<small>円</small>～</span>
+                            {% else %}
+                                <span class="title">{{ ProductClass.price02IncTax|number_format }}<small>円</small>～</span>
+                            {% endif %}
+                            {% set isBreak = true %}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <div class="product-review">
+                    {% set AvgGood = 0 %}
+                    {% set AvgCnt = 0 %}
+                    {% set AvgReview = getAvgReview(Product.id) %}
+                    {% if AvgReview is not empty and AvgReview.star is defined and AvgReview.star is not null %}
+                        {% set AvgGood = AvgReview.star * 2 %}
+                        {% set AvgGood = AvgGood|round(0, 'floor') %}
+                        {% set AvgGood = AvgGood / 2 %}
+                    {% else %}
+                        {% set AvgGood = 0 %}
+                    {% endif %}
+                    {% if AvgReview is not empty and AvgReview.cnt is defined and AvgReview.cnt is not null %}
+                        {% set AvgCnt = AvgReview.cnt %}
+                    {% endif %}
+                    {{ getStar(AvgGood)|raw }}({{ AvgCnt }})
+                </div>
+            </div>
+        </div>
+    </a>
+{% endmacro %}
+
+{% from _self import tree %}
+
+<div class="ec-topicsItem ec-shelfRole">
+  <div id="ec-shopRanking" class="ec-shopRanking">
+    {#<h2 class="ec-shopRanking__title">SHOP RANKING</h2>#}
+  </div>
+  <ul class="ec-topicsItemRole__list ec-topics2List">
+    {# DEV: using sample product IDs [1,2] — restore to [10, 799, 837] before production deploy #}
+    {% for pid in [1, 2, 1] %}
+    {% set Products = repository('Eccube\\Entity\\Product').findBy({id : pid}) %}
+    {% if Products|length > 0 %}
+    <li class="ec-shopRankingItem">
+      {% set Product = Products[0] %}
+      {{ tree(Product) }}
+    </li>
+    {% endif %}
+    {% endfor %}
+    {# 
+    <li class="ec-shopRankingItem">
+    {% set Products = repository('Eccube\\Entity\\Product').findBy({id : 557}) %}
+    {% set Product = Products[0] %}
+    {{ tree(Product) }}
+    </li>
+    #}
+  </ul>
+</div>

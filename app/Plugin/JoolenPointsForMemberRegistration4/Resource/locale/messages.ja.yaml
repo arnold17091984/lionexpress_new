@@ -1,0 +1,28 @@
+#====================================================================================
+# 管理画面
+#====================================================================================
+
+#------------------------------------------------------------------------------------
+# 店舗情報
+#------------------------------------------------------------------------------------
+
+joolenpointsformemberregistration4.admin.setting.shop.option_member_registration_point: "会員登録時付与ポイント設定"
+joolenpointsformemberregistration4.admin.setting.shop.joolen_always_member_registration_point: "ポイント（常時付与設定）"
+joolenpointsformemberregistration4.admin.setting.shop.joolen_always_member_registration_point.help: |-
+  ・会員登録時に常に付与するポイントを設定できます。
+  
+  ・「未設定」または「0」を設定した場合は、機能しません。
+  
+  ・ver2.0.1で新設した項目です。
+
+joolenpointsformemberregistration4.admin.setting.shop.member_registration_point: "ポイント（期間中のみ付与設定）"
+joolenpointsformemberregistration4.admin.setting.shop.member_registration_point.help: |-
+  ・指定した期間中のみ会員登録時に付与するポイントを付与します。
+  
+  ・「未設定」または「0」を設定した場合は、機能しません。
+  
+  ・「ポイント（常時付与設定）」と併用すると、ポイントを上乗せして付与できます。
+  
+  ・ver1.1.0までの「ポイント」にあたります。名称を変更しただけで挙動に変更はありません。
+joolenpointsformemberregistration4.admin.setting.shop.joolen_include_receiving_mail_magazine: "メルマガ受け取り条件"
+joolenpointsformemberregistration4.admin.setting.shop.joolen_include_receiving_mail_magazine.help: "ONにするとフロント側会員登録画面で、「メールマガジン送付について」の「受け取る」を選択することを、報酬付与の獲得条件に含めます。"

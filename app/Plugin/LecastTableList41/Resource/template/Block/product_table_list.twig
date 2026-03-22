@@ -1,0 +1,47 @@
+{#
+/*
+  * This file is part of the LecastTableList41 plugin
+  *
+  * Copyright (C) >=2018 lecast system.
+  * @author Tetsuji Shiro 
+  *
+  * このプラグインは再販売禁止です。
+  */
+#}
+{% block stylesheet %}
+<style>
+    #itl_wrapper {
+    width: 100%;
+    margin: 20px 0;
+    }
+    #itl_contents {
+        margin: auto;
+        max-width: 600px;
+        }
+        #itl_contents table {
+            text-align: right;
+            padding: 0 4px;
+            box-sizing: border-box;
+            border-collapse: collapse;
+            }
+            #itl_contents th, #itl_contents td {
+                min-height: 30px;
+                border: 1px solid #dfdfdf;
+                padding: 4px 10px;
+                font-size: 90%;
+            }
+            #itl_contents th {
+                text-align: center;
+                background: #f2f2f2;
+            }
+</style>
+{% endblock %}
+{% if Product is defined %}
+<div id="itl_wrapper">
+    <div id="itl_contents">
+        <table>
+            <tbody>{{ Product.template_value|raw }}</tbody>
+        </table>
+    </div>
+</div>
+{% endif %}

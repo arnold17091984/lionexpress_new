@@ -1,0 +1,252 @@
+@import "../mixins/media";
+@import "../mixins/variables";
+@import "../mixins/projects";
+
+/**
+ * SHOPPING FLOW, SHOPPING GUIDE 
+ * フッターブロック
+ */
+
+.ec-shoppingFlow {
+  @include container;
+  display: none;
+  @include media_desktop {
+    display: block;
+  }
+
+  &__title {
+    background: $brand-primary;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 3rem;
+    border-radius: $radius-sm;
+    box-shadow: 0 2px 8px rgba(81, 136, 137, 0.25);
+  }
+
+  &__list {
+    display: flex;
+    border: none;
+    gap: 8px;
+  }
+}
+
+.ec-shoppingFlowItem {
+  flex-basis: calc(100% / 6);
+  max-width: calc(100% / 6);
+  font-size: 0.8em;
+  padding: 0 1%;
+  &:not(:first-child) {
+    border-left: 1px solid #ccc;
+  }
+
+  &__title {
+    color: #ff7782;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-bottom: 2px dotted #ccc;
+    padding-bottom: 10px;
+    line-height: 1.4;
+    margin: 1.33em 0;
+
+    span {
+      font-size: 0.9em;
+      background: url(../img/icon/arrow3.png) no-repeat right center;
+      margin-right: 100%;
+      padding-right: 20px;
+      color: #333;
+    }
+  }
+
+  &__description {
+    margin: 1em 0;
+
+    .big {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    .big02 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .red {
+      color: #e31919;
+    }
+  }
+}
+
+.ec-shoppingGuide {
+  @include container;
+  display: none;
+  @include media_desktop {
+    display: block;
+  }
+  &::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+
+  &__title {
+    background: $brand-primary;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 3rem;
+    border-radius: $radius-sm;
+    box-shadow: 0 2px 8px rgba(81, 136, 137, 0.25);
+  }
+
+  &_column_left {
+    float: left;
+    width: 470px;
+    font-size: 0.9em;
+  }
+
+  &_column_right {
+    float: right;
+    width: 470px;
+    font-size: 0.9em;
+  }
+
+  p {
+    margin: 1em 0;
+  }
+
+  dt {
+    padding: 7px 12px 7px 16px;
+    background: none;
+    border-left: 4px solid $brand-primary;
+    border-bottom: 1px solid #e8ecef;
+    font-weight: 700;
+    font-size: 1.0rem;
+    color: #1a2e2e;
+    margin-bottom: 6px;
+  }
+
+  dd {
+    margin-bottom: 20px;
+  }
+
+  table {
+    margin: 15px auto 20px auto;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    th {
+      padding: 8px;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      color: #333;
+      background-color: #f0f0f0;
+      font-weight: normal;
+    }
+    td {
+      padding: 8px;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      word-break: break-all;
+    }
+  }
+
+  img {
+    width: auto;
+  }
+}
+
+// Flow design (purchase flow steps)
+.flow_design04 {
+  padding: 3rem;
+}
+
+.flow04 {
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+
+  & > li {
+    list-style-type: none;
+    width: 100%;
+    max-width: 26%;
+    display: flex;
+
+    .icon04 {
+      line-height: 2;
+      width: 2em;
+      height: 2em;
+      text-align: center;
+      color: #fff;
+      background: $brand-primary;
+      margin: 0 auto 10px;
+      display: block;
+      border-radius: 100vh;
+      position: relative;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(81, 136, 137, 0.35);
+
+      &::before {
+        content: "";
+        border: solid transparent;
+        border-width: 7px;
+        border-top-color: $brand-primary;
+        position: absolute;
+        top: calc(100% - 2px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    dl {
+      padding: 28px 20px;
+      margin: 0;
+      border: 2px solid $brand-primary;
+      border-radius: $radius-md;
+      position: relative;
+      background: #fff;
+    }
+
+    &:not(:first-child) dl::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      margin-right: 10px;
+      display: inline-block;
+      border-top: 3px solid $brand-primary;
+      border-right: 3px solid $brand-primary;
+      position: absolute;
+      top: calc(50% - 14px);
+      left: -45px;
+      transform: rotate(45deg);
+    }
+
+    dl dt {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: $brand-primary;
+      flex-basis: 20%;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    dl dd {
+      margin-left: 0;
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.7;
+    }
+  }
+}
+
+.txt_white {
+  color: #fff;
+}

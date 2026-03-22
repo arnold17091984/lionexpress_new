@@ -1,0 +1,48 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% autoescape 'safe_textmail' %}
+{{ Order.name01 }} {{ Order.name02 }} 様
+
+この度は医薬品通販「ジェネクリ」をご利用頂き、誠にありがとう御座いました。
+お客様からのご入金を確認致しました。ありがとう御座います。
+
+商品の発送手配に移りますので、今しばらくお待ち下さい。
+発送が完了しましたら、改めてご連絡させて頂きます。
+今後とも【ジェネクリ】を何卒よろしくお願い致します。
+
+
+************************************************
+　ご注文商品明細
+************************************************
+
+{% for OrderItem in Shipping.productOrderItems %}
+商品コード：{{ OrderItem.product_code }}
+商品名：{{ OrderItem.product_name }}  {{ OrderItem.classcategory_name1 }}  {{ OrderItem.classcategory_name2 }}
+数量：{{ OrderItem.quantity|number_format }}
+
+{% endfor %}
+
+============================================
+
+
+************************************************
+ジェネクリは海外医薬品の総合通販サイトです♪
+【URL】https://lion-express.com
+【お問い合わせ】support@lion-express.com
+【LINE】お薬通販ジェネクリ：https://lin.ee/gON7XWN
+※ご連絡はLINEがスムーズです。
+運営会社：ZAMPIT CORPORATION
+************************************************
+■メール配信について■ ・お知らせメールの配信を希望しない方は下記までご連絡下さい。 　mail：support@lion-express.com
+・このメールにお心当たりの無い方は、お手数ですがサポートまでご連絡いただきますようお願い申し上げます。
+ サポート：https://lion-express.com/contact （フォームに必要事項をご入力の上、送信してください。） ※ご不明な点等御座いましたら、お気軽にお問い合わせ下さい。
+ 
+{% endautoescape %}

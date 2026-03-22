@@ -1,0 +1,29 @@
+plugin.extra_agree_check.admin.save.complete: '登録しました。'
+plugin.extra_agree_check.admin.save.error: '登録に失敗しました。'
+
+plugin.extra_agree_check.admin.config.title: '同意チェック追加プラグイン'
+plugin.extra_agree_check.admin.config.sub_title: '設定'
+plugin.extra_agree_check.admin.nonmember.title: 'ゲスト購入フォーム'
+plugin.extra_agree_check.admin.contact.title: 'お問い合わせフォーム'
+plugin.extra_agree_check.admin.auto_insert.title: '自動挿入'
+plugin.extra_agree_check.admin.add_check.label: '同意チェックを追加する'
+plugin.extra_agree_check.admin.check_label.label: 'チェックボタンのラベル'
+plugin.extra_agree_check.admin.check_label.description: 'テンプレートに自動挿入する場合はラベルを入力してください。HTMLタグが利用可能です。'
+plugin.extra_agree_check.admin.check_label.error: 'ラベルが入力されていません'
+plugin.extra_agree_check.admin.auto_insert.label: 'テンプレートに自動挿入する'
+plugin.extra_agree_check.admin.auto_insert.description: |
+  テンプレートをカスタマイズしていたり、独自のテンプレートを使用している場合には、自動挿入が正しく行われないことがあります。
+  その場合はチェックを外し、「非会員購入情報入力」や「お問い合わせ(入力ページ)」のテンプレートを編集して、スニペットを挿入してください。
+  挿入するスニペットは、下記を参考にしてください。
+plugin.extra_agree_check.admin.auto_insert.index_snippet: |
+  &lt;div class="ec-checkbox{{ has_errors(form.user_policy_check) ? ' error' }}"&gt;
+      &lt;label&gt;
+          {{ form_widget(form.user_policy_check) }}
+          &lt;a class="ec-link" href="%url%" target="_blank"&gt;利用規約&lt;/a&gt;に同意する
+      &lt;/label&gt;
+      {{ form_errors(form.user_policy_check) }}
+  &lt;/div&gt;
+plugin.extra_agree_check.admin.auto_insert.confirm_description: |
+  お問い合わせフォームへスニペットを挿入する場合は、「お問い合わせ(確認ページ)」のテンプレートへも下記のスニペットを挿入してください。
+plugin.extra_agree_check.admin.auto_insert.confirm_snippet: |
+  {{ form_widget(form.user_policy_check, { type : 'hidden' }) }}

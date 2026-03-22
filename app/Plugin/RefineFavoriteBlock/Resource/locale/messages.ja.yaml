@@ -1,0 +1,10 @@
+# admin twig
+refine_favorite_block.admin.config.title: お気に入り商品ブロック化プラグイン
+refine_favorite_block.admin.config.sub_title: プラグイン設定
+refine_favorite_block.admin.config.display_num: 表示数
+refine_favorite_block.admin.config.font_size: 文字の大きさ
+refine_favorite_block.admin.config.save.success: 登録しました。
+refine_favorite_block.admin.config.save.failed: 登録に失敗しました。
+
+# block twig
+refine_favorite_block.new_favorite_item: 新着お気に入り商品

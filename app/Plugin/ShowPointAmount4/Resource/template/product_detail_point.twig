@@ -1,0 +1,10 @@
+<div id="ec-point" class="ec-productRole__code">
+    ポイント：
+    <span class="ec-point__point point-default">{{ point_min|number_format }}{% if point_min != point_max  %} ～ {{ point_max|number_format }}{% endif %}</span>pt
+</div>
+
+<script>
+    $(function() {
+        $('.ec-productRole__price').after($('#ec-point'))
+    })
+</script>

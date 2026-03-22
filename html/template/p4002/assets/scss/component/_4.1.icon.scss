@@ -1,0 +1,41 @@
+@import "../mixins/variables";
+/*
+アイコン
+
+デフォルトテンプレートのアイコンは`.ec-icon`>`img`タグで使用することができます
+
+sg-wrapper:
+<div class="ec-role">
+  <sg-wrapper-content/>
+
+Markup:
+include /assets/tmpl/elements/4.1.icon.pug
+div(style="background-color: rgba(130,130,130,.15); padding: 20px;")
+  +icon-all
+
+Styleguide 4.1
+*/
+.ec-icon img {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+svg.cb {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.cb-images {
+  width: 1.125em;
+}
+
+.icon-bg {
+  fill: #d4d4d5;
+}
+
+.icon-with-bg {
+  fill: #fff;
+}

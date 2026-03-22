@@ -1,0 +1,44 @@
+{# FAQ data is managed from admin: /admin/content/faq #}
+{% set FaqItems = repository('Customize\\Entity\\Faq').findBy({'visible': true}, {'sort_no': 'ASC'}) %}
+
+<section class="faq-block">
+    <div class="section__header">
+        <h2 class="section__title">薬の個人輸入についてよくある質問</h2>
+    </div>
+    <div class="faq-block__list">
+        {% for Faq in FaqItems %}
+        <details class="faq-block__item">
+            <summary class="faq-block__q">
+                <span class="faq-block__q-badge" aria-hidden="true">Q</span>
+                <span class="faq-block__q-text">{{ Faq.question }}</span>
+                <span class="faq-block__chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-block__a">
+                <span class="faq-block__a-badge" aria-hidden="true">A</span>
+                <p class="faq-block__a-text">{{ Faq.answer|nl2br }}</p>
+            </div>
+        </details>
+        {% endfor %}
+    </div>
+    {# SEO: FAQPage Schema for rich snippets #}
+    {% if FaqItems|length > 0 %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for Faq in FaqItems %}
+        {
+          "@type": "Question",
+          "name": {{ Faq.question|json_encode(constant('JSON_UNESCAPED_UNICODE')) }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ Faq.answer|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}
+          }
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+    </script>
+    {% endif %}
+</section>

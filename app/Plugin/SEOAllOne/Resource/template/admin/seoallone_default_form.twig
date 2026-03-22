@@ -1,0 +1,130 @@
+{# <div id="detail_meta_box" class="box form-horizontal">
+    <div id="detail_meta_box__header" class="box-header">
+        <h3 class="box-title">
+            SEOAllOne
+        </h3>
+    </div>
+    <!-- /.box-header -->
+
+    <div id="detail_meta_box__body" class="box-body">
+        {{ form_row(form.seoallone_title) }}
+        {{ form_row(form.seoallone_description) }}
+        {{ form_row(form.seoallone_keyword) }}
+    </div>
+</div> #}
+
+<div class="card rounded border-0 mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-8">
+                <div class="d-inline-block" data-tooltip="true" data-placement="top"
+                        title="SEO All One Management Form">
+                    <span class="card-title">
+                        SEO All One
+                        <i class="fa fa-question-circle fa-lg ml-1"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-4 text-right">
+                <a data-toggle="collapse" href="#seoAllOneForm" aria-expanded="false" aria-controls="seoAllOneForm">
+                    <i class="fa fa-angle-up fa-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="collapse show ec-cardCollapse" id="seoAllOneForm">
+        <div class="card-body">
+        {% if (page_id == 2 or page_id == 3) %}
+            <div class="row mb-2">
+                <div class="col-2"><span>Title </span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_title) }}
+                    {{ form_errors(form.seoallone_title) }}
+                    <span class="small">{{ form.seoallone_title.vars.help }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2"><span>Description</span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_description) }}
+                    {{ form_errors(form.seoallone_description) }}
+                    <span class="small">{{ form.seoallone_description.vars.help }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2"><span>Keyword</span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_keyword) }}
+                    {{ form_errors(form.seoallone_keyword) }}
+                    <span class="small">{{ form.seoallone_keyword.vars.help }}</span>
+                </div>
+            </div>
+
+             <div class="row mb-2">
+                <div class="col-2"><span>Author</span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_author) }}
+                    {{ form_errors(form.seoallone_author) }}
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2"><span>Canonical</span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_canonical) }}
+                    {{ form_errors(form.seoallone_canonical) }}
+                </div>
+            </div>
+        {% endif %}
+
+            <div class="row mb-2">
+                <div class="col-2">
+                    <div class="d-inline-block" data-tooltip="true" data-placement="top" title="空白の場合は「ページ名」が表示されます。">
+                        <span class="card-title">
+                            og:title
+                            <i class="fa fa-question-circle fa-lg ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_ogp_title) }}
+                    {{ form_errors(form.seoallone_ogp_title) }}
+                    <span class="small">{{ form.seoallone_ogp_title.vars.help }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2">
+                    <div class="d-inline-block" data-tooltip="true" data-placement="top" title="空白の場合は「description」が表示されます。">
+                        <span class="card-title">
+                            og:description
+                            <i class="fa fa-question-circle fa-lg ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_ogp_description) }}
+                    {{ form_errors(form.seoallone_ogp_description) }}
+                    <span class="small">{{ form.seoallone_ogp_description.vars.help }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-2"><span>og:type</span></div>
+                <div class="col-10">
+                    {{ form_widget(form.seoallone_ogp_type) }}
+                    {{ form_errors(form.seoallone_ogp_type) }}
+                    <span class="small">{{ form.seoallone_ogp_type.vars.help }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="small">※メタ設定に設定した値よりもこちらに設定した値が優先して表示されます。</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

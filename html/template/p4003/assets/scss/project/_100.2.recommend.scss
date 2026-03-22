@@ -1,0 +1,70 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+/**
+ * おすすめ商品
+ * トップページおすすめ商品(recommend)
+ */
+
+.ec-recommend {
+  @include container;
+  @include media_tablet {
+    margin-bottom: 30px
+  }
+  &__title {
+    @include sectionTitle;
+  }
+  &__list {
+    border: {
+      top: 1px solid #ccc;
+      bottom: 1px solid #ccc;
+    }
+    padding: 2% 0;
+  }
+}
+
+.ec-recommendItem {
+  padding: 0 5px;
+  & > a {
+    display: block;
+    width: 100%;
+    @include media_tablet {
+      &:hover {
+        color: inherit;
+        opacity: .8;
+      }
+    }
+  }
+  &__image {
+    margin-bottom: 10px;
+  }
+  &__price,
+  &__comment,
+  &__name {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+  &__price {
+    color: #ff0024;
+    font-size: 1.1rem;
+    @include media_tablet {
+      font-size: 1.3rem;
+    }
+  }
+  &__comment {
+    margin-bottom: 5px;
+    color: #585858;
+    font-size: 1.1rem;
+    @include media_tablet {
+      font-size: 1.2rem;
+    }
+  }
+  &__name {
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    @include media_tablet {
+      font-size: 1.4rem;
+    }
+  }
+}

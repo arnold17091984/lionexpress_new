@@ -1,0 +1,420 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% set page_title = '当サイトについて' %}
+
+{% block stylesheet %}
+<style>
+/* ── About page — scoped styles ── */
+.nd-about { max-width: 860px; margin: 0 auto; padding: 0 16px 60px; }
+.nd-about-hero {
+  text-align: center;
+  padding: 48px 20px 40px;
+}
+.nd-about-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--neutral-900, #111);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.nd-about-hero .nd-about-lead {
+  font-size: 1.5rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Mission */
+.nd-about-mission {
+  background: var(--brand-pale, #e8f4f4);
+  border-radius: 16px;
+  padding: 36px 32px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.nd-about-mission h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-primary, #518889);
+  margin: 0 0 16px;
+}
+.nd-about-mission p {
+  font-size: 1.5rem;
+  line-height: 1.9;
+  color: var(--neutral-700, #374151);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Feature grid */
+.nd-about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.nd-about-feature {
+  background: #fff;
+  border: 1px solid var(--neutral-200, #e5e7eb);
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+.nd-about-feature:hover {
+  box-shadow: 0 4px 20px rgba(81,136,137,0.12);
+}
+.nd-about-feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--brand-pale, #e8f4f4);
+  color: var(--brand-primary, #518889);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.nd-about-feature h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--neutral-900, #111);
+  margin: 0 0 8px;
+}
+.nd-about-feature p {
+  font-size: 1.35rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Section heading */
+.nd-about-section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neutral-900, #111);
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--brand-primary, #518889);
+  text-align: center;
+}
+
+/* Flow steps */
+.nd-about-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.nd-about-step {
+  text-align: center;
+  padding: 24px 16px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--neutral-200, #e5e7eb);
+}
+.nd-about-step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand-primary, #518889);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+.nd-about-step h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--neutral-900, #111);
+}
+.nd-about-step p {
+  font-size: 1.25rem;
+  color: var(--neutral-600, #4b5563);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Company info table */
+.nd-about-company {
+  margin-bottom: 48px;
+}
+.nd-about-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.nd-about-table th,
+.nd-about-table td {
+  padding: 14px 16px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--neutral-200, #e5e7eb);
+  text-align: left;
+  vertical-align: top;
+}
+.nd-about-table th {
+  width: 160px;
+  font-weight: 600;
+  color: var(--neutral-700, #374151);
+  background: var(--neutral-50, #f9fafb);
+}
+.nd-about-table td {
+  color: var(--neutral-900, #111);
+}
+
+/* CTA */
+.nd-about-cta {
+  background: var(--brand-pale, #e8f4f4);
+  border-radius: 16px;
+  padding: 36px 32px;
+  text-align: center;
+}
+.nd-about-cta h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-primary, #518889);
+  margin: 0 0 12px;
+}
+.nd-about-cta p {
+  font-size: 1.4rem;
+  color: var(--neutral-700, #374151);
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+.nd-about-cta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.nd-about-cta-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nd-about-cta-actions .nd-btn-primary {
+  background: var(--brand-primary, #518889);
+  color: #fff;
+}
+.nd-about-cta-actions .nd-btn-primary:hover {
+  background: var(--brand-dark, #3d6a6b);
+  transform: translateY(-1px);
+}
+.nd-about-cta-actions .nd-btn-outline {
+  background: #fff;
+  color: var(--brand-primary, #518889);
+  border: 1.5px solid var(--brand-primary, #518889);
+}
+.nd-about-cta-actions .nd-btn-outline:hover {
+  background: var(--brand-pale, #e8f4f4);
+}
+
+@media (max-width: 767px) {
+  .nd-about { padding: 0 12px 40px; }
+  .nd-about-hero { padding: 32px 12px 28px; }
+  .nd-about-mission { padding: 28px 20px; }
+  .nd-about-table th { width: 120px; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+
+<div class="nd-about">
+
+  {# ── Hero ── #}
+  <div class="nd-about-hero">
+    <h1>{{ page_title }}</h1>
+    <p class="nd-about-lead">
+      Lion Expressは、海外医薬品・サプリメントの個人輸入代行専門店です。<br>
+      安全・安心・迅速をモットーに、<br class="sp-hide">
+      お客様の健康と美容をサポートしています。
+    </p>
+  </div>
+
+  {# ── Mission ── #}
+  <div class="nd-about-mission">
+    <h2>私たちの約束</h2>
+    <p>
+      当サイトでは、全て正規品を取り扱っております。
+      信頼性の高い業者のみを利用し、定期的に倉庫のチェックを行っております。
+      不良品が混入しないよう厳格な管理を徹底していますので、安心してご購入ください。
+    </p>
+  </div>
+
+  {# ── Features ── #}
+  <div class="nd-about-features">
+    <div class="nd-about-feature">
+      <div class="nd-about-feature-icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>全品正規品保証</h3>
+      <p>信頼性の高い業者のみを厳選し、正規品だけを取り扱っています。偽造品・不良品の混入を防ぐため、入荷時の検品を徹底しています。</p>
+    </div>
+    <div class="nd-about-feature">
+      <div class="nd-about-feature-icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>厳格な品質管理</h3>
+      <p>定期的に倉庫のチェックを実施し、保管環境・在庫品質を常に監視。温度・湿度管理のもと、商品の品質を維持しています。</p>
+    </div>
+    <div class="nd-about-feature">
+      <div class="nd-about-feature-icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h3>日本語サポート</h3>
+      <p>LINE・メールによる日本語対応のカスタマーサポート。商品に関するご質問やご不安に、丁寧にお答えいたします。</p>
+    </div>
+    <div class="nd-about-feature">
+      <div class="nd-about-feature-icon" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>安心の配送補償</h3>
+      <p>万が一の未着・破損の場合は、再送または返金にて対応いたします。お届けまで責任をもってサポートします。</p>
+    </div>
+  </div>
+
+  {# ── Order Flow ── #}
+  <h2 class="nd-about-section-title">ご注文の流れ</h2>
+  <div class="nd-about-flow">
+    <div class="nd-about-step">
+      <div class="nd-about-step-num">1</div>
+      <h4>商品を選ぶ</h4>
+      <p>サイト内で商品を検索し、カートに追加してください。</p>
+    </div>
+    <div class="nd-about-step">
+      <div class="nd-about-step-num">2</div>
+      <h4>ご注文・お支払い</h4>
+      <p>お客様情報を入力し、銀行振込でお支払いください。</p>
+    </div>
+    <div class="nd-about-step">
+      <div class="nd-about-step-num">3</div>
+      <h4>海外から発送</h4>
+      <p>ご入金確認後、海外の提携倉庫より商品を発送いたします。</p>
+    </div>
+    <div class="nd-about-step">
+      <div class="nd-about-step-num">4</div>
+      <h4>ご自宅にお届け</h4>
+      <p>通常7〜14日程度でお届け。追跡番号もお知らせします。</p>
+    </div>
+  </div>
+
+  {# ── Company Info (EC-CUBE BaseInfo) ── #}
+  <h2 class="nd-about-section-title">運営会社情報</h2>
+  <div class="nd-about-company">
+    <table class="nd-about-table">
+      {% if BaseInfo.shop_name|default is not empty %}
+      <tr>
+        <th>店名</th>
+        <td>{{ BaseInfo.shop_name }}</td>
+      </tr>
+      {% endif %}
+      {% if BaseInfo.company_name|default is not empty %}
+      <tr>
+        <th>会社名</th>
+        <td>{{ BaseInfo.company_name }}</td>
+      </tr>
+      {% endif %}
+      {% if BaseInfo.postal_code|default is not empty %}
+      <tr>
+        <th>所在地</th>
+        <td>〒{{ BaseInfo.postal_code }}<br>{{ BaseInfo.pref }}{{ BaseInfo.addr01 }}{{ BaseInfo.addr02 }}</td>
+      </tr>
+      {% endif %}
+      {% if BaseInfo.phone_number|default is not empty %}
+      <tr>
+        <th>電話番号</th>
+        <td>{{ BaseInfo.phone_number }}</td>
+      </tr>
+      {% endif %}
+      {% if BaseInfo.business_hour|default is not empty %}
+      <tr>
+        <th>営業時間</th>
+        <td>{{ BaseInfo.business_hour }}</td>
+      </tr>
+      {% endif %}
+      <tr>
+        <th>メール</th>
+        <td><a href="mailto:{{ BaseInfo.email01|default('info@lion-express.com') }}">{{ BaseInfo.email01|default('info@lion-express.com') }}</a></td>
+      </tr>
+      <tr>
+        <th>事業内容</th>
+        <td>海外医薬品・サプリメントの個人輸入代行</td>
+      </tr>
+      <tr>
+        <th>設立</th>
+        <td>-</td>
+      </tr>
+      {% if BaseInfo.good_traded|default is not empty %}
+      <tr>
+        <th>取り扱い商品</th>
+        <td>{{ BaseInfo.good_traded|nl2br }}</td>
+      </tr>
+      {% endif %}
+      {% if BaseInfo.message|default is not empty %}
+      <tr>
+        <th>メッセージ</th>
+        <td>{{ BaseInfo.message|nl2br }}</td>
+      </tr>
+      {% endif %}
+    </table>
+  </div>
+
+  {# ── Important Notice ── #}
+  <h2 class="nd-about-section-title">個人輸入に関する注意事項</h2>
+  <div style="font-size:1.35rem; color:var(--neutral-600,#4b5563); line-height:1.8; margin-bottom:48px; padding:24px; background:#fff; border:1px solid var(--neutral-200,#e5e7eb); border-radius:12px;">
+    <p style="margin:0 0 12px;">
+      当サイトで取り扱っている医薬品は、日本国内では医師の処方が必要なものを含みます。
+      個人輸入は、厚生労働省の定めるルールに基づき、ご自身の使用目的に限り認められています。
+    </p>
+    <ul style="margin:0; padding-left:20px;">
+      <li>輸入した医薬品を第三者へ譲渡・転売することは法律で禁止されています。</li>
+      <li>使用にあたっては、用法・用量を必ずお守りください。</li>
+      <li>持病のある方・服用中のお薬がある方は、事前にかかりつけ医にご相談ください。</li>
+      <li>当サイトは医療機関ではないため、医療上のアドバイスは行っておりません。</li>
+    </ul>
+  </div>
+
+  {# ── CTA ── #}
+  <div class="nd-about-cta">
+    <h2>お気軽にお問い合わせください</h2>
+    <p>
+      商品に関するご質問、ご注文に関するお問い合わせなど、<br>
+      お気軽にご連絡ください。日本語スタッフが丁寧に対応いたします。
+    </p>
+    <div class="nd-about-cta-actions">
+      <a href="{{ url('contact') }}" class="nd-btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        メールで問い合わせ
+      </a>
+      <a href="https://line.me/R/ti/p/@229ulhco" class="nd-btn-outline" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        LINEで問い合わせ
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

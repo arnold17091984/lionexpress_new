@@ -1,0 +1,311 @@
+{# Styles moved to theme SCSS: _100.14.faq.scss #}
+
+{% block javascript %}
+<script>
+$(function() {
+    $('.question').on('click', function() {
+        if ($(this).find(".icon").hasClass('open')) {
+            $(this).find(".icon").removeClass('open');
+        } else {
+            $(this).find(".icon").addClass('open');
+        }
+        $(this).next().slideToggle();
+    });
+});</script>
+{% endblock javascript %}
+
+<section class="faq">
+    <div class="section__header">
+        <h2 class="section__title">薬の個人輸入についてよくある質問</h2>
+    </div>
+    <div class="faq-lineup">
+        <div class="outside">
+            <div class="question">
+                Q. ライオンエキスプレスとはなんですか？ 
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 当サイト「ライオンエキスプレス」は、海外の医薬品やサプリメントの個人輸入をサポートするサービスを提供しています。
+            </div>
+            <div class="question mt-10">
+                Q. 個人輸入代行とはなんですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 個人輸入は、個人が自分で使うために海外から商品を直接買うことです。<br>
+個人輸入代行サイトは、その手続きをお客様の代わりにするサイトです。当サイト「ライオンエキスプレス」も個人輸入代行サイトです。
+            </div>
+            <div class="question mt-10">
+                Q. 営業日と営業時間を教えてください。
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 当サイトは基本的に年中無休で営業しています。<br>
+お問い合わせも年中無休で受け付けています。<br>
+※年末年始など、お休みをいただく場合には事前にサイト上でご案内させていただきます。
+            </div>
+            <div class="question mt-10">
+                Q. 支払い方法は何がありますか？
+                <div class="icon"></div>
+           </div>
+            <div class="answer">
+                A. お支払い方法は、銀行振込決済をご利用頂けます。
+            </div>
+            <div class="question mt-10">
+                Q. 配達日や時間の指定はできますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 配達日の指定や時間指定はできません。<br>
+国際郵便にはそのようなサービスがありません。<br>
+ただし、再配達の場合は時間帯指定が可能です。ご不在票を確認のうえ、配送業者にご連絡ください。
+            </div>
+            <div class="question mt-10">
+                Q. 梱包はどのようなものですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 梱包は中身が見えないようにしています。<br>
+ラベルには商品名は記載されず、発送先の住所と氏名だけなので、外見から中身は分かりません。<br>
+※一部の外用液剤（育毛剤など）については、通関手続きのため商品名が表示されることがあります。ご了承ください。
+            </div>
+            <div class="question mt-10">
+                Q. 海外への発送は行っていますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 海外への発送は行っておりません。日本国内のみの発送になります。
+            </div>
+            <div class="question mt-10">
+                Q. 偽物が届くことはないでしょうか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 当サイトでは、全て正規品を取り扱っております。<br>
+信頼性の高い業者のみを利用し、定期的に倉庫のチェックを行っております。<br>
+不良品が混入しないよう、厳格な管理を徹底していますので、安心してご購入ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q.保険は適用されますか？　
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 保険適応外です。
+        　　</div>
+            <div class="question mt-10">
+                Q. 海外から医薬品を通販で購入することは合法ですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 海外医薬品の通販は、薬機法（旧薬事法）に基づき、個人輸入として認められています。<br>
+ただし、個人輸入が認められない薬や、個人利用以外の目的での購入は禁止されていますので、ご注意ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. なぜ海外の医薬品を選ぶのですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 海外医薬品の個人輸入では、処方せんが必要な薬も購入できます。<br>
+さらに、多くの商品が日本国内のクリニックで処方されるよりも安価に購入できます。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 副作用が出た場合、どのように対応してくれますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">A. 当サイトでは医薬品の使用に関して責任や補償はできませんご利用は自己責任でお願いします。
+            </div>
+            <div class="question mt-10">
+                Q. 一度に注文できる数量には制限がありますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 一つの医薬品につき、用法用量を守れば、異なる医薬品を複数注文することができます。<br>
+ただし、1回の個人輸入で注文できる数量には以下の制限があります。<br>
+・医薬品、医薬部外品：用法用量からみて2ヶ月分以内まで（ドラッグストアで販売されている医薬品）<br>
+・毒薬、劇薬、処方せん薬：用法用量からみて1ヶ月分以内まで<br>
+・外用剤、化粧品：標準サイズで1品目24個以内まで（サプリメントや化粧品など）<br>
+詳細は薬機法（旧薬事法）に準拠しています。
+            </div>
+            <div class="question mt-10">
+                Q.　送料はかかりますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 10,000円以上のご注文で送料は無料です。<br>
+10,000円未満のご注文には、送料として1,000円がかかります。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 商品の効果や使用方法に関するお問い合わせには、電話やメールで対応していますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 医薬品に関する情報は提供できません。<br>
+薬機法で定められてるため、<br>
+自身で情報を調べて頂くか、かかりつけの医師に相談してください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 誰でも注文できますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 日本に在住の満20歳以上の方であれば、どなたでもご注文いただけます。
+                
+            </div>
+            <div class="question mt-10">
+                Q. 代理人で、家族の分も一緒に注文できますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 家族の分も一緒に注文することはできません。<br>
+個人輸入代行サイトのため、注文者と受取人は同一の方である必要があります。<br>
+ご利用者様ご自身が注文手続きを行ってください。
+又、男性用商品は男性名義、女性用商品は女性名義になります。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 商品が税関を通過できなかったらどうなりますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 商品が税関を通過できなかった場合は、当サイト負担で再発送いたします。<br>
+その際は税関からお客様宛に、税関差し止めについて記載されたハガキが届きます。<br>
+ハガキが届きましたら「受取拒否のため返送」と送り返してください。<br>
+不備なくご注文いただいたにも関わらず税関を通過できなかった場合は、当サイト負担で直ちに再発送の手配をさせていただきます。
+            </div>
+            <div class="question mt-10">
+                Q. 会員登録は必要ですか？ 
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 商品購入には会員登録が必要です。
+            </div>
+            <div class="question mt-10">
+                Q. メールが届きません。
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. ご注文手続き後には、注文完了メール等を自動的にお客様に送信しています。<br>
+しかし、お客様のメール設定によっては、メールが迷惑メールフォルダに振り分けられる場合があります。<br>
+そのため、ご注文後にはログインし、「登録」からメール内容をご確認ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 商品をキャンセルすることは可能ですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. ご入金前ならキャンセルが可能です。<br>
+ログインして「注文履歴」からキャンセル手続きを行ってください。<br>
+ご入金後はキャンセルや返品ができませんので、ご了承ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 入金後でもキャンセルはできますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. ご入金後は、どのような理由でもキャンセルや返品はできません。<br>
+ご入金前ならキャンセル可能です。ログインして「注文履歴」からキャンセル手続きを行ってください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 返品・交換はできますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. お客様都合による返品・交換は承っておりません。<br>
+ただし、商品が破損していた場合、配送業者からの依頼があれば交換対応いたします。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 郵便追跡状況に「お問い合わせ番号が見つかりません」と表示される場合はどうすればいいでしょうか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 追跡番号の反映には、発送国の郵便事情により1日～7日かかることがあります。<br>
+ほとんどの商品が国外から発送されるため、データの反映に時間がかかる場合があります。<br>
+追跡番号が発行された商品は正常に発送されていますので、反映までお待ちください。<br>
+7日を過ぎても追跡番号が見つからない場合は、お問い合わせください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 登録したメールアドレス、パスワードを忘れてしまった場合はどうすれば良いですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. パスワードを忘れた場合は、ログイン画面の「パスワードを忘れた」をクリックしてください。<br>
+メールでパスワードの再設定方法が送信されます。<br>
+登録メールアドレスを忘れた場合は、カスタマーサポートまでご連絡ください。<br>
+※メールでのお問い合わせは、年中無休で対応しています。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 発送先の住所の変更は可能でしょうか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 注文後の発送先の住所の変更はできません。
+            </div>
+            <div class="question mt-10">
+                Q. 支払い方法を変更したいのですが可能でしょうか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 注文後の支払い方法の変更はできません。
+            </div>
+            <div class="question mt-10">
+                Q. 写真と違うものが届きました。
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 商品によっては写真とパッケージや色が異なる場合があります。<br>
+ただし、メーカーや成分は同じですので、ご安心ください。<br>
+              </div>
+            <div class="question mt-10">
+                Q. 錠剤がシートのまま届きました。
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 一部の商品は、パッケージがなくシートのままお届けします。<br>
+少量用の箱がないためで、日本の調剤薬局と同じ対応です。<br>
+シートのみでも品質には問題ありませんので、ご安心ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 商品の再発送はできますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 原則として再発送はできません。<br>
+ただし、商品に不備や配送事故があった場合のみ再発送対応を行います。<br>
+お客様の都合による返送（不在や郵便局留め置き期間切れ、配送先住所や名前の間違いなど）については再発送できませんのでご了承ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 何日で届きますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. ご入金確認後、通常10～20日で到着します。<br>
+天候や現地の配送状況によって遅れる場合がありますので、ご了承ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 正確な配送日時を教えてください。
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 正確な配送日時はお知らせできません。
+商品は国外から発送されるため、天候や輸送の状況によって到着日が変動します。<br>
+そのため、具体的な到着日についてはお答えできないことをご了承ください。<br>
+            </div>
+            <div class="question mt-10">
+                Q. 複数商品を同時に注文したらまとめて届きますか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 同一の注文で、同じ発送元からの出荷であれば、基本的にまとめて梱包されます。<br>
+注文番号が異なる場合はまとめての梱包はできません。<br>
+また、在庫状況によっても異なりますので、必ずまとめて届くとは限りません。<br>
+複数梱包になった場合は、それぞれに異なる追跡番号が発行されます。<br>
+            </div>
+            <div class="question mt-10">
+                Q. カスタマーサポートは日本人による対応ですか？
+                <div class="icon"></div>
+            </div>
+            <div class="answer">
+                A. 当サイトのカスタマーサポートは、全て日本人スタッフが対応しています。
+            </div>
+        </div>
+    </div>
+</section>

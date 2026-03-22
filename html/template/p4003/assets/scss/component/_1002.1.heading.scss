@@ -1,0 +1,20 @@
+.ec-pageHeader {
+  h1 {
+    padding: 8px;
+    line-height: 1.4;
+    @include media_tablet {
+      border: {
+        top: 1px solid #7f7f7f;
+        bottom: 1px solid #7f7f7f;
+      }
+    }
+    @include media_desktop {
+      font-size: 1.6rem;
+      margin: {
+        top: 0;
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+}

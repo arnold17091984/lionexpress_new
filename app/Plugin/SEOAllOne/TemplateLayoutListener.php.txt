@@ -1,0 +1,580 @@
+<?php
+
+namespace Plugin\SEOAllOne;
+
+use Eccube\Common\EccubeConfig;
+use Eccube\Entity\Layout;
+use Eccube\Entity\Master\DeviceType;
+use Eccube\Entity\Page;
+use Eccube\Repository\LayoutRepository;
+use Eccube\Repository\PageRepository;
+use Eccube\Request\Context;
+use SunCat\MobileDetectBundle\DeviceDetector\MobileDetector;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Twig\Environment;
+use Psr\Container\ContainerInterface;
+use Plugin\SEOAllOne\Repository\ConfigRepository;
+use Plugin\SEOAllOne\Util\Util;
+use Eccube\Repository\BaseInfoRepository;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+/**
+ * Class TemplateLayoutListener
+ * @package Plugin\SEOAllOne
+ */
+class TemplateLayoutListener implements EventSubscriberInterface
+{
+    /**
+     * @var Context
+     */
+    protected $context;
+
+    /**
+     * @var Environment
+     */
+    protected $twig;
+
+    /**
+     * @var MobileDetector
+     */
+    protected $detector;
+
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
+    /**
+     * @var EccubeConfig
+     */
+    protected $eccubeConfig;
+
+    /**
+     * @var LayoutRepository
+     */
+    protected $layoutRepository;
+
+    /**
+     * @var PageRepository
+     */
+    protected $pageRepository;
+
+    /**
+     * @var ConfigRepository
+     */
+    protected $configRepository;
+
+    /**
+     * @var BaseInfoRepository
+     */
+    protected $baseInfoRepository;
+
+    /**
+     * @var string 
+     */
+    protected $ampTemplate;
+
+    /**
+     * @var string 
+     */
+    protected $optimizerTemplate;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * TemplateLayoutListener constructor.
+     * @param Context $context
+     * @param Environment $twig
+     * @param MobileDetector $detector
+     * @param EccubeConfig $eccubeConfig
+     * @param RequestStack $requestStack
+     * @param PageRepository $pageRepository
+     * @param LayoutRepository $layoutRepository
+     * @param ConfigRepository $configRepository
+     * @param BaseInfoRepository $baseInfoRepository
+     * @param ContainerInterface $container
+     */
+    public function __construct(Context $context,
+                                Environment $twig,
+                                MobileDetector $detector,
+                                EccubeConfig $eccubeConfig,
+                                RequestStack $requestStack,
+                                PageRepository $pageRepository,
+                                LayoutRepository $layoutRepository,
+                                ConfigRepository $configRepository,
+                                ContainerInterface $container,
+                                BaseInfoRepository $baseInfoRepository,
+                                Util $util)
+    {
+        $this->context = $context;
+        $this->twig = $twig;
+        $this->detector = $detector;
+        $this->eccubeConfig = $eccubeConfig;
+        $this->requestStack = $requestStack;
+        $this->pageRepository = $pageRepository;
+        $this->layoutRepository = $layoutRepository;
+        $this->configRepository = $configRepository;
+        $this->baseInfoRepository = $baseInfoRepository;
+        $this->container = $container;
+        $this->util = $util;
+
+        //$this->ampTemplate = __DIR__ . "/Resource/template/amp";
+    }
+
+    public function onKernelResponse(FilterResponseEvent $event)
+    {
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
+        /** @var \Symfony\Component\HttpFoundation\ParameterBag $attributes */
+        $request = $event->getRequest();
+        $attributes = $request->attributes;
+        $route = $attributes->get('_route');
+
+        $BaseInfo = $this->baseInfoRepository->get();
+        $Page = $this->pageRepository->getPageByRoute($route);
+        
+        $Category = $request->get('seo_Category');
+        $seo_title = $request->get('seo_title');
+        $seo_subtitle = $request->get('seo_subtitle');
+        $seo_link_next = $request->get('seo_link_next');
+        $seo_link_prev = $request->get('seo_link_prev');
+        $global_twig = $this->twig->getGlobals();
+
+
+        $response = $event->getResponse();
+        
+
+		$data = '';
+        if ($response instanceof Response) {
+            $data = $response->getContent();
+        }
+		
+		if ($route == "product_detail") {
+            $Product = $request->get('Product');
+            $title = '';
+            $author = '';
+            $description = '';
+            $keywords = '';
+            $canonical = '';
+            $no_index_robots = '';
+
+            $title = '';
+            if(!empty($Product->seo_title))
+            {
+                $title = $Product->seo_title;
+            }
+            else if(!empty($seo_subtitle))
+            {
+                $title = $seo_subtitle;
+            } else if (!empty($seo_title)) {
+                $title = $seo_title;
+            } else if (!empty($global_twig['title'])) {
+                $title = $global_twig['title'];
+            }
+            if($title) {
+                $title .= ' - ';
+            }
+            $title .= $BaseInfo['shop_name'];
+
+            if ($response instanceof Response) {
+                $data = preg_replace('/<title[^>]*>(.*)<\/title>/m', "<title>{$title}</title>", $data);
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+
+            if(!empty($Product->noindex_flg)) {
+                $no_index_robots = 'noindex';
+            } 
+            else if (!empty($Page->getMetaRobots())) {
+                $no_index_robots = $Page->getMetaRobots();
+            }
+
+			if ($response instanceof Response && $no_index_robots) {
+                $no_index_robots_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="robots"[^>]+(\/)?>/m', $data);
+                if($no_index_robots_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="robots"[^>]+(\/)?>/m', '<meta name="robots" content="' . $no_index_robots . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <meta name="robots" content="' . $no_index_robots . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+            
+            if(!empty($Product->seo_another)) {
+                $author = $Product->seo_another;
+            } 
+            else if (!empty($Page->getAuthor())) {
+                $author = $Page->getAuthor();
+            }
+
+			if ($response instanceof Response && $author) {
+                $author_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', $data);
+                if($author_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', '<meta name="author" content="' . $author . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <meta name="author" content="' . $author . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+
+            if(!empty($Product->seo_canonical)) {
+                $canonical = $Product->seo_canonical;
+            } 
+
+            if ($response instanceof Response && $canonical) {
+                $canonical = str_replace(['”','“'], '"', $canonical);
+                $canonical_is_tag = preg_match('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $canonical);
+                if(!$canonical_is_tag) {
+                    $canonical = '<link rel="canonical" href="' . $canonical . '">';
+                }
+
+                $canonical_match = preg_match('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $data);
+                if($canonical_match) {
+                    $data = preg_replace('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $canonical, $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> ' . $canonical, $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+
+            if(!empty($Product->seo_description)) {
+                $description = $Product->seo_description;
+            } 
+            else if (!empty($Page->getDescription())) {
+                $description = $Page->getDescription();
+            }
+
+            if ($response instanceof Response && $description) {
+                $description_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', $data);
+                if($description_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', '<meta name="description" content="' . $description . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <meta name="description" content="' . $description . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+
+            if(!empty($Product->seo_keywords)) {
+                $keywords = $Product->seo_keywords;
+            } 
+            else if (!empty($Page->getKeyword())) {
+                $keywords = $Page->getKeyword();
+            }
+
+            if ($response instanceof Response && $keywords) {
+                $keywords_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', $data);
+                if($keywords_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', '<meta name="keywords" content="' . $keywords . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <meta name="keywords" content="' . $keywords . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+		} elseif($route == 'product_list') {
+			// title
+			$Category = $request->get('seo_Category');
+			$router = $this->container->get('router');
+			$product_list_url = $router->generate('product_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+			$title = '';
+            if(!empty($Category->seo_title)) 
+            {
+                $title = $Category->seo_title;
+            } else if(!empty($seo_subtitle)) {
+                $title = $seo_subtitle;
+            } else if (!empty($seo_title)) {
+                $title = $seo_title;
+            } else if (!empty($global_twig['title'])) {
+                $title = $global_twig['title'];
+            }
+            if($title) {
+                $title .= ' - ';
+            }
+			$title .= $BaseInfo['shop_name'];
+			if ($response instanceof Response) {
+                $data = preg_replace('/<title[^>]*>(.*)<\/title>/m', "<title>{$title}</title>", $data);
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// seo_link_prev
+			$link_prev = '';
+			if(!empty($seo_link_prev)) {
+                $link_prev = $product_list_url.$seo_link_prev;
+            } 
+            if ($response instanceof Response && $link_prev) {
+                $link_prev_match = preg_match('/(<(\s)*)link(\s)*rel="prev"[^>]+(\/)?>/m', $data);
+                if($link_prev_match) {
+                    $data = preg_replace('/(<(\s)*)link(\s)*rel="prev"[^>]+(\/)?>/m', '<link rel="prev" href="' . $link_prev . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <link rel="prev" href="' . $link_prev . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// seo_link_next
+			$link_next = '';
+			if(!empty($seo_link_next)) {
+                $link_next = $product_list_url.$seo_link_next;
+            } 
+            if ($response instanceof Response && $link_next) {
+                $link_next_match = preg_match('/(<(\s)*)link(\s)*rel="link_next"[^>]+(\/)?>/m', $data);
+                if($link_next_match) {
+                    $data = preg_replace('/(<(\s)*)link(\s)*rel="next"[^>]+(\/)?>/m', '<link rel="next" href="' . $link_next . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> <link rel="next" href="' . $link_next . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// meta_robots
+			$meta_robots = '';
+			if(!empty($Page->getMetaRobots())) {
+                $meta_robots = $Page->getMetaRobots();
+            } 
+            if ($response instanceof Response && $meta_robots) {
+                $meta_robots_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="meta_robots"[^>]+(\/)?>/m', $data);
+                if($meta_robots_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="meta_robots"[^>]+(\/)?>/m', '<meta name="meta_robots" content="' . $meta_robots . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title><meta name="meta_robots" content="' . $meta_robots . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// author
+			$author = '';
+			if(!empty($Category->seo_another)) 
+            {
+                $author = $Category->seo_another;
+            } else if(!empty($Page->getAuthor())) {
+                $author = $Page->getAuthor();
+            } 
+			if ($response instanceof Response && $author) {
+                $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', '<meta name="author" content="'.$author.'">', $data);
+				$author_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', $data);
+                if($author_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', '<meta name="author" content="' . $author . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title><meta name="author" content="' . $author . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// canonical
+			$canonical = '';
+			if(!empty($Category->seo_canonical)) {
+                $canonical = $Category->seo_canonical;
+            }
+            if ($response instanceof Response && $canonical) {
+                // Fix bug canonical in product_list page
+                $canonical = str_replace(['”','“'], '"', $canonical);
+                $canonical_is_tag = preg_match('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $canonical);
+                if(!$canonical_is_tag) {
+                    $canonical = '<link rel="canonical" href="' . $canonical . '">';
+                }
+
+                $canonical_match = preg_match('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $data);
+                if($canonical_match) {
+                    $data = preg_replace('/(<(\s)*)link(\s)*rel="canonical"[^>]+(\/)?>/m', $canonical, $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title> ' . $canonical, $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// keyword
+			$keyword = '';
+			if(!empty($Category->seo_keywords)) 
+            {
+                $keyword = $Category->seo_keywords;
+            } else if(!empty($Page->getKeyword())) {
+                $keyword = $Page->getKeyword();
+            } 
+			if ($response instanceof Response && $keyword) {
+                $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', '<meta name="keywords" content="'.$keyword.'">', $data);
+				$keyword_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', $data);
+                if($keyword_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', '<meta name="keywords" content="' . $keyword . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title><meta name="keywords" content="' . $keyword . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+			// description
+			$description = '';
+			if(!empty($Category->seo_description)) 
+            {
+                $description = $Category->seo_description;
+            } else if(!empty($Page->getDescription())) {
+                $description = $Page->getDescription();
+            } 
+			if ($response instanceof Response && $description) {
+                $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', '<meta name="description" content="'.$description.'">', $data);
+				$description_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', $data);
+                if($description_match) {
+                    $data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', '<meta name="description" content="' . $description . '">', $data);
+                } else {
+                    $data = preg_replace('/<\/title>/m', '</title><meta name="description" content="' . $description . '">', $data);
+                }
+                $response->setContent($data);
+                $event->setResponse($response);
+            }
+        } else {
+			$admin_route = getenv('ECCUBE_ADMIN_ROUTE');
+			$path_info = $request->getPathInfo();
+			$content = $response->getContent()."";
+			if (strpos($path_info, $admin_route) === false && strpos($content, "<html") !== FALSE) {
+				$title = '';
+				$author = '';
+				$description = '';
+				$keywords = '';
+				$canonical = '';
+				$no_index_robots = '';
+
+				$title = '';
+				if(!empty($seo_subtitle))
+				{
+					$title = $seo_subtitle;
+				} else if (!empty($seo_title)) {
+					$title = $seo_title;
+				} else if (!empty($global_twig['title'])) {
+					$title = $global_twig['title'];
+				}
+				
+				if ($route == 'homepage') {
+					$shopNameTopFlg = 0;
+					$Config = $this->configRepository->findOneBy([]);
+					if ($Config) {
+						$shopNameTopFlg = (int)$Config->getShopNameTopFlg();
+					}
+					if ($shopNameTopFlg) {
+						if($title) {
+							$title .= ' - ';
+						}
+						$title .= $BaseInfo['shop_name'];
+					}
+				}
+
+				if ($response instanceof Response) {
+					$data = preg_replace('/<title[^>]*>(.*)<\/title>/m', "<title>{$title}</title>", $data);
+					$response->setContent($data);
+					$event->setResponse($response);
+				}
+
+				if (!empty($Page->getMetaRobots())) {
+					$no_index_robots = $Page->getMetaRobots();
+				}
+
+				if ($response instanceof Response && $no_index_robots) {
+					$no_index_robots_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="robots"[^>]+(\/)?>/m', $data);
+					if($no_index_robots_match) {
+						$data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="robots"[^>]+(\/)?>/m', '<meta name="robots" content="' . $no_index_robots . '">', $data);
+					} else {
+						$data = preg_replace('/<\/title>/m', '</title> <meta name="robots" content="' . $no_index_robots . '">', $data);
+					}
+					$response->setContent($data);
+					$event->setResponse($response);
+				}
+
+				if (!empty($Page->getAuthor())) {
+					$author = $Page->getAuthor();
+				}
+
+				if ($response instanceof Response && $author) {
+					$author_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', $data);
+					if($author_match) {
+						$data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="author"[^>]+(\/)?>/m', '<meta name="author" content="' . $author . '">', $data);
+					} else {
+						$data = preg_replace('/<\/title>/m', '</title> <meta name="author" content="' . $author . '">', $data);
+					}
+					$response->setContent($data);
+					$event->setResponse($response);
+				}
+
+				if (!empty($Page->getDescription())) {
+					$description = $Page->getDescription();
+				}
+
+				if ($response instanceof Response && $description) {
+					$description_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', $data);
+					if($description_match) {
+						$data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="description"[^>]+(\/)?>/m', '<meta name="description" content="' . $description . '">', $data);
+					} else {
+						$data = preg_replace('/<\/title>/m', '</title> <meta name="description" content="' . $description . '">', $data);
+					}
+					$response->setContent($data);
+					$event->setResponse($response);
+				}
+
+				if (!empty($Page->getKeyword())) {
+					$keywords = $Page->getKeyword();
+				}
+
+				if ($response instanceof Response && $keywords) {
+					$keywords_match = preg_match('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', $data);
+					if($keywords_match) {
+						$data = preg_replace('/(<(\s)*)meta(\s)*(name|property)="keywords"[^>]+(\/)?>/m', '<meta name="keywords" content="' . $keywords . '">', $data);
+					} else {
+						$data = preg_replace('/<\/title>/m', '</title> <meta name="keywords" content="' . $keywords . '">', $data);
+					}
+					$response->setContent($data);
+					$event->setResponse($response);
+				}
+			}
+        }
+    }
+
+    protected function toSourceOrigin(Request $request)
+    {
+
+        $url = '';
+
+        if (array_key_exists('HTTP_REFERER', $_SERVER)) {
+            $url = $_SERVER['HTTP_REFERER'];
+        }
+
+        if (!$url) {
+            return $request->getSchemeAndHttpHost();
+        }
+
+        $data = parse_url($url);
+        $scheme = $data['scheme'];
+        $host = $data['host'];
+        $port = $data['port'];
+
+        if (!$port || ('http' == $scheme && 80 == $port) || ('https' == $scheme && 443 == $port)) {
+            return $scheme . "://" . $host;
+        }
+
+        return $scheme . "://" . $host.':'.$port;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            //KernelEvents::REQUEST => ['onKernelRequest', 1],
+            KernelEvents::RESPONSE => ['onKernelResponse', 1],
+        ];
+    }
+}

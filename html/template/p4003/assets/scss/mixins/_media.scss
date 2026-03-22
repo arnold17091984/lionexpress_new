@@ -1,0 +1,99 @@
+@import "./variables";
+@import "./clearfix";
+
+@mixin media_desktop(){
+  @media only screen and (min-width: $media_desktop_width) {
+    @content;
+  }
+}
+
+@mixin media_tablet(){
+  @media only screen and (min-width: $media_tablet_width) {
+    @content;
+  }
+}
+
+@mixin media_modifier($selector, $display_val: block) {
+  @at-root{
+    #{$selector}_media_sp,
+    #{$selector}_media_tablet,
+    #{$selector}_media_pc {
+      @if $display_val == visible {
+        visibility: hidden;
+      } @else {
+        display: none;
+      }
+    }
+    @media only screen and (max-width: $media_tablet_width - 1) {
+      #{$selector}_media_sp {
+        @if $display_val == visible {
+          visibility: visible;
+        } @else {
+          display: $display_val;
+        }
+      }
+    }
+    @media only screen and (min-width: $media_tablet_width) {
+      #{$selector}_media_tablet {
+        @if $display_val == visible {
+          visibility: visible;
+        } @else {
+          display: $display_val;
+        }
+      }
+    }
+    @media only screen and (min-width: $media_desktop_width) {
+      #{$selector}_media_pc {
+        @if $display_val == visible {
+          visibility: visible;
+        } @else {
+          display: $display_val;
+        }
+      }
+    }
+  }
+}
+
+@mixin container(){
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  padding: {
+    left: 8px;
+    right: 8px;
+  }
+
+  max-width: 1150px;
+
+  @include media_tablet {
+    width: 100%;
+
+    .ec-layoutRole__contents &,
+    .ec-layoutRole__contentTop & ,
+    .ec-layoutRole__footer & {
+      width: 100%;
+      padding: {
+        left: 0;
+        right: 0;
+      }
+    }
+  }
+}
+
+/***/
+
+@mixin mypageContainer(){
+  margin-right: auto;
+  margin-left: auto;
+  padding-left:  16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+  @include clearfix;
+  width: 100%;
+  //max-width: 1130px;
+  @include media_desktop {
+    padding-left:  26px;
+    padding-right: 26px;
+  }
+}

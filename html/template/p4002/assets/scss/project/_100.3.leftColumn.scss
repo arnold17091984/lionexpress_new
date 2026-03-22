@@ -1,0 +1,160 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+
+.ec-layoutRole__left {
+
+  /**
+   * ログインナビ
+   */
+  .ec-loginNav {
+    display: none;
+    @include media_tablet {
+      display: block;
+    }
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+
+    &__item {
+      margin: 5px 10px;
+      &:not(:first-child) {
+        border-top: 1px solid #e8e8e8
+      }
+
+      a {
+        color: #333;
+        font-size: 1.3rem;
+        height: 40px;
+        line-height: 45px;
+        padding: 0 10px;
+        display: block;
+
+        svg {
+          font-size: 3rem;
+          margin-right: 5px;
+          position: relative;
+          top: -1px;
+        }
+      }
+    }
+  }
+
+  /**
+   * カート
+   */
+  .ec-cartRole {
+    display: none;
+    @include media_tablet {
+      display: block;
+    }
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    text-align: center;
+
+    .ec-cart {
+      line-height: 2;
+
+      &__icon svg,
+      &__icon_close {
+        display: none;
+      }
+
+      &__badgeLabel {
+        display: inline;
+        line-height: 2.3;
+        &::after {
+          content: ':';
+          padding: {
+            left: 0.3em;
+            right: 0.5em;
+          }
+        }
+      }
+
+      &__badge {
+        &::after {
+          content: '点';
+        }
+      }
+
+      &__button {
+        display: block;
+        padding: 10px 0;
+      }
+
+      @include media_tablet {
+        &__button img {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  /**
+   * カテゴリナビ
+   */
+  .ec-categoryNaviRole {
+    display: none;
+    @include media_tablet {
+      display: block;
+    }
+    @extend .ec-headerCategoryArea;
+    margin-bottom: 20px;
+    .ec-itemNav__nav ul ul {
+      li a {
+        padding-left: calc(10% + 0.5em);
+      }
+      ul {
+        li a {
+          padding-left: calc(10% + 1em);
+        }
+      }
+    }
+  }
+
+  /**
+   * カテゴリ下バナーボタン(PC)
+   */
+  .ec-sideBannerButton {
+    display: none;
+    @include media_tablet {
+      display: block;
+    }
+
+    &__item {
+      margin-bottom: 12px;
+    }
+  }
+
+  /**
+   * 左サイドバナー
+   */
+  .ec-sideBanner {
+    display: none;
+    @include media_desktop {
+      display: block;
+      float: left;
+      width: 36%;
+    }
+    &__item {
+      margin-bottom: 10px;
+      .is-inner {
+        display: block;
+        width: 100%;
+        max-width: 100px;
+      }
+    }
+  }
+
+  .ec-loginNav,
+  .ec-cartRole,
+  .ec-categoryNaviRole,
+  .ec-sideBannerButton {
+    @include media_desktop {
+      float: right;
+      width: 62%;
+    }
+  }
+}

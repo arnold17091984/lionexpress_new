@@ -1,0 +1,82 @@
+<style>
+    #itemtablelist,
+    .table-template{
+        overflow-x: auto;
+        position: relative;
+        font-family: 'Open Sans',Meiryo,'メイリオ',Arial,sans-serif;
+    }
+    .itl_header{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 10px;
+        border: 1px solid #999;
+        background: #fff;
+        padding: 6px 12px;
+        font-size: 80%;
+        z-index: 99;
+        border-radius: 4px;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+    }
+    .itl_btnarea{
+        margin: 10px auto;
+        text-align: center;
+    }
+    .itl_btnarea button, .itl_btnarea select{
+        width: 20%;
+        font-size: 80%;
+        display: inline-block;
+    }
+    #delcol,#delrow{
+        color: #f77;
+    }
+    .table-template table,
+    #itemtablelist table{
+        border-collapse: collapse;
+        background: #fff;
+        table-layout: fixed;
+    }
+    #itemtablelist tr,#itemtablelist td,#itemtablelist th,
+    .table-template table,.table-template tr,.table-template td,.table-template th{
+        margin: 0;
+    }
+    #itemtablelist td, #itemtablelist th,
+    .table-template td, .table-template th{
+        border: 1px solid #ccc;
+        width: 120px;
+        height: 26px;
+        font-size: 80%;
+    }
+    .table-template th,
+    #itemtablelist th{
+        background: #edeef9;
+    }
+    #itemtablelist td input{
+        border: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #itemtablelist td input:focus{
+        outline: 0;
+        z-index:999;
+    }
+    #itemtablelist td.itl_sel{
+        border: 2px solid #658fdc;
+        background: #fefefe;
+        box-sizing:border-box;
+    }
+    #selectable .ui-selected{
+        border: 2px solid #bbbfc7;
+        background: #efefef;
+        box-sizing:border-box;
+    }
+    #selectable .ui-selecting{
+        border: 2px solid #dde1e8;
+        background: #fafafa;
+        box-sizing:border-box;
+    }
+    #selectable .itl_caption{
+        background: #edeef9;
+        box-sizing:border-box;
+    }
+</style>

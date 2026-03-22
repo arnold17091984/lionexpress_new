@@ -1,0 +1,48 @@
+{#
+This file is part of Refine
+
+Copyright(c) 2021 Refine Co.,Ltd. All Rights Reserved.
+
+https://www.re-fine.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% if Products %}
+    <div class="ec-shelfRole">
+        <h2 class="ec-headingTitle">{{ 'refine_check_item.check_item'|trans }}</h2>
+        <ul class="ec-shelfGrid">
+            {% for ProductArray in Products  %}
+                {% set Product = ProductArray.Product %}
+                {% set hasStock = ProductArray.hasStock %}
+                <li class="ec-shelfGrid__item">
+                    <a href="{{ url('product_detail', {'id': Product.id}) }}">
+                        <img src="{{ asset(Product.main_list_image|no_image_product, "save_image") }}" alt="{{ Product.name }}">
+                        <dl>
+                            <dt class="item_name">{{ Product.name }}</dt>
+                            <dd class="item_price">
+                                {% if Product.hasProductClass %}
+                                    {% if Product.getPrice02Min == Product.getPrice02Max %}
+                                        {{ Product.getPrice02IncTaxMin|price }}
+                                    {% else %}
+                                        {{ Product.getPrice02IncTaxMin|price }} ～ {{ Product.getPrice02IncTaxMax|price }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ Product.getPrice02IncTaxMin|price }}
+                                {% endif %}
+                            </dd>
+                            <dd>
+                                {% if hasStock %}
+                                    {{ 'refine_check_item.has_stock'|trans }}
+                                {% else %}
+                                    {{ 'refine_check_item.no_stock'|trans }}
+                                {% endif %}
+                            </dd>
+                        </dl>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

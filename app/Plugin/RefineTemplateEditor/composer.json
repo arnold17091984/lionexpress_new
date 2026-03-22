@@ -1,0 +1,1 @@
+{"name":"ec-cube\/refinetemplateeditor","version":"4.0.0","description":"\u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u30a8\u30c7\u30a3\u30bf\u30fc","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.7 || ^2.0"},"extra":{"code":"RefineTemplateEditor","id":2536}}

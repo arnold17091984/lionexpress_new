@@ -1,0 +1,151 @@
+{% set Categories = repository('Eccube\\Entity\\Category').getList() %}
+{% macro tree(Category) %}
+    {% from _self import tree %}
+    <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
+        {{ Category.name }}
+    </a>
+    {% if Category.children|length > 0 %}
+        <ul class="ec-drawerChildMenu">
+            {% for ChildCategory in Category.children %}
+                <li>
+                    {{ tree(ChildCategory) }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+{% from _self import tree %}
+
+<div class="ec-drawerRole">
+    <div class="ec-drawerRole__header">
+        <span class="ec-drawerRole__title"></span>
+        <a class="ec-drawerRole__close">
+            <i class="fas fa-times"></i>
+        </a>
+    </div>
+    <div class="ec-drawerRole__content">
+        <nav>
+            <ul class="ec-drawerMenu">
+                <!-- ログイン/マイページ -->
+                <li>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ url('mypage') }}">
+                            <i class="fas fa-user" style="color: #e61919;"></i> マイページ
+                        </a>
+                    {% else %}
+                        <a href="{{ url('mypage_login') }}">
+                            <i class="fas fa-sign-in-alt" style="color: #e61919;"></i> ログイン
+                        </a>
+                    {% endif %}
+                    <span class="ec-drawerMenu__icon"><i class="fas fa-angle-right"></i></span>
+                </li>
+                
+                <!-- 新規会員登録 -->
+                {% if not is_granted('ROLE_USER') %}
+                <li>
+                    <a href="{{ url('entry') }}">
+                        <i class="fas fa-user-plus" style="color: #bb39fa;"></i> 新規会員登録
+                    </a>
+                    <span class="ec-drawerMenu__icon"><i class="fas fa-angle-right"></i></span>
+                </li>
+                {% endif %}
+                
+                <!-- マイページ -->
+                <li>
+                    <a href="{{ url('mypage') }}">
+                        <i class="fas fa-user" style="color: #e83e8c;"></i> マイページ
+                    </a>
+                    <span class="ec-drawerMenu__icon"><i class="fas fa-angle-right"></i></span>
+                </li>
+                
+                <!-- お問い合わせ -->
+                <li>
+                    <a href="{{ url('contact') }}">
+                        <i class="fas fa-envelope" style="color: #28a745;"></i> お問い合わせ
+                    </a>
+                    <span class="ec-drawerMenu__icon"><i class="fas fa-angle-right"></i></span>
+                </li>
+                
+                <!-- 商品カテゴリ一覧（アコーディオン） -->
+                <li class="ec-drawerMenu__item ec-drawerMenu__categoryParent">
+                    <a>
+                        <i class="fas fa-list" style="color: #ffc107;"></i> 商品カテゴリ一覧
+                    </a>
+                    <span class="ec-drawerMenu__icon ec-itemNaviRole__toggle">
+                        <i class="fas fa-angle-down"></i>
+                    </span>
+                    <ul class="ec-drawerMenu__categoryChild">
+                        {% for Category in Categories %}
+                            <li>
+                                <a href="{{ url('product_list') }}?category_id={{ Category.id }}">
+                                    {{ Category.name }}
+                                </a>
+                                {% if Category.children|length > 0 %}
+                                <span class="ec-drawerMenu__icon ec-itemNaviRole__childToggle">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                                <ul class="ec-drawerChildMenu">
+                                    {% for ChildCategory in Category.children %}
+                                        <li>
+                                            <a href="{{ url('product_list') }}?category_id={{ ChildCategory.id }}">
+                                                {{ ChildCategory.name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- オーバーレイ -->
+<div class="ec-drawerOverlay"></div>
+
+<script>
+$(function() {
+    // ドロワーメニューを閉じるイベント
+    $('.ec-drawerRole__close, .ec-drawerOverlay').on('click', function() {
+        $('.ec-headerHamburger').removeClass('is-active');
+        $('.ec-drawerRole').removeClass('is-active');
+        $('.ec-drawerOverlay').removeClass('is-active');
+        $('body').removeClass('have-fixed');
+    });
+    
+    // カテゴリメニューのトグル - aタグでも発火するよう修正
+    $('.ec-drawerMenu__categoryParent > a, .ec-drawerMenu__categoryParent .ec-itemNaviRole__toggle').on('click', function(e) {
+        e.preventDefault();
+        var $parent = $(this).parent();
+        $parent.toggleClass('active');
+        $parent.find('.ec-itemNaviRole__toggle i').toggleClass('fa-angle-down fa-angle-up');
+        $parent.find('.ec-drawerMenu__categoryChild').slideToggle(300);
+    });
+    
+    // ガイドメニューのトグル - aタグでも発火するよう修正
+    $('.ec-drawerMenu__guideParent > a, .ec-drawerMenu__guideParent .ec-itemNaviRole__toggle').on('click', function(e) {
+        e.preventDefault();
+        var $parent = $(this).parent();
+        $parent.toggleClass('active');
+        $parent.find('.ec-itemNaviRole__toggle i').toggleClass('fa-angle-down fa-angle-up');
+        $parent.find('.ec-drawerMenu__guideChild').slideToggle(300);
+    });
+    
+    // 子カテゴリのトグル - aタグでも発火するよう修正
+    $('.ec-drawerMenu__categoryChild > li > a, .ec-itemNaviRole__childToggle').on('click', function(e) {
+        // aタグの場合は子カテゴリがある場合のみ処理
+        if ($(this).is('a') && !$(this).siblings('.ec-drawerChildMenu').length) {
+            return; // 通常のリンクとして機能させる
+        }
+        
+        e.preventDefault();
+        var $parent = $(this).parent();
+        $parent.toggleClass('active');
+        $parent.find('.ec-itemNaviRole__childToggle i').toggleClass('fa-angle-down fa-angle-up');
+        $parent.find('.ec-drawerChildMenu').slideToggle(300);
+    });
+});
+</script>

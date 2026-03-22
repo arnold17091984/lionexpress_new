@@ -1,0 +1,19 @@
+                                                            <div class="col-3">
+                                                                {% if f.vars.help.tooltips is defined and f.vars.help.tooltips is not null %}
+                                                                <div class="d-inline-block" data-tooltip="true" data-placement="top" title="{{ f.vars.help.tooltips }}">
+                                                                    <span class="card-title">
+                                                                        {{ f.vars.label|trans }}
+                                                                        <i class="fa fa-question-circle fa-lg ml-1"></i>
+                                                                    </span>
+                                                                </div>
+                                                                {% else %}
+                                                                <span>{{ f.vars.label|trans }}</span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-9">
+                                                                {{ form_widget(f) }}
+                                                                {{ form_errors(f) }}
+                                                                {% if f.vars.help.text is defined and f.vars.help.text is not null  %}
+                                                                <span class="small">{{ f.vars.help.text }}</span>
+                                                                {% endif %}
+                                                            </div>

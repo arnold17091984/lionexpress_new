@@ -1,0 +1,69 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<!--▼左サイドバナーPC時のみ表示-->
+<ul class="ec-sideBanner">
+  <li class="ec-sideBanner__item">
+    <a href="{{ ('https://lion-express.com/mypage/referral') }}" class="is-inner">
+      <img src="{{ asset('/html/user_data/assets/img/banner/Friend-banner.jpg') }}" alt="">
+    </a>
+  </li>
+  <li class="ec-sideBanner__item">
+    <a href="{{ ('https://lin.ee/dXcgCQt') }}" class="is-inner">
+      <img src="{{ asset('/html/user_data/assets/img/banner/LINEfriend.jpg') }}" alt="">
+    </a>
+  </li>
+  <li class="ec-sideBanner__item">
+    <a href="{{ url('product_detail', {id : 1}) }}" class="is-inner">
+      <img src="{{ asset('assets/img/common/side3.jpg') }}" alt="">
+    </a>
+  </li>
+  <li class="ec-sideBanner__item">
+    <a href="{{ url('product_detail', {id : 2}) }}" class="is-inner">
+      <img src="{{ asset('assets/img/common/side4.jpg') }}" alt="">
+    </a>
+  </li>
+  <li class="ec-sideBanner__item">
+    <a href="{{ url('product_detail', {id : 1}) }}" class="is-inner">
+      <img src="{{ asset('assets/img/common/side5.jpg') }}" alt="">
+    </a>
+  </li>
+</ul>
+<!--▲左サイドバナーPC時のみ表示-->
+
+{% if is_granted('ROLE_USER') %}
+  {% set links = [
+    { url: url('mypage'), title: 'マイページ', icon_id: 'cb-user-circle', visible: true },
+    { url: url('mypage_favorite'), title: 'お気に入り', icon_id: 'cb-heart-circle', visible: BaseInfo.option_favorite_product },
+    { url: url('logout'), title: 'ログアウト', icon_id: 'cb-lock-circle', visible: true },
+  ] %}
+{% else %}
+  {% set links = [
+    { url: url('entry'), title: '新規会員登録', icon_id: 'cb-user-circle', visible: true },
+    { url: url('mypage_favorite'), title: 'お気に入り', icon_id: 'cb-heart-circle', visible: BaseInfo.option_favorite_product },
+    { url: url('mypage_login'), title: 'ログイン', icon_id: 'cb-lock-circle', visible: true },
+  ] %}
+{% endif %}
+
+<div class="ec-loginNav">
+  {% for opt in links %}
+    {% if opt.visible %}
+      <div class="ec-loginNav__item">
+        <a href="{{ opt.url }}">
+          <svg class="cb {{ opt.icon_id }}">
+            <use xlink:href="#{{ opt.icon_id }}" />
+          </svg>
+          <span>{{ opt.title }}</span>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,107 @@
+@import "../mixins/media";
+@import "../mixins/variables";
+
+/**
+ * FAQ section styles
+ */
+
+.faq {
+  padding: 1em 10px;
+}
+
+.faq-lineup {
+  margin: 0 auto;
+  width: 80%;
+  @media only screen and (max-width: $media_tablet_width - 1) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.question {
+  position: relative;
+  width: 100%;
+  padding: 1.1rem 2em 1.1rem 1.8em;
+  text-indent: -1em;
+  background: $brand-accent;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  color: #fff;
+}
+
+.answer {
+  position: relative;
+  display: none;
+  padding: 14px 10px;
+  padding-left: 1.8em;
+  text-indent: -1em;
+  letter-spacing: -0.05em;
+  background: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #000;
+}
+
+// Accordion icon (plus/minus toggle)
+.icon {
+  position: absolute;
+  right: 10px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    transition: all 0.4s;
+    background: #fff;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 2px;
+    transform: translate(-50%, -50%);
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(90deg);
+    transition: transform 0.4s;
+  }
+
+  &.open::before {
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition: transform 0.4s;
+  }
+}
+
+.section__title {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.6rem;
+  @include media_tablet {
+    padding: 16px;
+    text-align: left;
+    font-size: 2.4rem;
+  }
+}
+
+.outside {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}

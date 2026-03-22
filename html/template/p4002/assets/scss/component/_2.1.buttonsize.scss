@@ -1,0 +1,85 @@
+@import "../mixins/btn";
+/*
+ボタンサイズ
+
+ボタンサイズを変更するスタイル群です。
+
+sg-wrapper:
+<div class="ec-role">
+  <sg-wrapper-content/>
+</div>
+
+Styleguide 2.1
+*/
+
+/*
+通常ボタン
+
+インラインの要素としてボタンを定義出来ます。
+
+ex [トップページ　ボタン部分](http://demo3.ec-cube.net/)
+
+Markup:
+.ec-inlineBtn 住所検索
+.ec-inlineBtn--primary もっと見る
+.ec-inlineBtn--action カートに入れる
+.ec-inlineBtn--cancel キャンセル
+
+Styleguide 2.1.1
+*/
+.ec-inlineBtn{
+  @include btn-default;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.ec-inlineBtn--primary{
+  @include btn-primary;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.ec-inlineBtn--action{
+  @include btn-action;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.ec-inlineBtn--cancel{
+  @include btn-cancel;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+/*
+ブロックボタン（全幅）
+
+ボタンサイズは em で指定するため、テキストサイズの変更でボタンサイズを変更できます。
+
+ex [商品詳細ページ　カートボタン部分](http://demo3.ec-cube.net/products/detail/30)
+
+Markup:
+p: .ec-blockBtn 住所検索
+p: .ec-blockBtn--primary もっと見る
+p: .ec-blockBtn--action カートに入れる
+p: .ec-blockBtn--cancel キャンセル
+
+Styleguide 2.1.2
+*/
+.ec-blockBtn{
+  @include blockBtn-default;
+  max-width: 200px;
+}
+.ec-blockBtn--primary{
+  @include blockBtn-primary;
+  max-width: 200px;
+}
+.ec-blockBtn--action{
+  @include blockBtn-action;
+  max-width: 200px;
+}
+.ec-blockBtn--cancel{
+  @include blockBtn-cancel;
+  max-width: 200px;
+}

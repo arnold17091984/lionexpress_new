@@ -1,0 +1,199 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% extends 'default_frame.twig' %}
+
+{% form_theme form 'Form/form_div_layout.twig' %}
+
+{% block stylesheet %}
+<style>
+.nd-contact { max-width: 720px; margin: 0 auto; padding: 0 16px 60px; }
+.nd-contact-hero { text-align: center; padding: 48px 20px 16px; }
+.nd-contact-hero h1 { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; color: var(--neutral-900, #111); margin: 0 0 12px; }
+.nd-contact-hero p { font-size: 1.4rem; color: var(--neutral-600, #4b5563); line-height: 1.7; }
+.nd-confirm-card {
+  background: #fff;
+  border: 1px solid var(--neutral-200, #e5e7eb);
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-top: 24px;
+}
+.nd-confirm-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--neutral-900, #111);
+  margin: 0 0 24px;
+  text-align: center;
+}
+.nd-confirm-table { width: 100%; border-collapse: collapse; }
+.nd-confirm-table th,
+.nd-confirm-table td {
+  padding: 14px 16px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--neutral-200, #e5e7eb);
+  text-align: left;
+  vertical-align: top;
+}
+.nd-confirm-table th {
+  width: 160px;
+  font-weight: 600;
+  color: var(--neutral-600, #4b5563);
+  background: var(--neutral-50, #f9fafb);
+  white-space: nowrap;
+}
+.nd-confirm-table td { color: var(--neutral-900, #111); }
+.nd-confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.nd-confirm-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 36px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  border: none;
+}
+.nd-btn-submit {
+  background: var(--brand-primary, #518889);
+  color: #fff;
+  min-width: 200px;
+}
+.nd-btn-submit:hover {
+  background: var(--brand-dark, #3d6a6b);
+  transform: translateY(-1px);
+}
+.nd-btn-back {
+  background: #fff;
+  color: var(--neutral-600, #4b5563);
+  border: 1.5px solid var(--neutral-300, #d1d5db) !important;
+}
+.nd-btn-back:hover { background: var(--neutral-50, #f9fafb); }
+@media (max-width: 767px) {
+  .nd-contact { padding: 0 12px 40px; }
+  .nd-confirm-card { padding: 24px 18px; }
+  .nd-confirm-table th { width: 100px; }
+  .nd-confirm-actions { flex-direction: column-reverse; }
+  .nd-confirm-actions button { width: 100%; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+
+<div class="nd-contact">
+  <div class="nd-contact-hero">
+    <h1>お問い合わせ内容の確認</h1>
+    <p>以下の内容でよろしければ「送信する」ボタンを押してください。</p>
+  </div>
+
+  <div class="nd-confirm-card">
+    <h2>入力内容</h2>
+    <form method="post" action="{{ url('contact') }}" class="h-adr">
+      {{ form_widget(form._token) }}
+
+      <table class="nd-confirm-table">
+        <tr>
+          <th>お名前</th>
+          <td>
+            {{ form.name.name01.vars.data }} {{ form.name.name02.vars.data }}
+            {{ form_widget(form.name.name01, { type : 'hidden' }) }}
+            {{ form_widget(form.name.name02, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        <tr>
+          <th>お名前（カナ）</th>
+          <td>
+            {{ form.kana.kana01.vars.data }} {{ form.kana.kana02.vars.data }}
+            {{ form_widget(form.kana.kana01, { type : 'hidden' }) }}
+            {{ form_widget(form.kana.kana02, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        {% if form.postal_code.vars.data is not empty %}
+        <tr>
+          <th>住所</th>
+          <td>
+            〒{{ form.postal_code.vars.data }}<br>
+            {{ form.address.pref.vars.data }} {{ form.address.addr01.vars.data }} {{ form.address.addr02.vars.data }}
+            {{ form_widget(form.postal_code, { type : 'hidden' }) }}
+            {{ form_widget(form.address.pref, { type : 'hidden' }) }}
+            {{ form_widget(form.address.addr01, { type : 'hidden' }) }}
+            {{ form_widget(form.address.addr02, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        {% else %}
+          {{ form_widget(form.postal_code, { type : 'hidden' }) }}
+          {{ form_widget(form.address.pref, { type : 'hidden' }) }}
+          {{ form_widget(form.address.addr01, { type : 'hidden' }) }}
+          {{ form_widget(form.address.addr02, { type : 'hidden' }) }}
+        {% endif %}
+        <tr>
+          <th>電話番号</th>
+          <td>
+            {{ form.phone_number.vars.data }}
+            {{ form_widget(form.phone_number, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        <tr>
+          <th>メールアドレス</th>
+          <td>
+            {{ form.email.vars.data }}
+            {{ form_widget(form.email, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        <tr>
+          <th>お問い合わせ内容</th>
+          <td>
+            {{ form.contents.vars.data|nl2br }}
+            {{ form_widget(form.contents, { type : 'hidden' }) }}
+          </td>
+        </tr>
+        {# Entity extensions #}
+        {% for f in form if f.vars.eccube_form_options.auto_render %}
+            {% if f.vars.eccube_form_options.form_theme %}
+                {% form_theme f f.vars.eccube_form_options.form_theme %}
+                {{ form_row(f) }}
+            {% else %}
+                <tr>
+                    <th>{{ f.vars.label }}</th>
+                    <td>
+                        {{ f.vars.data }}
+                        {{ form_widget(f, { type: 'hidden'}) }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+      </table>
+
+      <div class="nd-confirm-actions">
+        <button type="submit" class="nd-btn-back" name="mode" value="back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          戻って修正する
+        </button>
+        <button type="submit" class="nd-btn-submit" name="mode" value="complete">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          送信する
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

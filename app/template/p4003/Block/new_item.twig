@@ -1,0 +1,44 @@
+{#
+  new_item.twig — 新入荷商品
+  【管理画面対応】管理画面 > コンテンツ管理 > ブロック管理 > "new_item"
+  → 商品IDを変更する場合は下記 productIds を編集
+#}
+{% set productIds = [635, 412, 559, 556, 206] %}
+
+{% set items = [] %}
+{% for pid in productIds %}
+  {% set Ps = repository('Eccube\\Entity\\Product').findBy({id: pid}) %}
+  {% if Ps|length > 0 %}
+    {% set items = items|merge([Ps[0]]) %}
+  {% endif %}
+{% endfor %}
+{% if items|length == 0 %}
+  {% set items = repository('Eccube\\Entity\\Product').findBy({}, {id: 'DESC'}, 6, 0) %}
+{% endif %}
+
+<div class="nd-new-arrivals-grid">
+{% for P in items %}
+  <a href="{{ url('product_detail', {id: P.id}) }}" class="nd-new-item-card">
+    <div class="nd-new-item-image">
+      <img src="{{ asset(P.main_list_image|no_image_product, 'save_image') }}"
+           alt="{{ P.name }}"
+           width="88" height="88"
+           loading="lazy"
+           decoding="async">
+    </div>
+    <div class="nd-new-item-body">
+      <p class="nd-new-item-name">{{ P.name }}</p>
+      <p class="nd-new-item-price">
+        {{ P.getPrice02IncTaxMin|number_format }}<small>円</small>
+      </p>
+      {% set AvgReview = getAvgReview(P.id) %}
+      {% if AvgReview is not empty and AvgReview.star is defined and AvgReview.star is not null %}
+        <p class="nd-new-item-rating">
+          {{ getStar(AvgReview.star)|raw }}
+          <span class="nd-rating-count">({{ AvgReview.cnt|default(0) }})</span>
+        </p>
+      {% endif %}
+    </div>
+  </a>
+{% endfor %}
+</div>

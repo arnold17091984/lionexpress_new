@@ -1,0 +1,1 @@
+{"name":"ec-cube\/pointsonreferral","version":"1.0.3","description":"\u53cb\u9054\u7d39\u4ecb\u30dd\u30a4\u30f3\u30c8\u4ed8\u4e0e","type":"eccube-plugin","require":{"ec-cube\/plugin-installer":"~0.0.6 || ^2.0"},"extra":{"code":"PointsOnReferral","id":2033}}

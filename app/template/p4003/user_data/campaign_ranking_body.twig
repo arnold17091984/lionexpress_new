@@ -1,0 +1,501 @@
+<style>
+/* ========================================================
+   Campaign: Ranking  –  nd-campaign-* scoped styles
+   ======================================================== */
+:root {
+    --brand-primary: #518889;
+    --brand-dark: #3d6a6b;
+    --brand-pale: #e8f4f4;
+    --neutral-900: #111;
+    --neutral-600: #4b5563;
+    --neutral-200: #e5e7eb;
+    --white: #fff;
+}
+
+/* --- breadcrumb --- */
+.nd-campaign-breadcrumb {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
+    color: var(--neutral-600);
+}
+.nd-campaign-breadcrumb a {
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+.nd-campaign-breadcrumb a:hover {
+    text-decoration: underline;
+}
+.nd-campaign-breadcrumb span {
+    margin: 0 0.6rem;
+}
+
+/* --- hero --- */
+.nd-campaign-hero {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    border-radius: 0 0 2.4rem 2.4rem;
+}
+.nd-campaign-hero__badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1.6rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+}
+.nd-campaign-hero__title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0 0 1.6rem;
+}
+.nd-campaign-hero__sub {
+    font-size: 1.6rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* --- section --- */
+.nd-campaign-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+}
+.nd-campaign-section__title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    text-align: center;
+    margin: 0 0 4rem;
+    position: relative;
+}
+.nd-campaign-section__title::after {
+    content: '';
+    display: block;
+    width: 4rem;
+    height: 0.3rem;
+    background: var(--brand-primary);
+    border-radius: 2px;
+    margin: 1.2rem auto 0;
+}
+
+/* --- category tabs --- */
+.nd-campaign-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+}
+.nd-campaign-tab {
+    display: inline-block;
+    padding: 1rem 2.4rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--neutral-600);
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.nd-campaign-tab:hover,
+.nd-campaign-tab.is-active {
+    background: var(--brand-primary);
+    color: var(--white);
+    border-color: var(--brand-primary);
+}
+
+/* --- category sections --- */
+.nd-campaign-category {
+    margin-bottom: 5rem;
+}
+.nd-campaign-category__header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+    padding-bottom: 1.6rem;
+    border-bottom: 2px solid var(--brand-primary);
+}
+.nd-campaign-category__icon {
+    width: 3.6rem;
+    height: 3.6rem;
+    color: var(--brand-primary);
+    flex-shrink: 0;
+}
+.nd-campaign-category__name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin: 0;
+}
+.nd-campaign-category__desc {
+    font-size: 1.4rem;
+    color: var(--neutral-600);
+    line-height: 1.7;
+    margin: 0 0 2.4rem;
+}
+
+/* --- ranking placeholder --- */
+.nd-campaign-ranking-placeholder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.4rem;
+}
+.nd-campaign-ranking-item {
+    background: var(--white);
+    border: 1px solid var(--neutral-200);
+    border-radius: 1.2rem;
+    padding: 2.4rem;
+    text-align: center;
+    position: relative;
+}
+.nd-campaign-ranking-item__rank {
+    position: absolute;
+    top: -0.8rem;
+    left: 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+}
+.nd-campaign-ranking-item__rank--1 { background: #d4a017; }
+.nd-campaign-ranking-item__rank--2 { background: #9ca3af; }
+.nd-campaign-ranking-item__rank--3 { background: #b87333; }
+.nd-campaign-ranking-item__img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--brand-pale);
+    border-radius: 0.8rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nd-campaign-ranking-item__img svg {
+    width: 4rem;
+    height: 4rem;
+    color: var(--brand-primary);
+    opacity: 0.4;
+}
+.nd-campaign-ranking-item__name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin: 0 0 0.4rem;
+}
+.nd-campaign-ranking-item__info {
+    font-size: 1.2rem;
+    color: var(--neutral-600);
+    margin: 0;
+}
+
+/* --- browse CTA --- */
+.nd-campaign-category__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--brand-primary);
+    text-decoration: none;
+    padding: 1.2rem 2.4rem;
+    border: 2px solid var(--brand-primary);
+    border-radius: 100px;
+    transition: all 0.2s;
+}
+.nd-campaign-category__cta:hover {
+    background: var(--brand-primary);
+    color: var(--white);
+}
+.nd-campaign-category__cta svg {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+/* --- bottom note --- */
+.nd-campaign-note {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--neutral-600);
+    padding: 2rem 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+.nd-campaign-note svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--brand-primary);
+    flex-shrink: 0;
+}
+
+/* --- main CTA --- */
+.nd-campaign-cta {
+    text-align: center;
+    padding: 4rem 2rem 6rem;
+}
+.nd-campaign-cta__btn {
+    display: inline-block;
+    background: var(--brand-primary);
+    color: var(--white);
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 1.8rem 4.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 16px rgba(81,136,137,0.25);
+}
+.nd-campaign-cta__btn:hover {
+    background: var(--brand-dark);
+    transform: translateY(-2px);
+}
+
+/* --- responsive --- */
+@media (max-width: 767px) {
+    .nd-campaign-hero { padding: 4rem 1.6rem 3.6rem; border-radius: 0 0 1.6rem 1.6rem; }
+    .nd-campaign-hero__title { font-size: 2.4rem; }
+    .nd-campaign-hero__sub { font-size: 1.4rem; }
+    .nd-campaign-section { padding: 4rem 1.6rem; }
+    .nd-campaign-section__title { font-size: 2rem; }
+    .nd-campaign-tabs { gap: 0.6rem; }
+    .nd-campaign-tab { padding: 0.8rem 1.6rem; font-size: 1.3rem; }
+    .nd-campaign-ranking-placeholder { grid-template-columns: repeat(2, 1fr); }
+    .nd-campaign-category__name { font-size: 1.8rem; }
+    .nd-campaign-cta__btn { font-size: 1.6rem; padding: 1.6rem 3.2rem; }
+}
+</style>
+{# --- Breadcrumb --- #}
+<nav class="nd-campaign-breadcrumb" aria-label="パンくずリスト">
+    <a href="{{ url('homepage') }}">TOP</a>
+    <span>&gt;</span>
+    売れ筋ランキング特集
+</nav>
+
+{# --- Hero --- #}
+<section class="nd-campaign-hero">
+    <span class="nd-campaign-hero__badge">毎月更新</span>
+    <h1 class="nd-campaign-hero__title">今月の売れ筋ランキング</h1>
+    <p class="nd-campaign-hero__sub">多くのお客様にご支持いただいている人気商品をカテゴリ別にご紹介します。</p>
+</section>
+
+{# --- Category Tabs (anchor links) --- #}
+<section class="nd-campaign-section" style="padding-bottom: 2rem;">
+    <div class="nd-campaign-tabs">
+        <a href="#cat-all" class="nd-campaign-tab is-active">総合</a>
+        <a href="#cat-ed" class="nd-campaign-tab">ED治療薬</a>
+        <a href="#cat-diet" class="nd-campaign-tab">ダイエット</a>
+        <a href="#cat-skin" class="nd-campaign-tab">スキンケア</a>
+        <a href="#cat-hair" class="nd-campaign-tab">育毛</a>
+    </div>
+</section>
+
+{# --- Categories --- #}
+<section class="nd-campaign-section" style="padding-top: 0;">
+
+    {# ===== Overall ===== #}
+    <div class="nd-campaign-category" id="cat-all">
+        <div class="nd-campaign-category__header">
+            <svg class="nd-campaign-category__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <h2 class="nd-campaign-category__name">総合ランキング</h2>
+        </div>
+        <p class="nd-campaign-category__desc">全カテゴリの中から、今月最も売れた商品をご紹介します。</p>
+        <div class="nd-campaign-ranking-placeholder">
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--1">1</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">商品一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--2">2</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">商品一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--3">3</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">商品一覧からご確認ください</p>
+            </div>
+        </div>
+        <a href="{{ url('product_list') }}" class="nd-campaign-category__cta">
+            全商品を見る
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+    {# ===== ED ===== #}
+    <div class="nd-campaign-category" id="cat-ed">
+        <div class="nd-campaign-category__header">
+            <svg class="nd-campaign-category__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <h2 class="nd-campaign-category__name">ED治療薬</h2>
+        </div>
+        <p class="nd-campaign-category__desc">バイアグラ・シアリス・レビトラのジェネリックを中心に、人気のED治療薬をランキングでご紹介。</p>
+        <div class="nd-campaign-ranking-placeholder">
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--1">1</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--2">2</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--3">3</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+        </div>
+        <a href="{{ url('product_list') }}?category_id=1" class="nd-campaign-category__cta">
+            ED治療薬の商品一覧へ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+    {# ===== Diet ===== #}
+    <div class="nd-campaign-category" id="cat-diet">
+        <div class="nd-campaign-category__header">
+            <svg class="nd-campaign-category__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <h2 class="nd-campaign-category__name">ダイエット</h2>
+        </div>
+        <p class="nd-campaign-category__desc">食欲抑制剤や脂肪吸収抑制剤など、効果的なダイエット医薬品をご紹介します。</p>
+        <div class="nd-campaign-ranking-placeholder">
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--1">1</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--2">2</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--3">3</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+        </div>
+        <a href="{{ url('product_list') }}?category_id=2" class="nd-campaign-category__cta">
+            ダイエット商品一覧へ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+    {# ===== Skincare ===== #}
+    <div class="nd-campaign-category" id="cat-skin">
+        <div class="nd-campaign-category__header">
+            <svg class="nd-campaign-category__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <h2 class="nd-campaign-category__name">スキンケア</h2>
+        </div>
+        <p class="nd-campaign-category__desc">美白クリーム、トレチノイン、ハイドロキノンなど、美肌ケアに人気の商品をランキングでご紹介。</p>
+        <div class="nd-campaign-ranking-placeholder">
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--1">1</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--2">2</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--3">3</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+        </div>
+        <a href="{{ url('product_list') }}?category_id=3" class="nd-campaign-category__cta">
+            スキンケア商品一覧へ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+    {# ===== Hair Growth ===== #}
+    <div class="nd-campaign-category" id="cat-hair">
+        <div class="nd-campaign-category__header">
+            <svg class="nd-campaign-category__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <h2 class="nd-campaign-category__name">育毛</h2>
+        </div>
+        <p class="nd-campaign-category__desc">フィナステリド、ミノキシジルなど、AGAに効果が認められた育毛・発毛医薬品のランキングです。</p>
+        <div class="nd-campaign-ranking-placeholder">
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--1">1</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--2">2</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+            <div class="nd-campaign-ranking-item">
+                <span class="nd-campaign-ranking-item__rank nd-campaign-ranking-item__rank--3">3</span>
+                <div class="nd-campaign-ranking-item__img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+                <p class="nd-campaign-ranking-item__name">人気商品を表示</p>
+                <p class="nd-campaign-ranking-item__info">カテゴリ一覧からご確認ください</p>
+            </div>
+        </div>
+        <a href="{{ url('product_list') }}?category_id=4" class="nd-campaign-category__cta">
+            育毛商品一覧へ
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+</section>
+
+{# --- Note + CTA --- #}
+<p class="nd-campaign-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    ランキングは毎月更新されます。最新の情報は商品一覧ページでもご確認いただけます。
+</p>
+
+<section class="nd-campaign-cta">
+    <a href="{{ url('product_list') }}" class="nd-campaign-cta__btn">全商品を見る</a>
+</section>
+
+{# --- Tab switching script --- #}
+<script>
+(function() {
+    var tabs = document.querySelectorAll('.nd-campaign-tab');
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function(e) {
+            tabs.forEach(function(t) { t.classList.remove('is-active'); });
+            this.classList.add('is-active');
+        });
+    });
+})();
+</script>

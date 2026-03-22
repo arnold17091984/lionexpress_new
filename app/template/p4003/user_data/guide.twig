@@ -1,0 +1,255 @@
+{% extends 'default_frame.twig' %}
+
+{% set page_title = 'ご利用方法' %}
+
+{% block stylesheet %}
+<style>
+.nd-guide { max-width: 880px; margin: 0 auto; padding: 32px 20px 60px; }
+.nd-guide h1 { font-size: 26px; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 8px; }
+.nd-guide .nd-lead { text-align: center; color: #666; font-size: 15px; margin-bottom: 40px; line-height: 1.8; }
+
+/* TOC */
+.nd-guide-toc { background: #f7fafa; border-radius: 14px; padding: 24px 28px; margin-bottom: 32px; }
+.nd-guide-toc h2 { font-size: 16px; font-weight: 700; color: #333; margin: 0 0 14px; }
+.nd-guide-toc ol { padding-left: 20px; margin: 0; }
+.nd-guide-toc li { margin-bottom: 8px; }
+.nd-guide-toc a { color: #518889; font-size: 14px; text-decoration: none; }
+.nd-guide-toc a:hover { text-decoration: underline; }
+
+/* Section */
+.nd-guide-section { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); padding: 32px 28px; margin-bottom: 28px; }
+.nd-guide-section h2 { font-size: 20px; font-weight: 700; color: #518889; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e8f0f0; display: flex; align-items: center; gap: 10px; }
+.nd-guide-section h2 svg { flex-shrink: 0; }
+.nd-guide-section h3 { font-size: 16px; font-weight: 600; color: #333; margin: 20px 0 8px; }
+.nd-guide-section p { font-size: 15px; line-height: 1.9; color: #444; margin: 0 0 14px; }
+.nd-guide-section ul, .nd-guide-section ol { padding-left: 20px; margin: 0 0 14px; }
+.nd-guide-section li { font-size: 14px; line-height: 1.8; color: #444; margin-bottom: 6px; }
+
+/* Order steps */
+.nd-order-steps { counter-reset: step; }
+.nd-order-step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f0f0f0; }
+.nd-order-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.nd-order-step-num { counter-increment: step; flex-shrink: 0; width: 44px; height: 44px; border-radius: 50%; background: #518889; color: #fff; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.nd-order-step-content h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; color: #333; }
+.nd-order-step-content p { margin: 0; font-size: 14px; color: #555; line-height: 1.7; }
+
+/* Info box */
+.nd-info-box { background: #f0f7f7; border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
+.nd-info-box p { margin: 0; font-size: 14px; color: #2d5f5f; }
+
+/* Caution */
+.nd-caution { background: #fef2f2; border-left: 4px solid #e53e3e; border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 16px 0; }
+.nd-caution p { margin: 0; font-size: 14px; color: #991b1b; }
+
+/* Table */
+.nd-guide-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+.nd-guide-table th { background: #f7fafa; padding: 10px 14px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #e8f0f0; }
+.nd-guide-table td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; color: #444; }
+
+/* CTA */
+.nd-guide-cta { text-align: center; margin: 40px 0 20px; }
+.nd-guide-cta a { display: inline-block; background: #518889; color: #fff; padding: 16px 48px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.nd-guide-cta a:hover { background: #3d6b6c; }
+
+@media (max-width: 600px) {
+    .nd-guide-section { padding: 24px 18px; }
+    .nd-order-step { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="nd-guide" id="main-content">
+    <h1>{{ page_title }}</h1>
+    <p class="nd-lead">ご注文からお届けまでの流れ、お支払い方法、<br>配送・返品についてご説明いたします。</p>
+
+    {# ── 目次 ── #}
+    <div class="nd-guide-toc">
+        <h2>目次</h2>
+        <ol>
+            <li><a href="#order-flow">ご注文の流れ</a></li>
+            <li><a href="#payment">お支払い方法</a></li>
+            <li><a href="#shipping">配送について</a></li>
+            <li><a href="#tracking">荷物の追跡</a></li>
+            <li><a href="#cancel">キャンセル・返品について</a></li>
+            <li><a href="#privacy">プライバシーへの配慮</a></li>
+            <li><a href="#support">お問い合わせ</a></li>
+        </ol>
+    </div>
+
+    {# ── 1. ご注文の流れ ── #}
+    <div class="nd-guide-section" id="order-flow">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            ご注文の流れ
+        </h2>
+
+        <div class="nd-order-steps">
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">1</div>
+                <div class="nd-order-step-content">
+                    <h3>商品を探す</h3>
+                    <p>検索バーまたはカテゴリから商品をお探しください。商品ページで詳細情報（用法、副作用、注意事項）をご確認いただけます。</p>
+                </div>
+            </div>
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">2</div>
+                <div class="nd-order-step-content">
+                    <h3>カートに入れる</h3>
+                    <p>数量を選択して「カートに入れる」ボタンをクリック。複数の商品をまとめてご注文いただけます。</p>
+                </div>
+            </div>
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">3</div>
+                <div class="nd-order-step-content">
+                    <h3>会員登録・ログイン</h3>
+                    <p>初めてのお客様は会員登録（無料・1分で完了）をお願いいたします。Googleアカウント・LINEでも簡単にログインできます。</p>
+                </div>
+            </div>
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">4</div>
+                <div class="nd-order-step-content">
+                    <h3>お届け先・お支払い方法を選択</h3>
+                    <p>お届け先住所を入力し、お支払い方法（銀行振込またはPayPay）を選択してください。</p>
+                </div>
+            </div>
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">5</div>
+                <div class="nd-order-step-content">
+                    <h3>注文確定・お支払い</h3>
+                    <p>注文内容をご確認のうえ「注文する」ボタンをクリック。銀行振込の場合は、メールに記載の口座にお振込みください。</p>
+                </div>
+            </div>
+            <div class="nd-order-step">
+                <div class="nd-order-step-num">6</div>
+                <div class="nd-order-step-content">
+                    <h3>発送・お届け</h3>
+                    <p>ご入金確認後、海外業者に発注します。商品発送後に追跡番号をメールでお送りします。約7〜14日でお届けいたします。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ── 2. お支払い方法 ── #}
+    <div class="nd-guide-section" id="payment">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            お支払い方法
+        </h2>
+
+        <table class="nd-guide-table">
+            <thead>
+                <tr><th>支払い方法</th><th>手数料</th><th>備考</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>銀行振込</strong></td><td>振込手数料はお客様負担</td><td>ご注文後にお振込先をメールでご案内</td></tr>
+                <tr><td><strong>PayPay</strong></td><td>無料</td><td>PayPayアプリからお支払い</td></tr>
+            </tbody>
+        </table>
+
+        <div class="nd-info-box">
+            <p><strong>お支払い期限：</strong>ご注文日から5営業日以内にお支払いをお願いいたします。期限を過ぎた場合は自動キャンセルとなります。</p>
+        </div>
+    </div>
+
+    {# ── 3. 配送について ── #}
+    <div class="nd-guide-section" id="shipping">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            配送について
+        </h2>
+
+        <table class="nd-guide-table">
+            <thead>
+                <tr><th>項目</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>配送方法</td><td>国際郵便（書留付き）</td></tr>
+                <tr><td>お届け日数</td><td>約7〜14日（発送国・通関状況により前後）</td></tr>
+                <tr><td>送料</td><td>10,000円以上で送料無料 / 10,000円未満は1,000円</td></tr>
+                <tr><td>追跡</td><td>全注文に追跡番号を発行</td></tr>
+                <tr><td>配送先</td><td>日本国内のみ（離島を含む）</td></tr>
+            </tbody>
+        </table>
+
+        <div class="nd-info-box">
+            <p>商品は海外から直接発送されます。通関手続きに時間がかかる場合がございます。お届け日・時間の指定はできませんのでご了承ください。</p>
+        </div>
+    </div>
+
+    {# ── 4. 荷物の追跡 ── #}
+    <div class="nd-guide-section" id="tracking">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            荷物の追跡
+        </h2>
+        <p>発送完了後、メールで追跡番号をお知らせいたします。以下のサイトで配送状況をご確認いただけます。</p>
+        <ul>
+            <li><strong>日本郵便</strong> — <a href="https://www.post.japanpost.jp/int/ems/delivery/index.html" target="_blank" rel="noopener noreferrer" style="color:#518889;">国際郵便追跡サービス</a></li>
+            <li><strong>17TRACK</strong> — <a href="https://www.17track.net/ja" target="_blank" rel="noopener noreferrer" style="color:#518889;">多言語対応追跡サービス</a></li>
+        </ul>
+        <p>追跡番号が反映されるまで、発送後2〜3日かかる場合があります。</p>
+    </div>
+
+    {# ── 5. キャンセル・返品 ── #}
+    <div class="nd-guide-section" id="cancel">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            キャンセル・返品について
+        </h2>
+
+        <h3>キャンセル</h3>
+        <ul>
+            <li>ご入金前であればキャンセル可能です</li>
+            <li>ご入金後・発注後のキャンセルは<strong>原則お受けできません</strong></li>
+        </ul>
+
+        <h3>返品・交換</h3>
+        <div class="nd-caution">
+            <p>海外からの個人輸入商品のため、お客様のご都合による返品・交換はお受けできません。</p>
+        </div>
+        <p>ただし、以下の場合は<strong>再送または返金</strong>にて対応いたします。</p>
+        <ul>
+            <li>商品が届かない場合（発送後30日以上経過）</li>
+            <li>届いた商品が注文と異なる場合</li>
+            <li>届いた商品に破損がある場合（開封前に写真撮影をお願いします）</li>
+        </ul>
+    </div>
+
+    {# ── 6. プライバシー ── #}
+    <div class="nd-guide-section" id="privacy">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            プライバシーへの配慮
+        </h2>
+        <ul>
+            <li>外装に<strong>商品名は記載しません</strong>（「健康食品」「サプリメント」等の表記）</li>
+            <li>送り主名は個人名または現地業者名となり、当サイト名は記載されません</li>
+            <li>ご注文情報はSSL暗号化通信で保護されています</li>
+            <li>個人情報は<a href="{{ url('help_privacy') }}" style="color:#518889;">プライバシーポリシー</a>に基づき厳重に管理しています</li>
+        </ul>
+    </div>
+
+    {# ── 7. お問い合わせ ── #}
+    <div class="nd-guide-section" id="support">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            お問い合わせ
+        </h2>
+
+        <table class="nd-guide-table">
+            <tbody>
+                <tr><td><strong>電話</strong></td><td><a href="tel:0368246593" style="color:#518889; font-weight:600;">03-6824-6593</a>（平日 10:00〜18:00）</td></tr>
+                <tr><td><strong>メール</strong></td><td><a href="{{ url('contact') }}" style="color:#518889;">お問い合わせフォーム</a></td></tr>
+                <tr><td><strong>LINE</strong></td><td><a href="https://line.me/R/ti/p/@229ulhco" style="color:#06c755;" target="_blank" rel="noopener noreferrer">LINEで問い合わせ</a></td></tr>
+            </tbody>
+        </table>
+        <p style="font-size:13px; color:#888;">※ 土日祝日はお休みをいただいております。翌営業日以降の対応となりますのでご了承ください。</p>
+    </div>
+
+    {# ── CTA ── #}
+    <div class="nd-guide-cta">
+        <a href="{{ url('product_list') }}">商品を探す →</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{#
+ * This file is part of the Recommend Product plugin
+ *
+ * Copyright (C) 2016 LOCKON CO.,LTD. All Rights Reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+#}
+{% set recommend_products = repository('Plugin\\Recommend4\\Entity\\RecommendProduct').getRecommendProduct %}
+
+{% macro productPrice(RecommendProduct) %}
+  {% if RecommendProduct.Product.hasProductClass %}
+    {% if RecommendProduct.Product.getPrice02Min == RecommendProduct.Product.getPrice02Max %}
+      {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
+    {% else %}
+      {{ RecommendProduct.Product.getPrice02IncTaxMin|price }} ～ {{ RecommendProduct.Product.getPrice02IncTaxMax|price }}
+    {% endif %}
+  {% else %}
+    {{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
+  {% endif %}
+{% endmacro %}
+
+{% import _self as self %}
+
+<!--▼おすすめ商品ブロックの中にあります▼-->
+<div class="ec-mainVisual">
+  <a class="ec-mainVisual__item" href="{{ url('product_detail', {id : 1}) }}" title="">
+    <img src="{{ asset('/html/user_data/assets/img/banner/クスリストップ画像.jpg') }}">
+  </a>
+  <a class="ec-mainVisual__item" href="{{ url('product_detail', {id : 1}) }}" title="">
+    <img src="{{ asset('/html/user_data/assets/img/banner/KUSURISU-準備中バナー.jpg') }}">
+  </a>
+  <a class="ec-mainVisual__item" href="{{ url('product_detail', {id : 1}) }}" title="">
+    <img src="{{ asset('/html/user_data/assets/img/banner/KUSURISU-準備中バナー.jpg') }}">
+  </a>
+</div>
+
+{#<div class="ec-recommend">#}
+{#  <h2 class="ec-recommend__title">RECOMMEND</h2>#}
+{#  <ul class="ec-recommend__list">#}
+{#    {% for RecommendProduct in recommend_products %}#}
+{#      <li class="ec-recommendItem">#}
+{#        <a href="{{ url('product_detail', {'id': RecommendProduct.Product.id}) }}">#}
+{#          <img class="ec-recommendItem__image" src="{{ asset(RecommendProduct.Product.mainFileName|no_image_product, "save_image") }}">#}
+{#          <p class="ec-recommendItem__comment">{{ RecommendProduct.comment|raw|nl2br }}</p>#}
+{#          <p class="ec-recommendItem__name">{{ RecommendProduct.Product.name }}</p>#}
+{#          <p class="ec-recommendItem__price">{{ self.productPrice(RecommendProduct) }}</p>#}
+{#        </a>#}
+{#      </li>#}
+{#    {% endfor %}#}
+{#  </ul>#}
+{#</div>#}
+
+<script>
+$(function() {
+  $('.ec-recommend__list').slick({
+    arrows: true,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [{
+      draggable: true,
+      touchMove: true,
+      swipe: true,
+      pauseOnHover: false,
+      breakpoint: 768,
+      settings:{
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: false,
+      }
+    }]
+  });
+});
+</script>
+<!--▲おすすめ商品ブロックの中にあります▲-->

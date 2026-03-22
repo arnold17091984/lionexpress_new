@@ -1,0 +1,37 @@
+.ec-help-about-box {
+  border-top: none;
+  padding: {
+    left: 8px;
+    right: 8px;
+  }
+  dl {
+    padding: 8px 0;
+    @include media_tablet {
+      display: flex;
+    }
+  }
+  dt {
+    @include media_tablet {
+      flex-basis: 30%;
+      max-width: 30%;
+    }
+    @include media_desktop {
+      padding-top: 0;
+    }
+
+    .ec-label {
+      font-weight: normal;
+      margin-bottom: 0;
+      @include media_tablet {
+        font-weight: bold;
+      }
+    }
+  }
+  dd {
+    line-height: 1.6;
+    @include media_tablet {
+      flex-basis: 70%;
+      max-width: 70%;
+    }
+  }
+}

@@ -1,0 +1,3 @@
+refine_check_item.check_item: 最近チェックした商品
+refine_check_item.has_stock: 在庫あり
+refine_check_item.no_stock: 在庫なし

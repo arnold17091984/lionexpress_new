@@ -1,0 +1,375 @@
+{% block stylesheet %}
+<style>
+.ec-grid2 {
+    display: flex !important;
+}
+.ec-productRole .ec-productRole__tags {
+    border-bottom: 0 !important;
+}
+.ec-productRole > .ec-grid2 {
+    border-bottom: 0;
+}
+/* 購入はこちらボタン */
+.red_btn {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    padding: 11px 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: -1px -1px 1px #606060;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top,#ea3030,#ca0000);
+    background: -moz-linear-gradient(top, #ea3030,#ca0000);
+    background: linear-gradient(to bottom, #ea3030,#ca0000);
+    border: 1px solid #b00000;
+    border-radius: 4px;
+}
+.red_btn:active,
+.red_btn:focus,
+.red_btn:hover {
+    color: #fff;
+}
+.red_btn img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    background: #fff;
+    border-radius: 50%;
+}
+/* 口コミ・レビュー */
+section > h2 {
+    /*margin: 0 0 10px -10px;*/
+    /*text-align: center;*/
+    /*color: #333;*/
+    /*font-size: 20px;*/
+    /*font-weight: bold;*/
+    /*line-height: 28px;*/
+    /*border-bottom: 1px solid #dadada;*/
+    padding-bottom: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    /* margin-bottom: 10px; */
+    margin-bottom: 0;
+    padding-top: 5px;
+    padding-left: 5px;
+    background: #518889;
+    color: #fff;
+    text-align: left;
+}
+.icon,
+.review--btn {
+    display: none !important;
+}
+{# レビューの最大と最小 #}
+.max-min-review-area {
+    margin-bottom: 30px;
+}
+.review-title {
+    margin: 0 0 10px 5px;
+    color: #da0000;
+    text-align: left;
+}
+.review-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.left--box {
+    width: 49%;
+    /*padding: 10px 5px;*/
+    /*border: 3px solid #518889;*/
+    border: 1px solid #FF8C00;
+}
+.right--box {
+    width: 49%;
+    margin-left: 1%;
+    /*padding: 10px 5px;*/
+    /*border: 3px solid #518889;*/
+    border: 1px solid #9370DB;
+}
+.good-title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px 0 10px 25px;
+    /*margin: 0 auto;*/
+    margin-bottom: 10px;
+    /*width: 90%;*/
+    background: #fff;
+    /*border: 2px solid #f04070;*/
+    color: #fff;
+    background: #FF8C00;
+    position: relative;
+}
+.bad-title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px 0 10px 25px;
+    /*margin: 0 auto;*/
+    margin-bottom: 10px;
+    /*width: 90%;*/
+    background: #fff;
+    /*border: 2px solid #34a4c5;*/
+    color: #fff;
+    background: #9370DB;
+    position: relative;
+}
+.good-name,
+.bad-name {
+    padding: 0 5px;
+}
+.good-level,
+.bad-level {
+    padding: 0 5px;
+}
+.good-comment,
+.bad-comment {
+    padding: 0 5px;
+}
+.product-review {
+    text-align: right;
+}
+i.fas.fa-star {
+    color: #f4ac00;
+}
+i.fas.fa-star-half-alt {
+    color: #f4ac00;
+}
+i.far.fa-star {
+    color: #deded9;
+}
+.good-comment,
+.bad-comment {
+    height: 125px;
+    overflow-y: scroll;
+    overflow: auto;
+    background: #fffaea;
+    border-radius: 4px;
+    padding: 5px;
+}
+.max-min-review-area a {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    text-decoration: underline;
+}
+{# スライダー画像 #}
+.slick-slider {
+    margin-bottom: 30px;
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: -45px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+
+    cursor: pointer;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+    outline: none;
+}
+
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+    opacity: 1;
+}
+
+.slick-dots li button:before {
+    content: " ";
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    opacity: .25;
+    background-color: black;
+    border-radius: 50%;
+
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    background-color: black;
+}
+
+.slick-dots li button.thumbnail img {
+    width: 0;
+    height: 0;
+}
+/* ページ内リンク */
+.ec-productRole .scroll_btn {
+    display: table;
+    width: 80%;
+    margin: 25px auto 40px auto;
+}
+.ec-productRole .scroll_btn li {
+    display: table-cell;
+    width: 20%;
+}
+.ec-productRole .scroll_btn li a {
+    position: relative;
+    display: block;
+    margin: 0 5px;
+    padding: 16px 0 36px 0;
+    color: #323232;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: -webkit-linear-gradient(top, #faffff, #dadada);
+    background: -moz-linear-gradient(top, #faffff, #dadada);
+    background: linear-gradient(to bottom, #faffff, #dadada);
+    border: 1px solid #808080;
+    border-radius: 4px;
+}
+.ec-productRole .scroll_btn li a::after {
+    position: absolute;
+    bottom: 5px;
+    left: calc(50% - 10px);
+    font-size: 20px;
+    content: "\f13a";
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+}
+
+@media only screen and (max-width: 1023px) {
+    .ec-grid2 {
+        display: block !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script>
+$(function() {
+    $('.item_visual').slick({
+        dots: false,
+        arrows: false,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                dots: true
+            }
+        }]
+    });
+
+    $('.slideThumb').on('click', function() {
+        var index = $(this).attr('data-index');
+        $('.item_visual').slick('slickGoTo', index, false);
+    })
+});
+</script>
+{% endblock %}
+
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'review_list' %}
+
+{% block main %}
+    <div class="ec-productRole">
+        <div class="ec-grid2">
+            <div class="sp-only">
+                <div class="update_date">更新日：<time>{{ Product.update_date|date_format('', 'Y年m月d日') }}</time></div>
+                <h1>{{ Product.name }}</h1>
+            </div>
+            <div class="ec-grid2__cell cell_left">
+                <div class="ec-sliderItemRole">
+
+                    <div class="item_visual">
+                        {% for ProductImage in Product.ProductImage %}
+                            <div class="slide-item"><img src="{{ asset(ProductImage, 'save_image') }}" alt="{{ loop.first ? Product.name : '' }}"></div>
+                        {% else %}
+                            <div class="slide-item"><img src="{{ asset(''|no_image_product, 'save_image') }}" alt="{{ loop.first ? Product.name : '' }}" /></div>
+                        {% endfor %}
+                    </div>
+                    <div class="item_nav">
+                        {% for ProductImage in Product.ProductImage %}
+                            <div class="slideThumb" data-index="{{ loop.index0 }}"><img src="{{ asset(ProductImage, 'save_image') }}" alt=""></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="ec-grid2__cell cell_right">
+                <div class="ec-productRole__profile">
+                    {# 商品名 #}
+                    <div class="pc-only">
+                        <div class="item_title">
+                            <h1>{{ Product.name }}</h1>
+                            <div class="update_date">更新日：<time>{{ Product.update_date|date_format('', 'Y年m月d日') }}</time></div>
+                        </div>
+                    </div>
+                    {# レビュー #}
+                    <div class="product-review">
+                        {% set AvgGood = 0 %}
+                        {% set AvgCnt = 0 %}
+                        {% set AvgReview = getAvgReview(Product.id) %}
+                        {% if AvgReview is not empty and AvgReview.star is defined and AvgReview.star is not null %}
+                            {% set AvgGood = AvgReview.star * 2 %}
+                            {% set AvgGood = AvgGood|round(0, 'floor') %}
+                            {% set AvgGood = AvgGood / 2 %}
+                        {% else %}
+                            {% set AvgGood = 0 %}
+                        {% endif %}
+                        {% if AvgReview is not empty and AvgReview.cnt is defined and AvgReview.cnt is not null %}
+                            {% set AvgCnt = AvgReview.cnt %}
+                        {% endif %}
+                        <a href="#item_review">{{ getStar(AvgGood)|raw }}({{ AvgCnt }})</a>
+                    </div>
+                    {# タグ #}
+                    <ul class="ec-productRole__tags">
+                        {% for Tag in Product.Tags %}
+                            <li class="ec-productRole__tag tag_{{ Tag.id }}">{{ Tag }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ url('product_detail', {'id': Product.id}) }}" class="red_btn mt_20 mb_30">購入はこちらから<img src="{{ asset('assets/img/common/arrow-right.svg', 'user_data') }}" alt="商品検索"></a>
+                    {{ include('Block/product_table_list.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

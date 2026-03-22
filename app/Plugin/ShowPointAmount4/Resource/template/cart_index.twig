@@ -1,0 +1,18 @@
+{% if arrCartPoint|length %}
+ <style>
+     .ec-cartRole .ec-cartRole__point {
+         padding: 10px 0 0;
+         font-size: 14px;
+     }
+
+ </style>
+<script>
+    $(function () {
+        var arrCartPoint = {{ arrCartPoint|json_encode|raw }};
+        $('.ec-cartRole__total').each(function (index) {
+            var $insert = $('<div class="ec-cartRole__point"></div>').text('{{ 'front.cart.point__with_separator'|trans }} ' + arrCartPoint[index].toLocaleString() + 'pt');
+            $(this).before($insert);
+        })
+    })
+</script>
+{% endif %}

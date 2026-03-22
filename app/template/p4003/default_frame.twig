@@ -1,0 +1,233 @@
+<!doctype html>
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<html lang="{{ eccube_config.locale }}">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="eccube-csrf-token" content="{{ csrf_token(constant('Eccube\\Common\\Constant::TOKEN_NAME')) }}">
+    <title>{{ BaseInfo.shop_name }}{% if subtitle is defined and subtitle is not empty %} / {{ subtitle }}{% elseif title is defined and title is not empty %} / {{ title }}{% endif %}</title>
+    {% if Page.author is not empty %}
+        <meta name="author" content="{{ Page.author }}">
+    {% endif %}
+    {% if Page.description is not empty %}
+        <meta name="description" content="{{ Page.description }}">
+    {% endif %}
+    {% if Page.keyword is not empty %}
+        <meta name="keywords" content="{{ Page.keyword }}">
+    {% endif %}
+    {% if Page.meta_robots is not empty %}
+        <meta name="robots" content="{{ Page.meta_robots }}">
+    {% endif %}
+    {% if Page.meta_tags is not empty %}
+        {{ include(template_from_string(Page.meta_tags)) }}
+    {% endif %}
+    {# Twitter Card + OG locale #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="{{ BaseInfo.shop_name }}">
+    {# Canonical URL — prevents duplicate content #}
+    <link rel="canonical" href="{{ app.request.schemeAndHttpHost }}{{ app.request.pathInfo }}">
+    <link rel="icon" href="{{ asset('assets/img/common/favicon.ico', 'user_data') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap">
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    {# Bootstrap CSS — defer non-critical via media print trick #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" media="print" onload="this.media='all'">
+    {# Font Awesome REMOVED — not used, all icons are SVG now #}
+    {# Slick CSS — defer #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ asset('assets/css/slick-theme.css') }}" media="print" onload="this.media='all'">
+    {# Critical CSS — loaded synchronously #}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}?v=20260322fix2">
+    <link rel="stylesheet" href="{{ asset('assets/css/new-design.css') }}?v=20260322fix3">
+    {% block stylesheet %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/vue.min.js') }}" defer></script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                'headers': {
+                    'ECCUBE-CSRF-TOKEN': $('meta[name="eccube-csrf-token"]').attr('content')
+                }
+            });
+        });
+    </script>
+    {# Layout: HEAD #}
+    {% if Layout.Head %}
+        {{ include('block.twig', {'Blocks': Layout.Head}) }}
+    {% endif %}
+    {# プラグイン用styleseetやmetatagなど #}
+    {% if plugin_assets is defined %}{{ include('@admin/snippet.twig', { snippets: plugin_assets }) }}{% endif %}
+    <link rel="stylesheet" href="{{ asset('assets/css/customize.css', 'user_data') }}">
+    <style>[v-cloak] { display: none; }</style>
+    <style>
+        /* Skip link - visible only on focus for keyboard accessibility */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 0;
+            padding: 8px 16px;
+            background: #333;
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+            z-index: 99999;
+            border-bottom-right-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body id="page_{{ app.request.get('_route') }}" class="{{ body_class|default('other_page') }}">
+<a href="#main-content" class="skip-link">本文へスキップ</a>
+{# Layout: BODY_AFTER #}
+{% if Layout.BodyAfter %}
+    {{ include('block.twig', {'Blocks': Layout.BodyAfter}) }}
+{% endif %}
+
+<div class="ec-layoutRole">
+    <div class="ec-siteBackground ec-siteBackground_left"></div>
+    <div class="ec-siteBackground ec-siteBackground_right"></div>
+    {# Layout: HEADER #}
+    {% if Layout.Header %}
+        <div class="ec-layoutRole__header">
+            {{ include('block.twig', {'Blocks': Layout.Header}) }}
+        </div>
+    {% endif %}
+
+    {# Layout: CONTENTS_TOP #}
+    {% if Layout.ContentsTop %}
+        <div class="ec-layoutRole__contentTop">
+            {{ include('block.twig', {'Blocks': Layout.ContentsTop}) }}
+        </div>
+    {% endif %}
+
+    <div class="ec-layoutRole__contents">
+        {# Layout: SIDE_LEFT #}
+        {% if Layout.SideLeft %}
+            <div class="ec-layoutRole__left">
+                {{ include('block.twig', {'Blocks': Layout.SideLeft}) }}
+            </div>
+        {% endif %}
+
+        {% set layoutRoleMain = 'ec-layoutRole__main' %}
+        {% if Layout.ColumnNum == 2 %}
+            {% set layoutRoleMain = 'ec-layoutRole__mainWithColumn' %}
+        {% elseif Layout.ColumnNum == 3 %}
+            {% set layoutRoleMain = 'ec-layoutRole__mainBetweenColumn' %}
+        {% endif %}
+
+        <div class="{{ layoutRoleMain }}">
+            {# Layout: MAIN_TOP #}
+            {% if Layout.MainTop %}
+                <div class="ec-layoutRole__mainTop">
+                    {{ include('block.twig', {'Blocks': Layout.MainTop}) }}
+                </div>
+            {% endif %}
+
+            {# MAIN AREA #}
+            <div id="main-content" tabindex="-1">
+            {% block main %}{% endblock %}
+            </div>
+
+            {# Layout: MAIN_Bottom #}
+            {% if Layout.MainBottom %}
+                <div class="ec-layoutRole__mainBottom">
+                    {{ include('block.twig', {'Blocks': Layout.MainBottom}) }}
+                </div>
+            {% endif %}
+        </div>
+
+        {# Layout: SIDE_RIGHT #}
+        {% if Layout.SideRight %}
+            <div class="ec-layoutRole__right">
+                {{ include('block.twig', {'Blocks': Layout.SideRight}) }}
+            </div>
+        {% endif %}
+    </div>
+
+    {# Layout: CONTENTS_BOTTOM #}
+    {% if Layout.ContentsBottom %}
+        <div class="ec-layoutRole__contentBottom">
+            {{ include('block.twig', {'Blocks': Layout.ContentsBottom}) }}
+        </div>
+    {% endif %}
+
+    {# Layout: CONTENTS_FOOTER #}
+    {% if Layout.Footer %}
+        <div class="ec-layoutRole__footer">
+            {{ include('block.twig', {'Blocks': Layout.Footer}) }}
+        </div>
+    {% endif %}
+</div><!-- ec-layoutRole -->
+
+{# Layout: DRAWER - category_nav_sp.twig outputs ec-drawerRole wrapper itself, so no wrapper here #}
+{% if Layout.Drawer %}
+    {{ include('block.twig', {'Blocks': Layout.Drawer}) }}
+{% endif %}
+<div class="ec-blockTopBtn pagetop" aria-label="{{ 'ページトップへ'|trans }}">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js" defer></script>
+{% include('@common/lang.twig') %}
+<script>
+    $(function() {
+        $.ajax('{{ asset("assets/img/common/svg.html") }}')
+        .done(function(data){
+        $('body').prepend($(data).hide());
+        }).fail(function(data){ if (window.console) { console.warn('SVG sprite load failed'); } });
+    });
+</script>
+<script src="{{ asset('assets/js/function.js') }}"></script>
+<script src="{{ asset('assets/js/eccube.js') }}"></script>
+{% block javascript %}{% endblock %}
+{# Layout: CLOSE_BODY_BEFORE #}
+{% if Layout.CloseBodyBefore %}
+    {{ include('block.twig', {'Blocks': Layout.CloseBodyBefore}) }}
+{% endif %}
+{# プラグイン用Snippet #}
+{% if plugin_snippets is defined %}
+    {{ include('snippet.twig', { snippets: plugin_snippets }) }}
+{% endif %}
+    <script src="{{ asset('assets/js/customize.js', 'user_data') }}"></script>
+
+{# ── Cookie Consent Banner ── #}
+<div id="cookie-consent" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:99999; background:rgba(30,40,38,0.95); backdrop-filter:blur(8px); padding:16px 20px; box-shadow:0 -2px 12px rgba(0,0,0,0.15);">
+  <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+    <p style="color:#e8e8e8; font-size:13px; line-height:1.6; margin:0; flex:1; min-width:240px;">
+      当サイトでは、サービス向上のためCookieを使用しています。サイトの利用を続けることで、<a href="{{ url('help_privacy') }}" style="color:#7ec8c8; text-decoration:underline;">プライバシーポリシー</a>に同意したものとみなされます。
+    </p>
+    <div style="display:flex; gap:10px; flex-shrink:0;">
+      <button id="cookie-accept" style="background:#518889; color:#fff; border:none; border-radius:8px; padding:10px 28px; font-size:14px; font-weight:600; cursor:pointer; transition:background 0.2s;">同意する</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  if(document.cookie.indexOf('cookie_consent=1')===-1){
+    document.getElementById('cookie-consent').style.display='block';
+  }
+  document.getElementById('cookie-accept').addEventListener('click',function(){
+    var d=new Date();d.setFullYear(d.getFullYear()+1);
+    document.cookie='cookie_consent=1;path=/;expires='+d.toUTCString()+';SameSite=Lax';
+    document.getElementById('cookie-consent').style.display='none';
+  });
+})();
+</script>
+
+</body>
+</html>

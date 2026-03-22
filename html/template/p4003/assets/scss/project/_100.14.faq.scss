@@ -1,0 +1,174 @@
+@import "../mixins/media";
+@import "../mixins/variables";
+
+// ─── FAQ Block (details/summary — no JS required) ───────────────────────────
+
+.faq-block {
+  padding: 40px 16px 56px;
+}
+
+.faq-block__list {
+  max-width: 820px;
+  margin: 32px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+// Individual item
+.faq-block__item {
+  background: #fff;
+  border: 1px solid rgba(81, 136, 137, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(81, 136, 137, 0.12);
+  }
+
+  &[open] {
+    box-shadow: 0 4px 20px rgba(81, 136, 137, 0.16);
+    border-color: rgba(81, 136, 137, 0.4);
+
+    .faq-block__chevron::before {
+      transform: rotate(-45deg);
+    }
+    .faq-block__chevron::after {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// Question row (summary)
+.faq-block__q {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  user-select: none;
+
+  // Remove default browser triangle
+  &::-webkit-details-marker { display: none; }
+  &::marker { display: none; }
+
+  &:hover .faq-block__q-text {
+    color: $brand-primary;
+  }
+}
+
+// "Q" badge
+.faq-block__q-badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: $brand-primary;
+  color: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.faq-block__q-text {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #1a2e2e;
+  transition: color 0.15s;
+}
+
+// Chevron arrow (pure CSS)
+.faq-block__chevron {
+  flex-shrink: 0;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    width: 9px;
+    height: 2px;
+    background: $brand-primary;
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+  }
+  &::before {
+    left: 1px;
+    transform: rotate(45deg);
+  }
+  &::after {
+    right: 1px;
+    transform: rotate(-45deg);
+  }
+}
+
+// Answer panel
+.faq-block__a {
+  display: flex;
+  gap: 14px;
+  padding: 0 20px 20px;
+  align-items: flex-start;
+  animation: faqFadeIn 0.2s ease;
+}
+
+@keyframes faqFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// "A" badge
+.faq-block__a-badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: #f0f7f7;
+  color: $brand-primary;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid rgba(81, 136, 137, 0.2);
+}
+
+.faq-block__a-text {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #444;
+  margin: 0;
+  padding-top: 4px;
+}
+
+// Section title override
+.faq-block .section__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a2e2e;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+
+  @include media_tablet {
+    font-size: 1.8rem;
+  }
+}
+
+// Legacy styles (backward compatibility)
+.faq { padding: 1em 10px; }
+.faq-lineup { margin: 0 auto; width: 80%; }
+.outside { border-top: 0; border-bottom: 0; }
+.mt-10 { margin-top: 10px; }

@@ -1,0 +1,67 @@
+{% if form.classcategory_id2 is defined %}
+    <div class="ec-productRole__actions">
+        <div class="ec-numberInput">
+            <table class="plg-apg-cart-table">
+                {% for classCategoryName1, classCategoryId1 in Product.getClassCategories1AsFlip() %}
+                    {% for classCategoryName2, classCategoryId2 in Product.getClassCategories2AsFlip(classCategoryId1) %}
+                        <tr>
+                            <td>
+                                <p>
+                                    {{ classCategoryName1 }}　{{ classCategoryName2 }}
+
+                                    {# 価格取得用の関数 : getProductClassPrice02( class_id1, class_id2, incTax ) #}
+                                    <span class="plg-apg-price02">{{ Product.getProductClassPrice02(classCategoryId1, classCategoryId2, true)|price }}</span>
+                                </p>
+                            </td>
+                            <td>
+                                <input class="form-control input-plg-apg-quantity"
+                                       id="input-plg-apg-quantity-{{ loop.parent.loop.index }}_{{ loop.index }}"
+                                       data-class_category1="{{ classCategoryId1 }}"
+                                       data-class_category2="{{ classCategoryId2 }}"
+                                       type="number" name="plg_apg_quantity" value="1" minlength="1" maxlength="9">
+                            </td>
+                            <td>
+                                <button type="button"
+                                        data-target_input="input-plg-apg-quantity-{{ loop.parent.loop.index }}_{{ loop.index }}"
+                                        class="ec-blockBtn--action list-cart-in--action">
+                                    カートに入れる
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% elseif form.classcategory_id1 is defined %}
+    <div class="ec-productRole__actions">
+        <div class="ec-numberInput">
+            <table class="plg-apg-cart-table">
+                {% for classCategoryName1, classCategoryId1 in Product.getClassCategories1AsFlip() %}
+                    <tr>
+                        <td>
+                            <p>
+                                {{ classCategoryName1 }}
+                                <span class="plg-apg-price02">{{ Product.getProductClassPrice02(classCategoryId1, null, true)|price }}</span>
+                            </p>
+                        </td>
+                        <td>
+                            <input class="form-control input-plg-apg-quantity"
+                                   id="input-plg-apg-quantity-{{ loop.index }}"
+                                   data-class_category1="{{ classCategoryId1 }}"
+                                   data-class_category2=""
+                                   type="number" name="plg_apg_quantity" value="1" minlength="1" maxlength="9">
+                        </td>
+                        <td>
+                            <button type="button"
+                                    data-target_input="input-plg-apg-quantity-{{ loop.index }}"
+                                    class="ec-blockBtn--action list-cart-in--action">
+                                カートに入れる
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endif %}

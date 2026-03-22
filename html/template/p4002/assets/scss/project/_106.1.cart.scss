@@ -1,0 +1,39 @@
+.ec-cartRow {
+  $self: &;
+
+  #{&}__summary {
+    #{$self}__name {
+      font-size: 1.2rem;
+      font-weight: normal;
+    }
+
+    #{$self}__unitPrice {
+      font-weight: normal;
+      color: #ff0024;
+      margin-bottom: 0.7em;
+    }
+
+    #{$self}__subtotalSP {
+      font-size: 0.9em;
+      font-weight: normal;
+    }
+  }
+}
+
+.ec-cartRole {
+  #{&}__cart {
+    @include media_desktop {
+      margin: 0;
+    }
+  }
+
+  #{&}__actions {
+    @include media_tablet {
+      width: 60%;
+      margin: {
+        right: 0;
+        bottom: 1em;
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+@import "../mixins/media";
+@import "../mixins/variables";
+
+/*
+見出し
+
+トップページで使用されている見出しのスタイルです。
+
+ex [トップページ](http://demo3.ec-cube.net/)
+
+Markup:
+sg-wrapper:
+<div class="ec-role">
+  <sg-wrapper-content/>
+</div>
+
+Styleguide 12.4
+*/
+
+/*
+横並び見出し
+
+横並びの見出しです。
+
+Markup:
+.ec-secHeading
+  span.ec-secHeading__en TOPIC
+  span.ec-secHeading__line |
+  span.ec-secHeading__ja 特集
+
+Styleguide 12.4.1
+*/
+.ec-secHeading {
+  margin-bottom: 15px;
+  color: black;
+  & &__en{
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: .2em;
+  }
+  & &__line{
+    display: inline-block;
+    margin: 0 20px;
+    width: 1px;
+    height: 14px;
+    background: black;
+  }
+  & &__ja{
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: .15em;
+    vertical-align: 2px;
+  }
+}
+
+/*
+縦並び見出し
+
+縦並びの見出しです。
+
+Markup:
+.ec-secHeading--tandem
+  span.ec-secHeading__en TOPIC
+  span.ec-secHeading__line |
+  span.ec-secHeading__ja 特集
+
+Styleguide 12.4.2
+*/
+
+// Front page (TOP) heading style — elegant centered with brand underline
+.front_page .ec-layoutRole__contents h2 {
+  position: relative;
+  padding: 0 0 18px 0;
+  font-size: 2.0rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 8px 0 28px 0;
+  border: none;
+  text-align: center;
+  color: #1a2e2e;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: $brand-primary;
+    border-radius: 2px;
+  }
+
+  @include media_tablet {
+    font-size: 2.4rem;
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+
+    &::after {
+      width: 56px;
+    }
+  }
+}
+
+// Heading title
+.ec-headingTitle {
+  font-size: 18px;
+  text-align: center;
+}
+
+.ec-secHeading--tandem {
+  margin-bottom: 15px;
+  color: black;
+  text-align: center;
+  & .ec-secHeading__en{
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: .2em;
+  }
+  & .ec-secHeading__line{
+    display: block;
+    margin: 13px auto;
+    width: 20px;
+    height: 1px;
+    background: black;
+  }
+  & .ec-secHeading__ja{
+    display: block;
+    margin-bottom: 30px;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: .15em;
+    vertical-align: 2px;
+  }
+}

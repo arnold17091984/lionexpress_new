@@ -1,0 +1,159 @@
+@import "../mixins/media";
+@import "../mixins/projects";
+/*
+ログイン
+
+主にログインフォームのスタイルを表示します。
+
+sg-wrapper:
+<div class="ec-role">
+  <sg-wrapper-content/>
+</div>
+
+Styleguide 6.1
+*/
+
+/*
+ログインフォーム
+
+ログインフォームを表示します。
+
+ex [ログイン画面](http://demo3.ec-cube.net/mypage/login)
+
+Markup:
+include /assets/tmpl/elements/6.3.login.pug
++ec-login
+
+
+Styleguide 6.1.1
+*/
+#page_mypage_login {
+  .ec-layoutRole__mainWithColumn {
+    .ec-off2Grid {
+      width: 100%;
+      & > .ec-off2Grid__cell.loginBox {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+.ec-login{
+  margin: 0 0 20px;
+  padding: 30px 13% 20px;
+  height: auto;
+  background: #F3F4F4;
+  box-sizing: border-box;
+  @include media_desktop {
+    margin: 0 16px 0 0;
+    padding: 30px 13% 60px;
+  }
+  & > .ec-grid2 {
+    flex-wrap: wrap;
+    .ec-grid2__cell {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+  & &__icon {
+    text-align: center;
+  }
+  .ec-icon{
+    margin-bottom: 10px;
+    img {
+      width: 90px;
+      height: 90px;
+      display: inline-block;
+    }
+  }
+  & &__input {
+    margin-bottom: 20px;
+    .ec-checkbox {
+      span {
+        margin-left: 5px;
+        font-weight:normal;
+      }
+    }
+  }
+  & &__actions {
+    color: #fff;
+    @include reset_link();
+  }
+  & &__link {
+    margin-top: 5px;
+    margin-left: 0;
+    @include media_desktop {
+      margin-left: 20px;
+    }
+  }
+  .ec-errorMessage {
+    color: $clrRed;
+    margin-bottom: 20px;
+  }
+}
+
+/*
+ゲスト購入
+
+ゲスト購入ボタンとそのフォームを表示します。
+
+ex [ゲスト購入画面](http://demo3.ec-cube.net/shopping/login)
+
+Markup:
+include /assets/tmpl/elements/6.3.login.pug
++ec-guest
+hoge
+
+Styleguide 6.1.2
+*/
+.ec-guest{
+  display: table;
+  margin: 0;
+  padding: 13%;
+  height: auto;
+  box-sizing: border-box;
+  background: #F3F4F4;
+  @include media_desktop {
+    height: 100%;
+  }
+  & &__inner{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+  }
+  & &__actions {
+    display: block;
+    text-align: center;
+    color: #fff;
+    @include reset_link();
+  }
+  & &__icon{
+    font-size: 70px;
+    text-align: center;
+  }
+}
+
+
+.loginBtn {
+  display: block !important;
+  &__bottomText {
+    width: 100% !important;
+    text-align: center;
+  }
+  &__bottomText:first-child {
+    margin-bottom: 20px;
+  }
+}
+
+.ec-off2Grid .ec-off2Grid__cell .loginBox,
+.loginBox {
+  width: 100%;
+  margin: 0 auto;
+}
+.loginH1 {
+  margin-bottom: 20px !important;
+}

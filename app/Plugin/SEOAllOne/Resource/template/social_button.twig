@@ -1,0 +1,43 @@
+<script async="async" defer="defer" src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js"></script>
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async">
+  {lang: "ja"}
+</script>
+<script>
+    $(function () {
+        var current_URL = window.location.origin + window.location.pathname;
+        var current_title = document.title;
+        var encoded_current_URL = encodeURI(current_URL);
+        var add_html_twitter = '<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-lang="ja" data-size="large">ツイートする</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"><\/script>';
+        var add_html_facebook = '<iframe src="https://www.facebook.com/plugins/share_button.php?href=' + encoded_current_URL + '&layout=button&size=large&mobile_iframe=true&width=75&height=28&appId" width="75" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>';
+        var add_html_line = '<div class="line-it-button" data-lang="ja" data-type="share-c" data-url="' + location.href + '" style="display: none;"></div>';
+        var add_html = '';
+        {% if facebook_flg is defined and facebook_flg == 1%}
+            add_html = add_html + '<span class="mg_socialbutton_2">' + add_html_facebook + '</span>';
+        {% endif %}
+        {% if twitter_flg is defined and twitter_flg == 1%}
+            add_html = add_html + '<span class="mg_socialbutton_1">' + add_html_twitter + '</span>';
+        {% endif %}
+        {% if line_flg is defined and line_flg == 1%}
+            add_html = add_html + '<span class="mg_socialbutton_3">' + add_html_line + '</span>';
+        {% endif %}
+        if ( $(".seo-all-in-social-button" ).length ) {
+            $('.seo-all-in-social-button').html('<div>' + add_html + '</div>');
+        } else {
+            $('.ec-productRole__description').eq(0).before('<div>' + add_html + '</div>');
+        }
+        LineIt.loadButton();
+    });
+</script>
+<style>
+    .mg_socialbutton_1,
+    .mg_socialbutton_2,
+    .mg_socialbutton_3,
+    .mg_socialbutton_4 {
+        display: inline-block;
+        margin: 5px 10px 5px 5px;
+    }
+    .mg_socialbutton_4 {
+        line-height: 30px;
+        vertical-align: text-bottom;
+    }
+</style>

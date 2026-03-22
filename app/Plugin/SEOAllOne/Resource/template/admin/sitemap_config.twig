@@ -1,0 +1,66 @@
+{% extends '@admin/default_frame.twig' %}
+
+{% set menus = ['SEOAllOne', 'seoallone_admin_sitemap_config'] %}
+
+{% block title %}SEO All One{% endblock %}
+{% block sub_title %}Sitemap管理{% endblock %}
+
+
+{% block stylesheet %}{% endblock stylesheet %}
+
+{% block javascript %}{% endblock javascript %}
+
+{% block main %}
+    <div class="c-contentsArea__cols">
+        <div class="c-contentsArea__primaryCol">
+            <div class="c-primaryCol">
+
+                <div class="card rounded border-0 mb-4">
+                    <div class="card-body p-0">
+                        <table class="table table-sm">
+                            <thead>
+                                <th class="border-0 pt-2 pb-2 pl-3">Page URL</th>
+                                <th class="border-0 pt-2 pb-2">Change frequency</th>
+                                <th class="border-0 pt-2 pb-2">Priority</th>
+                                <th class="border-0 pt-2 pb-2 pr-3"></th>
+                            </thead>
+                            {% for page in pages %}
+                                <tr>
+                                    <td class="align-middle pl-3">
+                                    {% if Config is defined and Config.getSitemapFlg() == 1 %}
+                                        <a href="{{ url('seoallone_admin_sitemap_config_edit', {id: page.id}) }}">{{ page.url_name }} 【{{ page.name }}】</a>
+                                    {% else %}
+                                        <div>{{ page.url_name }} 【{{ page.name }}】</div>
+                                    {% endif %}
+                                    </td>
+                                    <td class="align-middle pl-2">
+                                        {{ page.changefreq }}
+                                    </td>
+                                    <td class="align-middle pl-2">
+                                        {{ page.priority }}
+                                    </td>
+                                    <td class="align-middle pl-2">
+                                        <div class="row">
+                                            <div class="col-6 text-right">
+                                                {% if Config is defined and Config.getSitemapFlg() == 1 %}
+                                                <a href="{{ url('seoallone_admin_sitemap_config_edit', {id: page.id}) }}" class="btn btn-ec-actionIcon mr-3" data-tooltip="true" data-placement="top" title="{{ 'admin.common.edit'|trans }}">
+                                                    <i class="fa fa-pencil fa-lg text-secondary"></i>
+                                                </a>
+                                                {% else %}
+                                                    <div class="btn btn-ec-actionIcon mr-3 disabled"><i class="fa fa-pencil fa-lg text-secondary"></i></div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

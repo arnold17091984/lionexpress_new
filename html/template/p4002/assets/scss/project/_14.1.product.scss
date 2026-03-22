@@ -1,0 +1,129 @@
+@import "../mixins/media";
+
+/*
+商品詳細
+
+商品詳細ページに関する Project コンポーネントを定義します。
+
+ex [商品詳細ページ](http://demo3.ec-cube.net/products/detail/18)
+
+
+Markup:
+include /assets/tmpl/elements/14.1.product.pug
++ec-productSimpleRole
+
+Styleguide 14.1
+*/
+.ec-productRole {
+  @include container;
+  & &__img {
+    margin-right: 0;
+    margin-bottom: 20px;
+    @include media_desktop {
+      margin-right: 16px;
+      margin-bottom: 0;
+    }
+  }
+  & &__profile {
+    margin-left: 0;
+    @include media_desktop {
+      margin-left: 16px;
+    }
+  }
+  & &__title {
+    .ec-headingTitle {
+      margin-bottom: 5px;
+      font-size: 20px;
+      @include media_desktop {
+        margin-bottom: 10px;
+        font-size: 32px;
+      }
+    }
+  }
+  & &__tags {
+    padding: 0 0 20px;
+    margin: 0 -4px 20px 0;
+    border-bottom: 1px dotted #ccc;
+    @include media_desktop {
+      padding-bottom: 16px;
+      margin-bottom: 14px;
+    }
+  }
+  & &__tag {
+    display: inline-block;
+    padding: 2px 5px;
+    margin: 0 2px 4px 0;
+    list-style: none;
+    font-size: 80%;
+    color: #525263;
+    border: solid 1px #D7DADD;
+    border-radius: 3px;
+    background-color: #aaa;
+  }
+  & &__priceRegular {
+    width: 100%;
+  }
+  & &__priceRegularTax {
+    margin-left: 5px;
+    font-size: 11px;
+  }
+  & &__price {
+    color: #DE5D50;
+    padding: 0;
+    border-bottom: 0;
+    @include media_desktop {
+      padding: 4px 0;
+      border-bottom: 1px dotted #ccc;
+    }
+    .ec-price__price {
+      font-size: 1.8rem;
+      @include media_desktop {
+        font-size: 2.8rem;
+      }
+    }
+  }
+  & &__code {
+    padding: 14px 0;
+    border-bottom: 1px dotted #ccc;
+  }
+  & &__category {
+    padding: 14px 0;
+    border-bottom: 1px dotted #ccc;
+    a {
+      color: #33A8D0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  & &__actions {
+    padding: 14px 0;
+    .ec-select {
+      select {
+        height: 40px;
+        max-width: 100%;
+        min-width: 100%;
+        @include media_desktop {
+          min-width: 350px;
+          max-width: 350px;
+        }
+      }
+    }
+  }
+  & &__btn {
+    width: calc(100% - 20px);
+    margin: 0 auto 10px;
+    @include media_desktop {
+      width: 60%;
+      margin-bottom: 16px;
+      min-width: 350px;
+    }
+  }
+  & &__description {
+    width: 100%;
+    padding-top: 20px;
+    margin-bottom: 16px;
+  }
+}

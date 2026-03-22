@@ -1,0 +1,240 @@
+{% extends 'default_frame.twig' %}
+
+{% set page_title = '初めての方へ' %}
+
+{% block stylesheet %}
+<style>
+.nd-beginner { max-width: 880px; margin: 0 auto; padding: 32px 20px 60px; }
+.nd-beginner h1 { font-size: 26px; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 8px; }
+.nd-beginner .nd-lead { text-align: center; color: #666; font-size: 15px; margin-bottom: 40px; line-height: 1.8; }
+
+/* Section card */
+.nd-bg-section { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); padding: 32px 28px; margin-bottom: 28px; }
+.nd-bg-section h2 { font-size: 20px; font-weight: 700; color: #518889; margin: 0 0 16px; padding-bottom: 12px; border-bottom: 2px solid #e8f0f0; display: flex; align-items: center; gap: 10px; }
+.nd-bg-section h2 svg { flex-shrink: 0; }
+.nd-bg-section p { font-size: 15px; line-height: 1.9; color: #444; margin: 0 0 14px; }
+.nd-bg-section ul { padding-left: 20px; margin: 0 0 14px; }
+.nd-bg-section li { font-size: 14px; line-height: 1.8; color: #444; margin-bottom: 6px; }
+
+/* Flow diagram — pure CSS */
+.nd-import-flow { background: #f7fafa; border-radius: 14px; padding: 28px 20px 20px; margin: 24px 0; position: relative; overflow: hidden; }
+.nd-flow-row { display: flex; align-items: flex-start; justify-content: center; gap: 0; flex-wrap: nowrap; }
+.nd-flow-actor { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 80px; }
+.nd-flow-actor span { font-size: 12px; font-weight: 600; color: #333; text-align: center; white-space: nowrap; }
+.nd-flow-icon { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #e8f0f0; }
+.nd-flow-icon--lion { background: #518889; }
+.nd-flow-arrow { display: flex; align-items: center; gap: 0; position: relative; min-width: 80px; flex: 1; max-width: 160px; padding-top: 14px; }
+.nd-flow-arrow-line { flex: 1; height: 2px; background: #518889; }
+.nd-flow-arrow-head { color: #518889; font-size: 12px; line-height: 1; margin-left: -2px; }
+.nd-flow-arrow-label { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #518889; font-weight: 500; text-align: center; white-space: nowrap; line-height: 1.4; }
+.nd-flow-return { position: relative; margin-top: 16px; padding: 0 60px; }
+.nd-flow-return-line { height: 2px; background: #e07a3a; border-radius: 1px; position: relative; }
+.nd-flow-return-line::before { content: '◀'; position: absolute; left: -8px; top: -7px; color: #e07a3a; font-size: 12px; }
+.nd-flow-return-label { text-align: center; font-size: 11px; color: #e07a3a; font-weight: 600; margin-top: 6px; }
+@media (max-width: 500px) {
+    .nd-flow-row { flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .nd-flow-arrow { min-width: 50px; max-width: 80px; }
+    .nd-flow-icon { width: 48px; height: 48px; }
+    .nd-flow-icon svg { width: 24px; height: 24px; }
+    .nd-flow-actor span { font-size: 11px; }
+    .nd-flow-return { padding: 0 30px; }
+}
+.nd-flow-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 24px 0; }
+.nd-flow-step { background: #f7fafa; border-radius: 12px; padding: 20px 16px; text-align: center; }
+.nd-flow-step-num { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: #518889; color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.nd-flow-step h3 { font-size: 15px; font-weight: 600; color: #333; margin: 0 0 6px; }
+.nd-flow-step p { font-size: 13px; color: #666; margin: 0; line-height: 1.6; }
+
+/* Highlight box */
+.nd-highlight { background: #fff8e6; border-left: 4px solid #f0b429; border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 20px 0; }
+.nd-highlight p { margin: 0; font-size: 14px; color: #7a5c00; }
+
+/* Caution box */
+.nd-caution { background: #fef2f2; border-left: 4px solid #e53e3e; border-radius: 0 10px 10px 0; padding: 16px 20px; margin: 20px 0; }
+.nd-caution p { margin: 0; font-size: 14px; color: #991b1b; }
+
+/* CTA */
+.nd-beginner-cta { text-align: center; margin: 40px 0 20px; }
+.nd-beginner-cta a { display: inline-block; background: #518889; color: #fff; padding: 16px 48px; border-radius: 10px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.nd-beginner-cta a:hover { background: #3d6b6c; }
+
+/* Trust badges */
+.nd-trust-row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin: 24px 0; }
+.nd-trust-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #518889; font-weight: 500; }
+.nd-trust-badge svg { flex-shrink: 0; }
+
+@media (max-width: 600px) {
+    .nd-bg-section { padding: 24px 18px; }
+    .nd-flow-steps { grid-template-columns: 1fr 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="nd-beginner" id="main-content">
+    <h1>{{ page_title }}</h1>
+    <p class="nd-lead">Lion Expressにご興味をお持ちいただきありがとうございます。<br>
+    こちらのページでは、初めてご利用いただく方向けに<br>
+    サービスの概要やご利用の流れをわかりやすくご説明いたします。</p>
+
+    {# ── Lion Expressについて ── #}
+    <div class="nd-bg-section">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Lion Expressとは
+        </h2>
+        <p>Lion Expressは、海外の医薬品・サプリメントの<strong>個人輸入代行</strong>を行う専門サービスです。</p>
+        <p>お客様に代わって海外の正規業者から商品を注文し、日本のご自宅へ直接お届けいたします。当サイトでは全て正規品を取り扱っており、信頼性の高い業者のみを利用し、定期的に倉庫のチェックを行っております。</p>
+
+        <div class="nd-highlight">
+            <p><strong>個人輸入代行とは？</strong><br>
+            お客様ご本人が使用する目的で、海外の商品をお客様に代わって手配するサービスです。日本の法律で認められた範囲内で、個人使用の目的に限り海外の医薬品を購入することが可能です。</p>
+        </div>
+    </div>
+
+    {# ── 個人輸入代行の流れ ── #}
+    <div class="nd-bg-section">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            個人輸入代行の流れ
+        </h2>
+        <p>Lion Expressがお客様と海外業者の間に入り、安全・確実にお届けします。</p>
+
+        {# ── Flow diagram (pure HTML/CSS) ── #}
+        <div class="nd-import-flow">
+            <div class="nd-flow-row">
+                <div class="nd-flow-actor">
+                    <div class="nd-flow-icon nd-flow-icon--user">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <span>お客様</span>
+                </div>
+                <div class="nd-flow-arrow">
+                    <div class="nd-flow-arrow-line"></div>
+                    <div class="nd-flow-arrow-label">ご注文<br>代金お支払い</div>
+                    <div class="nd-flow-arrow-head">▶</div>
+                </div>
+                <div class="nd-flow-actor">
+                    <div class="nd-flow-icon nd-flow-icon--lion">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+                    </div>
+                    <span>Lion Express</span>
+                </div>
+                <div class="nd-flow-arrow">
+                    <div class="nd-flow-arrow-line"></div>
+                    <div class="nd-flow-arrow-label">まとめて<br>注文・支払い</div>
+                    <div class="nd-flow-arrow-head">▶</div>
+                </div>
+                <div class="nd-flow-actor">
+                    <div class="nd-flow-icon nd-flow-icon--overseas">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <span>海外の正規業者</span>
+                </div>
+            </div>
+            <div class="nd-flow-return">
+                <div class="nd-flow-return-line"></div>
+                <div class="nd-flow-return-label">お客様へ直接発送（国際郵便）</div>
+            </div>
+        </div>
+
+        <div class="nd-flow-steps">
+            <div class="nd-flow-step">
+                <div class="nd-flow-step-num">1</div>
+                <h3>ご注文・お支払い</h3>
+                <p>当サイトから商品を選び、カートに入れてご注文ください。</p>
+            </div>
+            <div class="nd-flow-step">
+                <div class="nd-flow-step-num">2</div>
+                <h3>海外業者へ発注</h3>
+                <p>ご入金確認後、Lion Expressが海外の正規業者に商品を手配します。</p>
+            </div>
+            <div class="nd-flow-step">
+                <div class="nd-flow-step-num">3</div>
+                <h3>検品・発送</h3>
+                <p>業者が商品を検品し、国際郵便でお客様宛に直接発送します。</p>
+            </div>
+            <div class="nd-flow-step">
+                <div class="nd-flow-step-num">4</div>
+                <h3>ご自宅にお届け</h3>
+                <p>約7〜14日でお届け。追跡番号で配送状況を確認できます。</p>
+            </div>
+        </div>
+    </div>
+
+    {# ── お支払い方法 ── #}
+    <div class="nd-bg-section">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            お支払い方法
+        </h2>
+        <p>現在、以下のお支払い方法に対応しております。</p>
+        <ul>
+            <li><strong>銀行振込</strong> — ご注文後にお振込先をご案内いたします。ご入金確認後に発注処理を開始します。</li>
+            <li><strong>PayPay</strong> — PayPayアプリからお支払いいただけます。</li>
+        </ul>
+        <div class="nd-highlight">
+            <p>ご入金はご注文から<strong>5営業日以内</strong>にお願いいたします。期限を過ぎた場合、自動的にキャンセルとなります。</p>
+        </div>
+    </div>
+
+    {# ── 配送について ── #}
+    <div class="nd-bg-section">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            配送について
+        </h2>
+        <ul>
+            <li>海外からの国際郵便でのお届けとなります</li>
+            <li>お届けまでの目安：<strong>約7〜14日</strong>（発送国・通関状況により前後します）</li>
+            <li>追跡番号を発行いたしますので、配送状況をご確認いただけます</li>
+            <li>10,000円以上のご注文で<strong>送料無料</strong></li>
+            <li>プライバシーに配慮した梱包でお届けします（商品名は記載しません）</li>
+        </ul>
+    </div>
+
+    {# ── ご注意事項 ── #}
+    <div class="nd-bg-section">
+        <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            ご利用にあたっての注意事項
+        </h2>
+        <div class="nd-caution">
+            <p><strong>必ずお読みください</strong></p>
+        </div>
+        <ul>
+            <li>当サイトで取り扱う商品は、日本国内では医師の処方が必要な場合があります</li>
+            <li>個人輸入は<strong>ご本人の使用目的に限り</strong>認められています（第三者への譲渡・転売は法律で禁止されています）</li>
+            <li>商品の使用はすべて<strong>自己責任</strong>となります。使用前に医師や薬剤師にご相談されることをお勧めします</li>
+            <li>海外からの発送のため、<strong>返品・キャンセルは原則お受けできません</strong></li>
+            <li>万が一、商品の未着・破損があった場合は、再送または返金にて対応いたします</li>
+        </ul>
+    </div>
+
+    {# ── 安心ポイント ── #}
+    <div class="nd-trust-row">
+        <div class="nd-trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            全品正規品保証
+        </div>
+        <div class="nd-trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            SSL暗号化通信
+        </div>
+        <div class="nd-trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            日本語サポート
+        </div>
+        <div class="nd-trust-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#518889" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            未着・破損時補償
+        </div>
+    </div>
+
+    {# ── CTA ── #}
+    <div class="nd-beginner-cta">
+        <a href="{{ url('product_list') }}">商品を探す →</a>
+    </div>
+    <p style="text-align:center; font-size:13px; color:#888;">ご不明な点は <a href="{{ url('contact') }}" style="color:#518889;">お問い合わせフォーム</a> または <a href="https://line.me/R/ti/p/@229ulhco" style="color:#06c755;">LINE</a> からお気軽にご連絡ください。</p>
+</div>
+{% endblock %}
