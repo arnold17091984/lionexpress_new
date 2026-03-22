@@ -4058,3 +4058,21 @@ a.ec-blockBtn--action {
   }
   .nd-header-phone { display: none !important; }
 }
+
+/* ===== MOBILE HEADER: LOGO + CART + HAMBURGER ONLY ===== */
+@media (max-width: 767px) {
+  .nd-header-phone,
+  .icon-items { display: none !important; }
+}
+
+@media (max-width: 767px) {
+  .nd-header-phone.pc-only,
+  .pc-only { display: none !important; }
+}
+
+/* Override: keep phone in mobile header, only hide LINE/mail icons */
+@media (max-width: 767px) {
+  .nd-header-phone { display: block !important; }
+  .nd-header-phone .nd-phone-hours { display: none !important; }
+  .nd-header-phone .nd-phone-number { font-size: 14px !important; }
+}
