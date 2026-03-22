@@ -4032,3 +4032,29 @@ a.ec-blockBtn--action {
     margin-top: 2px;
   }
 }
+
+/* ===== MOBILE PHONE BLOCK ===== */
+.nd-mobile-phone { display: none; }
+@media (max-width: 767px) {
+  .nd-mobile-phone {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 6px;
+  }
+  .nd-mobile-phone a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #518889;
+    text-decoration: none;
+  }
+  .nd-mobile-phone span {
+    font-size: 10px;
+    color: #888;
+    margin-top: 2px;
+  }
+  .nd-header-phone { display: none !important; }
+}
