@@ -4073,6 +4073,37 @@ a.ec-blockBtn--action {
 /* Override: keep phone in mobile header, only hide LINE/mail icons */
 @media (max-width: 767px) {
   .nd-header-phone { display: block !important; }
-  .nd-header-phone .nd-phone-hours { display: none !important; }
+  .nd-header-phone .nd-phone-hours { font-size: 9px !important; }
   .nd-header-phone .nd-phone-number { font-size: 14px !important; }
+}
+
+/* ===== FOOTER LOGO MOBILE FIX ===== */
+@media (max-width: 767px) {
+  .ec-layoutRole__footer .ec-logoRole__logo,
+  .ec-layoutRole__footer .ec-logoRole,
+  footer .ec-logoRole__logo,
+  footer .ec-logoRole { display: block !important; }
+  footer .ec-logoRole__logo img,
+  .ec-layoutRole__footer .ec-logoRole__logo img { max-width: 160px !important; height: auto !important; }
+}
+
+/* ===== MOBILE HEADER BALANCE ===== */
+@media (max-width: 767px) {
+  .ec-headerRole__navSP .header2,
+  .header2 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 8px 12px !important;
+    gap: 8px;
+  }
+  .header2 .ec-headerTitle { flex: 0 0 auto; }
+  .header2 .ec-headerTitle .ec-logoRole__logo img { max-width: 100px !important; height: auto !important; }
+  .header2 .nd-header-phone {
+    flex: 1;
+    text-align: center !important;
+  }
+  .header2 .nd-header-phone .nd-phone-number { font-size: 16px !important; }
+  .header2 .nd-header-phone .nd-phone-hours { font-size: 8px !important; color: #999; }
+  .header2 .ec-headerRole__cart { flex: 0 0 auto; }
 }
